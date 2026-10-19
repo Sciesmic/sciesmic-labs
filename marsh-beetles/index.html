@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free natural selection simulation for middle school. Test how inherited beetle patterns change over generations. NGSS MS-LS4-4, MS-LS4-6 and TEKS 7.13D, 8.13C. English and Spanish." />
+    <title>Marsh Beetles: Selection Lab | Sciesmic Labs</title>
+    <link rel="preload" as="image" href="assets/pale-dry-silt.webp" />
+    <link rel="stylesheet" href="../kit/labs-kit.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow" data-i18n="eyebrow">MARSH BEETLES · SELECTION LAB</p>
+          <h1 data-i18n="h1">Which pattern blends in?</h1>
+          <p class="lede" data-i18n-rich="lede">Test how inherited patterns can become more or less common when a marsh habitat changes.</p>
+        </div>
+        <button class="text-button" id="simplifications-button" aria-expanded="false" aria-controls="simplifications" data-i18n="modelNotesBtn">Model notes</button>
+      </header>
+
+      <aside id="simplifications" class="model-notes" hidden data-i18n-rich="modelNotes"></aside>
+
+      <section class="question-card" aria-labelledby="question-heading">
+        <div>
+          <p class="eyebrow" data-i18n="step1">1. PREDICT</p>
+          <h2 id="question-heading" data-i18n-rich="question">How does background affect which inherited pattern becomes common?</h2>
+        </div>
+        <label class="prediction-field" for="prediction">
+          <span data-i18n="predictionLabel">Your prediction (optional)</span>
+          <select id="prediction" aria-describedby="prediction-help">
+            <option value="" data-i18n="pred0">Make a prediction…</option>
+            <option value="pale" data-i18n="predPale">Pale speckled beetles may increase</option>
+            <option value="dark" data-i18n="predDark">Dark grey speckled beetles may increase</option>
+            <option value="same" data-i18n="predSame">Neither may change much</option>
+          </select>
+          <small id="prediction-help" data-i18n="predHelp">Your prediction stays with this trial while you investigate.</small>
+        </label>
+      </section>
+
+      <p class="step-label eyebrow" data-i18n="step2">2. INVESTIGATE</p>
+      <div class="workspace">
+        <section class="habitat-panel panel" aria-labelledby="habitat-heading">
+          <div class="panel-heading">
+            <div>
+              <h2 id="habitat-heading" data-i18n="habitatHeading">Marsh habitat</h2>
+            </div>
+            <span class="generation-badge" id="generation-badge">Generation 0</span>
+          </div>
+          <div class="marsh pale" id="marsh" role="img" aria-describedby="marsh-description">
+            <div class="beetle-field" id="beetle-field" aria-hidden="true"></div>
+            <div class="finch-flyover" id="finch-flyover" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="event-card" id="event-card"></div>
+          </div>
+          <p class="sr-only" id="marsh-description" data-i18n="marshDesc"></p>
+          <div class="legend">
+            <span><i class="swatch pale-pattern"></i><span data-i18n="legendPale">Pale speckled beetle</span></span>
+            <span><i class="swatch dark-pattern"></i><span data-i18n="legendDark">Dark grey speckled beetle</span></span>
+          </div>
+        </section>
+
+        <section class="controls-panel panel" aria-labelledby="controls-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow" data-i18n="changeOne">CHANGE ONE THING</p>
+              <h2 id="controls-heading" data-i18n="controlsHeading">Experiment controls</h2>
+            </div>
+          </div>
+          <fieldset>
+            <legend data-i18n="substrate">Substrate background</legend>
+            <div class="segmented-control" data-i18n-attr="aria-label:substrate">
+              <button type="button" class="choice active" data-habitat="pale" aria-pressed="true" data-i18n="habPale">Pale dry silt</button>
+              <button type="button" class="choice" data-habitat="dark" aria-pressed="false" data-i18n="habDark">Dark wet sediment</button>
+              <button type="button" class="choice" data-habitat="mixed" aria-pressed="false" data-i18n="habMixed">Mixed marsh</button>
+            </div>
+            <p class="hint" id="habitat-hint"></p>
+          </fieldset>
+          <fieldset>
+            <legend data-i18n-rich="pressureLegendRich">Predation pressure</legend>
+            <label class="range-label" for="pressure"><span data-i18n="pressureLabel">Chance a contrasting beetle is detected</span><output id="pressure-output" for="pressure">Medium</output></label>
+            <input id="pressure" type="range" min="1" max="3" value="2" step="1" />
+          </fieldset>
+          <div class="run-controls">
+            <button id="step-button" class="primary-button"><span data-i18n="stepBtn">Run one generation</span> <span aria-hidden="true">→</span></button>
+            <button id="run-button" class="secondary-button" data-i18n="runBtn">Run 6 generations</button>
+          </div>
+          <div class="utility-controls">
+            <button id="reset-button" class="text-button" data-i18n="resetBtn">Reset same seed</button>
+            <button id="new-trial-button" class="text-button" data-i18n="newTrialBtn">New trial</button>
+          </div>
+          <p class="seed-readout"><span data-i18n="seedLabel">Trial seed</span> <code id="seed-readout"></code> <button id="copy-seed-button" class="copy-button" data-i18n="copy" data-i18n-attr="aria-label:copySeed">Copy</button></p>
+        </section>
+      </div>
+
+      <section class="evidence-grid" aria-label="Population evidence">
+        <section class="outcome panel" aria-labelledby="outcome-heading">
+          <div class="panel-heading"><div><p class="eyebrow" data-i18n="whatHappened">WHAT HAPPENED?</p><h2 id="outcome-heading" data-i18n="outcomeHeading">Generation evidence</h2></div></div>
+          <p class="outcome-copy" id="outcome-copy" aria-live="polite"></p>
+          <dl class="stat-row">
+            <div><dt data-i18n="total">Total</dt><dd id="total-count">48</dd></div>
+            <div><dt data-i18n="pale">Pale</dt><dd id="pale-count">24</dd></div>
+            <div><dt data-i18n="dark">Dark</dt><dd id="dark-count">24</dd></div>
+          </dl>
+          <div class="proportion-bar" aria-hidden="true"><div id="pale-bar"></div><div id="dark-bar"></div></div>
+          <p class="bar-labels"><span id="pale-percent"></span><span id="dark-percent"></span></p>
+        </section>
+        <section class="chart-panel panel" aria-labelledby="chart-heading">
+          <div class="panel-heading"><div><p class="eyebrow" data-i18n="popOverTime">POPULATION OVER TIME</p><h2 id="chart-heading" data-i18n="chartHeading">Inherited-pattern proportion</h2></div><div><button class="text-button" id="expand-chart" type="button" aria-expanded="false"></button><button class="text-button" id="clear-chart-selection" type="button" disabled data-i18n="clearRange">Clear range</button></div></div>
+          <p class="chart-key"><span class="key-pale" data-i18n="keyPale"></span><span class="key-dark" data-i18n="keyDark"></span></p>
+          <fieldset class="chart-controls"><legend data-i18n="graphStyles">Graph line styles</legend><p id="graph-style-help" data-i18n="graphStyleHelp"></p>
+            <label><span data-i18n="paleLineColor">Pale line color</span> <select id="pale-color" aria-describedby="graph-style-help"><option value="#b8862c" data-i18n="cGold">Gold</option><option value="#8b4c62" data-i18n="cPlum">Plum</option><option value="#176b83" data-i18n="cBlue">Blue</option></select></label>
+            <label><span data-i18n="darkLineColor">Dark grey line color</span> <select id="dark-color" aria-describedby="graph-style-help"><option value="#285c57" data-i18n="cTeal">Teal</option><option value="#50436f" data-i18n="cPurple">Purple</option><option value="#7b3f2f" data-i18n="cRust">Rust</option></select></label>
+            <label><span data-i18n="darkLineStyle">Dark grey line</span> <select id="dark-dash" aria-describedby="graph-style-help"><option value="7 4" data-i18n="dDashed">Dashed</option><option value="2 3" data-i18n="dDotted">Dotted</option><option value="" data-i18n="dSolid">Solid</option></select></label>
+            <button id="update-chart" class="secondary-button" type="button" disabled data-i18n="updateGraph">Update graph</button></fieldset>
+          <svg id="chart" viewBox="0 0 540 210" role="group" aria-labelledby="chart-title chart-description"></svg>
+          <p class="chart-selection" id="chart-selection" aria-live="polite"></p>
+          <p class="sr-only" id="graph-style-status" aria-live="polite"></p>
+        </section>
+      </section>
+
+      <section class="table-panel panel" aria-labelledby="table-heading">
+        <div class="panel-heading"><div><p class="eyebrow" data-i18n="checkNumbers">CHECK THE NUMBERS</p><h2 id="table-heading" data-i18n="runRecord">Run record</h2></div><p class="table-note" data-i18n-rich="tableNote"></p></div>
+        <div class="table-wrap" tabindex="0" data-i18n-attr="aria-label:tableLabel"><table><thead><tr><th data-i18n="thGen"></th><th data-i18n="thHab"></th><th data-i18n="thPale"></th><th data-i18n="thDark"></th><th data-i18n="thTotal"></th><th data-i18n="thProp"></th></tr></thead><tbody id="history-body"></tbody></table></div>
+        <div class="reflection"><p class="eyebrow" data-i18n="step3">3. EXPLAIN</p><p id="reflection-prompt"></p></div>
+      </section>
+
+      <section class="checks-panel panel" aria-labelledby="checks-heading">
+        <div class="panel-heading"><div><p class="eyebrow" data-i18n="step4">4. CHECK YOUR THINKING</p><h2 id="checks-heading" data-i18n="checksHeading">Check your thinking</h2></div></div>
+        <div id="lk-checks"></div>
+      </section>
+
+      <footer data-i18n="footer">Original fictional model for learning. It shows a population pattern, not a prediction for a real species.</footer>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
