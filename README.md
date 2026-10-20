@@ -15,6 +15,7 @@ Intended production address: https://labs.sciesmic.com
 - `net-force-cart/`: Net Force Cart Lab
 - `cell-operations/`: Cell Operations Lab
 - `star-life-cycle/`: Star Life Cycle Lab
+- `states-of-matter/`: States of Matter Lab
 - `CNAME`: custom domain for GitHub Pages
 - `.nojekyll`: serve static files without Jekyll processing
 
