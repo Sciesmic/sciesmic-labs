@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free forces and motion simulation for middle school. Push, pull and launch carts, change net force, mass and friction, and measure acceleration on a velocity–time graph. TEKS 8.7A, 8.7B, 7.7D, 6.7B and NGSS MS-PS2-2. English and Spanish." />
+    <title>Net Force Cart Lab | Sciesmic Labs</title>
+    <link rel="stylesheet" href="../kit/labs-kit.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow" data-i18n="eyebrow">NET FORCE CART LAB</p>
+          <h1 data-i18n="h1">What changes a cart's motion?</h1>
+          <p class="lede" data-i18n-rich="lede"></p>
+        </div>
+        <button class="text-button" id="simplifications-button" aria-expanded="false" aria-controls="simplifications" data-i18n="modelNotesBtn">Model notes</button>
+      </header>
+
+      <aside id="simplifications" class="model-notes" hidden data-i18n-rich="modelNotes"></aside>
+
+      <section class="question-card" aria-labelledby="question-heading">
+        <div>
+          <p class="eyebrow" data-i18n="step1">1. PREDICT</p>
+          <h2 id="question-heading" data-i18n-rich="question"></h2>
+        </div>
+        <label class="prediction-field" for="prediction">
+          <span data-i18n="predictionLabel">Your prediction (optional)</span>
+          <select id="prediction" aria-describedby="prediction-help">
+            <option value="" data-i18n="pred0"></option>
+            <option value="more" data-i18n="predMore"></option>
+            <option value="stop" data-i18n="predStop"></option>
+            <option value="heavy" data-i18n="predHeavy"></option>
+            <option value="mass" data-i18n="predMass"></option>
+          </select>
+          <small id="prediction-help" data-i18n="predHelp"></small>
+        </label>
+      </section>
+
+      <p class="step-label eyebrow" data-i18n="step2">2. INVESTIGATE</p>
+      <div class="workspace">
+        <section class="scene-panel panel" aria-labelledby="scene-heading">
+          <div class="panel-heading">
+            <div>
+              <h2 id="scene-heading"></h2>
+              <p class="scene-sub" id="scene-sub"></p>
+            </div>
+            <span class="time-badge" id="time-badge" data-i18n="playback"></span>
+          </div>
+          <div class="scene-wrap">
+            <div class="scene-scroll" tabindex="-1"><svg id="scene" viewBox="0 0 800 330" role="img" aria-labelledby="scene-title scene-desc"></svg></div>
+            <div class="event-card" id="event-card" aria-hidden="true"></div>
+          </div>
+          <p class="sr-only" id="scene-live" aria-live="polite"></p>
+        </section>
+
+        <section class="controls-panel panel" aria-labelledby="controls-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow" data-i18n="changeOne">CHANGE ONE THING</p>
+              <h2 id="controls-heading" data-i18n="controlsHeading">Experiment controls</h2>
+            </div>
+          </div>
+          <fieldset>
+            <legend data-i18n="modeLegend">Lab mode</legend>
+            <div class="segmented-control three" id="mode-choices"></div>
+            <p class="hint" id="mode-hint"></p>
+          </fieldset>
+          <div id="mode-controls"></div>
+          <div class="run-controls">
+            <button id="run-button" class="primary-button"><span id="run-label"></span> <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="utility-controls">
+            <button id="reset-button" class="text-button" data-i18n="resetBtn"></button>
+            <button id="new-seed-button" class="text-button" data-i18n="newSeedBtn"></button>
+          </div>
+          <p class="hint small" data-i18n="resetNote"></p>
+          <p class="seed-readout"><span data-i18n="seedLabel">Trial seed</span> <code id="seed-readout"></code> <button id="copy-seed-button" class="copy-button" data-i18n="copy" data-i18n-attr="aria-label:copySeed">Copy</button></p>
+        </section>
+      </div>
+
+      <section class="evidence-grid" data-i18n-attr="aria-label:outcomeHeading">
+        <section class="outcome panel" aria-labelledby="outcome-heading">
+          <div class="panel-heading"><div><p class="eyebrow" data-i18n="whatHappened"></p><h2 id="outcome-heading" data-i18n="outcomeHeading"></h2></div></div>
+          <p class="outcome-copy" id="outcome-copy" aria-live="polite"></p>
+          <dl class="stat-row" id="stat-row"></dl>
+          <h3 class="fbd-heading" data-i18n="fbdHeading"></h3>
+          <p class="hint small" id="fbd-when"></p>
+          <svg id="fbd" viewBox="0 0 360 230" role="img" aria-labelledby="fbd-title fbd-desc"></svg>
+          <p class="hint small" id="fbd-note"></p>
+        </section>
+        <section class="chart-panel panel" aria-labelledby="chart-heading">
+          <div class="panel-heading"><div><p class="eyebrow" data-i18n="overTime"></p><h2 id="chart-heading" data-i18n="chartHeading"></h2></div><button class="text-button" id="clear-chart-selection" type="button" disabled data-i18n="clearRange"></button></div>
+          <p class="chart-key" id="chart-key"></p>
+          <div class="chart-wrap"><svg id="chart" viewBox="0 0 600 320" role="group" aria-labelledby="chart-title chart-description"></svg></div>
+          <p class="chart-selection" id="chart-selection" aria-live="polite"></p>
+        </section>
+      </section>
+
+      <section class="table-panel panel" aria-labelledby="table-heading">
+        <div class="panel-heading"><div><p class="eyebrow" data-i18n="checkNumbers"></p><h2 id="table-heading" data-i18n="runRecord"></h2></div><p class="table-note" data-i18n-rich="tableNote"></p></div>
+        <div class="table-wrap" tabindex="0" data-i18n-attr="aria-label:tableLabel"><table><thead><tr><th data-i18n="thN"></th><th data-i18n="thSetup"></th><th data-i18n="thMass"></th><th data-i18n="thNet"></th><th data-i18n="thA"></th><th data-i18n="thPred"></th><th data-i18n="thResult"></th></tr></thead><tbody id="history-body"></tbody></table></div>
+        <div class="reflection"><p class="eyebrow" data-i18n="step3">3. EXPLAIN</p><p id="reflection-prompt"></p></div>
+      </section>
+
+      <section class="checks-panel panel" aria-labelledby="checks-heading">
+        <div class="panel-heading"><div><p class="eyebrow" data-i18n="step4">4. CHECK YOUR THINKING</p><h2 id="checks-heading" data-i18n="checksHeading">Check your thinking</h2></div></div>
+        <div id="lk-checks"></div>
+      </section>
+
+      <footer data-i18n="footer"></footer>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

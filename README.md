@@ -10,7 +10,11 @@ Intended production address: https://labs.sciesmic.com
 
 - `index.html`: lab directory and homepage
 - `kit/`: shared interface styles and JavaScript
-- `marsh-beetles/`: Marsh Beetles: Selection Lab and its assets
+- `marsh-beetles/`: Marsh Beetles: Selection Lab
+- `plate-boundaries/`: Plate Boundary Lab
+- `net-force-cart/`: Net Force Cart Lab
+- `cell-operations/`: Cell Operations Lab
+- `star-life-cycle/`: Star Life Cycle Lab
 - `CNAME`: custom domain for GitHub Pages
 - `.nojekyll`: serve static files without Jekyll processing
 
