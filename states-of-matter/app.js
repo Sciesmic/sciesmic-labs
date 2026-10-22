@@ -140,7 +140,7 @@ function stateLabel(frame) {
   return t("changingLabel", { change: changeName(frame.change), pct: Math.round(frame.frac * 100), next: stateName(frame.next) });
 }
 
-/* ---------- scene: plate, bag and particle view ---------- */
+/* ---------- scene: plate, beaker and particle view ---------- */
 const VIEW = { cx: 590, cy: 205, r: 150 };
 const N_PARTICLES = 30;
 const COLORS = {
@@ -158,39 +158,82 @@ function shares(frame) {
   return out;
 }
 
+/** Lightweight vector materials: crisp at any zoom, with no external assets. */
+function sceneDefs() {
+  return `<defs>
+    <linearGradient id="beaker-glass"><stop stop-color="#ffffff" stop-opacity=".65"/><stop offset=".35" stop-color="#eaf7fa" stop-opacity=".12"/><stop offset="1" stop-color="#88b6c3" stop-opacity=".28"/></linearGradient>
+    <linearGradient id="ice-face" x2=".8" y2="1"><stop stop-color="#ffffff"/><stop offset=".5" stop-color="#cceaf3"/><stop offset="1" stop-color="#7db8cf"/></linearGradient>
+    <linearGradient id="plate-metal" x2="0" y2="1"><stop stop-color="#6e878c"/><stop offset=".2" stop-color="#405960"/><stop offset="1" stop-color="#243b43"/></linearGradient>
+    <radialGradient id="lens-paper" cx=".35" cy=".25" r=".85"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#eaf3ef"/></radialGradient>
+    <radialGradient id="atom-red" cx=".3" cy=".25"><stop stop-color="#ffa68e"/><stop offset=".5" stop-color="#df6357"/><stop offset="1" stop-color="#a63138"/></radialGradient>
+    <radialGradient id="atom-carbon" cx=".3" cy=".25"><stop stop-color="#8b9ba0"/><stop offset="1" stop-color="#34454d"/></radialGradient>
+    <radialGradient id="atom-mystery" cx=".3" cy=".25"><stop stop-color="#c5abe9"/><stop offset="1" stop-color="#7351aa"/></radialGradient>
+  </defs>`;
+}
+
 function plateSvg(frame) {
   const heat = frame.direction === "heat";
   const level = { low: 0.35, medium: 0.65, high: 1 }[frame.power];
   const glow = heat ? `rgba(227,82,42,${0.25 + 0.6 * level})` : `rgba(64,140,214,${0.25 + 0.6 * level})`;
   const coils = Array.from({ length: 5 }, (_, i) => `<path d="M${95 + i * 44},346 q11,-9 22,0 t22,0" fill="none" stroke="${glow}" stroke-width="4" stroke-linecap="round"/>`).join("");
-  return `<rect x="70" y="330" width="250" height="34" rx="6" fill="#4a5a5e"/><rect x="78" y="336" width="234" height="22" rx="4" fill="#2f3b3e"/>${coils}
+  return `<ellipse cx="195" cy="373" rx="151" ry="9" fill="#385b60" opacity=".13"/><rect x="70" y="330" width="250" height="34" rx="6" fill="url(#plate-metal)"/><rect x="78" y="336" width="234" height="22" rx="4" fill="#2f3b3e"/>${coils}
     <rect x="60" y="364" width="270" height="12" rx="4" fill="#33424a"/>
     <text class="plate-label" x="195" y="396" text-anchor="middle">${esc(t(heat ? "plateHeat" : "plateCool", { w: POWERS[frame.power] }))}</text>`;
 }
 
-function bagSvg(frame) {
+function beakerSvg(frame) {
   const p = palette(frame), sh = shares(frame);
-  const baseY = 328, cx = 195;
-  const puff = sh.gas;                                   // 0 = flat bag, 1 = fully puffed up with gas
-  const bagW = 150 + puff * 50, bagH = 70 + puff * 150;
-  const top = baseY - bagH;
+  const cx = 195, baseY = 326, left = 111, right = 279, top = 144;
+  const vessel = `M${left},${top} V${baseY - 17} Q${left},${baseY} ${left + 18},${baseY} H${right - 18} Q${right},${baseY} ${right},${baseY - 17} V${top}`;
   let inside = "";
-  if (sh.gas > 0) inside += `<rect x="${cx - bagW / 2 + 6}" y="${top + 6}" width="${bagW - 12}" height="${bagH - 12}" rx="${Math.min(60, bagH / 2.4)}" fill="${p.gas}" opacity="${0.35 + 0.5 * sh.gas}"/>`;
   if (sh.liquid > 0) {
-    const w = 70 + 60 * Math.sqrt(sh.liquid), h = 6 + 20 * sh.liquid;
-    inside += `<ellipse cx="${cx}" cy="${baseY - h / 2 - 3}" rx="${w / 2}" ry="${h / 2 + 3}" fill="${p.liquid}" opacity=".9"/>`;
+    const h = 110 * sh.liquid, y = baseY - h;
+    inside += `<g data-phase="liquid" clip-path="url(#beaker-clip)">
+      <rect x="${left + 3}" y="${y}" width="162" height="${h}" fill="${p.liquid}" opacity=".7"/>
+      <ellipse cx="${cx}" cy="${y}" rx="81" ry="${Math.min(5, h / 2)}" fill="${p.liquid}"/>
+      <path d="M119,${y} Q195,${y + 7} 271,${y}" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>`;
+    // Bubbles belong to boiling liquid, never to sublimating dry ice.
+    if (frame.change === "boiling" && sh.liquid > .03) {
+      for (let i = 0; i < 7; i++) {
+        const rise = ((frame.t * .055 + i * .137) % 1);
+        inside += `<circle data-boiling-bubble="true" cx="${132 + (i * 29) % 126}" cy="${baseY - rise * h}" r="${2 + (i % 3)}" fill="none" stroke="#fff" stroke-width="1.5" opacity="${.25 + .5 * rise}"/>`;
+      }
+    }
+    inside += `</g>`;
   }
   if (sh.solid > 0) {
-    const side = 22 + 42 * Math.cbrt(sh.solid);
-    inside += `<rect x="${cx - side / 2}" y="${baseY - side - 3}" width="${side}" height="${side}" rx="5" fill="${p.solid}" stroke="#9fbfd0" stroke-width="1.5"/>
-      <path d="M${cx - side / 2 + 6},${baseY - side + 4} l${side * 0.35},0" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/>`;
-    if (frame.key === "co2" && !frame.mystery && frame.change) inside += `<g class="fog" opacity=".7"><circle cx="${cx - side / 2 - 6}" cy="${baseY - side - 8}" r="9" fill="#fff"/><circle cx="${cx + side / 2 + 4}" cy="${baseY - side - 14}" r="11" fill="#fff"/><circle cx="${cx}" cy="${baseY - side - 20}" r="8" fill="#fff"/></g>`;
+    const scale = Math.cbrt(sh.solid);
+    inside += `<g data-phase="solid" transform="translate(${cx} ${baseY - 3}) scale(${scale})">`;
+    for (const [x,y,angle] of [[-58,-55,-9],[-2,-62,10],[-28,-96,22]]) {
+      inside += `<g transform="translate(${x} ${y}) rotate(${angle} 26 26)">
+        <rect width="52" height="52" rx="6" fill="${frame.mystery || frame.key === "co2" ? p.solid : "url(#ice-face)"}" stroke="#a5c8d4" stroke-width="1.5"/>
+        <path d="M5 5 H47 L38 14 H14 Z" fill="#fff" opacity=".65"/>
+        <path d="M47 5 V47 L38 38 V14 Z" fill="#5b95ad" opacity=".18"/>
+        <path d="M8 39 L20 25 L30 29" fill="none" stroke="#fff" stroke-width="1.5" opacity=".6"/>
+      </g>`;
+    }
+    inside += `</g>`;
   }
-  const bag = `<rect x="${cx - bagW / 2}" y="${top}" width="${bagW}" height="${bagH}" rx="${Math.min(70, bagH / 2.2)}" fill="rgba(255,255,255,.28)" stroke="#7c9aa3" stroke-width="2.5"/>
-    <rect x="${cx - 18}" y="${top - 10}" width="36" height="14" rx="3" fill="#7c9aa3"/>`;
-  // Leader line from the bag to the particle view.
-  const lens = `<line x1="${cx + 30}" y1="${baseY - 40}" x2="${VIEW.cx - VIEW.r + 8}" y2="${VIEW.cy + 40}" stroke="#9fb1ad" stroke-width="2" stroke-dasharray="5 5"/><circle cx="${cx + 30}" cy="${baseY - 40}" r="10" fill="none" stroke="#9fb1ad" stroke-width="2.5"/>`;
-  return bag + inside + lens;
+  // Schematic gas motion crosses the open rim. Gas itself has no visible fill.
+  let vapor = "";
+  if (sh.gas > 0 && (frame.state === "gas" || frame.change)) {
+    const incoming = frame.direction === "cool";
+    for (let i = 0; i < 4; i++) {
+      const phase = (frame.t * .035 + i * .25) % 1;
+      const rise = incoming ? 1 - phase : phase;
+      const x = 143 + i * 34, y = top - 8 - rise * 38;
+      vapor += `<path data-vapor="true" d="M${x},${y + 20} q-8,-7 0,-14 t0,-14" fill="none" stroke="#71a9b6" stroke-width="2.5" stroke-linecap="round" opacity="${sh.gas * (.25 + .45 * Math.sin(phase * Math.PI))}"/>`;
+    }
+  }
+  const marks = [180,214,248,282].map(y => `<path d="M259,${y} h16" stroke="#83aab6" stroke-width="1.5"/>`).join("");
+  return `<defs><clipPath id="beaker-clip"><path d="${vessel} Z"/></clipPath></defs>
+    <ellipse cx="${cx}" cy="329" rx="91" ry="5" fill="#345963" opacity=".15"/>
+    <path d="${vessel} Z" fill="url(#beaker-glass)"/>${inside}${vapor}
+    <path d="${vessel}" fill="none" stroke="#7299a6" stroke-width="4"/>
+    <ellipse cx="${cx}" cy="${top}" rx="84" ry="5" fill="none" stroke="#7299a6" stroke-width="2.5"/>
+    <path d="M121,157 V303 Q121,316 133,316" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".8"/>${marks}
+    <line x1="235" y1="260" x2="${VIEW.cx - VIEW.r + 8}" y2="${VIEW.cy + 40}" stroke="#9fb1ad" stroke-width="2" stroke-dasharray="5 5"/>
+    <circle cx="235" cy="260" r="10" fill="none" stroke="#9fb1ad" stroke-width="2"/>`;
 }
 
 function readoutSvg(frame) {
@@ -239,7 +282,7 @@ function stepParticles(frame, dtFrames) {
     if (st === "liquid") {
       // Liquid: stay close together near the bottom but slide past one another.
       if (p.y < VIEW.cy + 30) { p.vy = Math.abs(p.vy) + 0.3; p.y += 1.5 * dtFrames; }
-      p.vx += Math.sin(p.seed + performance.now() / 900) * 0.05;
+      p.vx += Math.sin(p.seed + performance.now() / 900) * 0.05 * dtFrames;
     }
     const dx = p.x - VIEW.cx, dy = p.y - VIEW.cy, d = Math.hypot(dx, dy), maxR = VIEW.r - 14;
     if (d > maxR) {
@@ -252,9 +295,9 @@ function stepParticles(frame, dtFrames) {
 
 function moleculeSvg(frame, p) {
   const x = p.x + (p.jx ?? 0), y = p.y + (p.jy ?? 0);
-  if (frame.mystery) return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${p.a.toFixed(0)})"><circle r="7.5" fill="#7a5fb8"/><circle cx="7" cy="-3" r="3.5" fill="#fff" stroke="#7a5fb8" stroke-width="1"/></g>`;
-  if (frame.key === "co2") return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${p.a.toFixed(0)})"><circle cx="-9" r="5" fill="#d9534f"/><circle cx="9" r="5" fill="#d9534f"/><circle r="5.5" fill="#3d4b50"/></g>`;
-  return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${p.a.toFixed(0)})"><circle cx="-5.5" cy="-5" r="3.6" fill="#fff" stroke="#8aa1a8" stroke-width="1"/><circle cx="5.5" cy="-5" r="3.6" fill="#fff" stroke="#8aa1a8" stroke-width="1"/><circle r="6.5" fill="#d9534f"/></g>`;
+  if (frame.mystery) return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${p.a.toFixed(0)})"><circle r="7.5" fill="url(#atom-mystery)"/><circle cx="7" cy="-3" r="3.5" fill="#fff" stroke="#7a5fb8" stroke-width="1"/></g>`;
+  if (frame.key === "co2") return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${p.a.toFixed(0)})"><circle cx="-9" r="5" fill="url(#atom-red)"/><circle cx="9" r="5" fill="url(#atom-red)"/><circle r="5.5" fill="url(#atom-carbon)"/></g>`;
+  return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${p.a.toFixed(0)})"><circle cx="-5.5" cy="-5" r="3.6" fill="#fff" stroke="#8aa1a8" stroke-width="1"/><circle cx="5.5" cy="-5" r="3.6" fill="#fff" stroke="#8aa1a8" stroke-width="1"/><circle r="6.5" fill="url(#atom-red)"/></g>`;
 }
 
 function particleLayerSvg(frame) {
@@ -264,16 +307,40 @@ function particleLayerSvg(frame) {
 function viewSvg(frame) {
   const legend = frame.mystery ? t("legendMystery") : frame.key === "co2" ? t("legendCo2") : t("legendWater");
   return `<defs><clipPath id="view-clip"><circle cx="${VIEW.cx}" cy="${VIEW.cy}" r="${VIEW.r - 3}"/></clipPath></defs>
-    <circle cx="${VIEW.cx}" cy="${VIEW.cy}" r="${VIEW.r}" fill="#fffdf8" stroke="#58716c" stroke-width="4"/>
-    <g id="particle-layer" clip-path="url(#view-clip)">${particleLayerSvg(frame)}</g>
+    <circle cx="${VIEW.cx}" cy="${VIEW.cy}" r="${VIEW.r}" fill="url(#lens-paper)" stroke="#58716c" stroke-width="3"/>
+    <circle cx="${VIEW.cx}" cy="${VIEW.cy}" r="${VIEW.r + 6}" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/><g id="particle-layer" clip-path="url(#view-clip)">${particleLayerSvg(frame)}</g>
     <text class="view-label" x="${VIEW.cx}" y="${VIEW.cy - VIEW.r - 14}" text-anchor="middle">${esc(t("viewLabel"))}</text>
     <text class="view-legend" x="${VIEW.cx}" y="${VIEW.cy + VIEW.r + 26}" text-anchor="middle">${esc(legend)}</text>`;
 }
 
+let sceneKind = null;
+let particleNodes = [];
+function updateParticleTransforms() {
+  particleNodes.forEach((node, i) => {
+    const p = particles[i];
+    node.setAttribute("transform", `translate(${(p.x + (p.jx ?? 0)).toFixed(1)} ${(p.y + (p.jy ?? 0)).toFixed(1)}) rotate(${p.a.toFixed(0)})`);
+  });
+}
+
 function drawScene(frame) {
   state.frame = frame;
-  refs.scene.innerHTML = `<title id="scene-title">${esc(t("sceneTitle"))}</title><desc id="scene-desc">${esc(sceneDescription(frame))}</desc>
-    ${plateSvg(frame)}${bagSvg(frame)}${readoutSvg(frame)}${viewSvg(frame)}`;
+  const kind = frame.mystery ? "mystery" : frame.key;
+  // Keep molecule nodes and the lens alive throughout playback. Only their transforms change.
+  if (sceneKind !== kind) {
+    refs.scene.innerHTML = `<title id="scene-title"></title><desc id="scene-desc"></desc>${sceneDefs()}
+      <path d="M0 365 H365" stroke="#9eb9b6" stroke-width="1" opacity=".45"/>
+      <g id="sample-layer"></g><g id="instrument-layer"></g><g id="lens-layer">${viewSvg(frame)}</g>`;
+    sceneKind = kind;
+    particleNodes = [...refs.scene.querySelector("#particle-layer").children];
+  }
+  refs.scene.querySelector("#scene-title").textContent = t("sceneTitle");
+  refs.scene.querySelector("#scene-desc").textContent = sceneDescription(frame);
+  refs.scene.querySelector("#sample-layer").innerHTML = plateSvg(frame) + beakerSvg(frame);
+  refs.scene.querySelector("#instrument-layer").innerHTML = readoutSvg(frame);
+  // Refresh localized labels without replacing the animated nodes.
+  refs.scene.querySelector(".view-label").textContent = t("viewLabel");
+  refs.scene.querySelector(".view-legend").textContent = frame.mystery ? t("legendMystery") : frame.key === "co2" ? t("legendCo2") : t("legendWater");
+  updateParticleTransforms();
   renderTrack(frame);
   renderReadouts(frame);
 }
@@ -293,8 +360,7 @@ function particleLoop(now) {
   lastTick = now;
   if (state.frame && !reducedMotion() && !document.hidden) {
     stepParticles(state.frame, dtFrames);
-    const layer = refs.scene.querySelector("#particle-layer");
-    if (layer) layer.innerHTML = particleLayerSvg(state.frame);
+    updateParticleTransforms();
   }
   requestAnimationFrame(particleLoop);
 }

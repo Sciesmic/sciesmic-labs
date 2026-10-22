@@ -1,5 +1,6 @@
 // States of Matter Lab model. Pure functions, no DOM.
-// A sample sits in a sealed, stretchy bag at about 1 atmosphere on a heating (or cooling) plate.
+// An idealized sample at about 1 atmosphere is illustrated in an open beaker on a heating/cooling plate.
+// The model follows the sample even after vapor leaves; gas cooling represents a supplied gas sample.
 // The plate adds (or removes) thermal energy at a steady rate (watts = joules per second). Every few
 // seconds the model records the time, the thermometer reading, the state, how much of the sample has
 // changed state, and the energy added so far.
