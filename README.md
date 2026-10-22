@@ -17,6 +17,7 @@ Intended production address: https://labs.sciesmic.com
 - `star-life-cycle/`: Star Life Cycle Lab
 - `states-of-matter/`: States of Matter Lab
 - `central-dogma/`: Central Dogma Lab 1.1.0, including vocabulary flashcards and print/export tools
+- `predator-prey/`: Predator Prey Lab 3.0.0 with short camouflage and seasonal population investigations
 - `CNAME`: custom domain for GitHub Pages
 - `.nojekyll`: serve static files without Jekyll processing
 
@@ -45,3 +46,10 @@ Central Dogma 1.1.0 English and Spanish interfaces, contextual definitions, and 
 ## Rights
 
 Copyright Sciesmic. All rights reserved. No open-source license is granted by this repository.
+
+
+## Predator Prey Lab
+
+`predator-prey/` 3.0.0 supports a 13-week held-condition camouflage comparison and 5–30-year population investigation. Food-dependent predator births/losses produce linked population changes without a prescribed wave. Three presets compare constant conditions, seasonal progression and a stronger disturbance. The shared graph offers abundance, percentage of starting population, and an optional hare carrying-capacity line; annual/weekly tables and CSV preserve full-precision model estimates.
+
+Grades 7–8 application with partial TEKS 6.12A/B foundations and an NGSS MS-LS2-1 resource investigation. The synthetic model is not a wildlife forecast. English/Spanish interface and public vocabulary print/CSV/offline HTML tools; Spanish native science educator review remains pending. Use the matching private 3.0.0 teacher pack. Paid documents and build sources are excluded from this repository.
