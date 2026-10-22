@@ -16,6 +16,7 @@ Intended production address: https://labs.sciesmic.com
 - `cell-operations/`: Cell Operations Lab
 - `star-life-cycle/`: Star Life Cycle Lab
 - `states-of-matter/`: States of Matter Lab
+- `central-dogma/`: Central Dogma Lab 1.1.0, including vocabulary flashcards and print/export tools
 - `CNAME`: custom domain for GitHub Pages
 - `.nojekyll`: serve static files without Jekyll processing
 
@@ -38,6 +39,8 @@ This repository contains the free public website only. Paid teacher packs, answe
 ## Review status
 
 Marsh Beetles Spanish content awaits native-speaker review.
+
+Central Dogma 1.1.0 English and Spanish interfaces, contextual definitions, and vocabulary flashcard exports have completed editorial and browser QA. Spanish native-speaking science educator review remains pending.
 
 ## Rights
 
