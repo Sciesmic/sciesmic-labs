@@ -53,3 +53,8 @@ Copyright Sciesmic. All rights reserved. No open-source license is granted by th
 `predator-prey/` 3.0.0 supports a 13-week held-condition camouflage comparison and 5–30-year population investigation. Food-dependent predator births/losses produce linked population changes without a prescribed wave. Three presets compare constant conditions, seasonal progression and a stronger disturbance. The shared graph offers abundance, percentage of starting population, and an optional hare carrying-capacity line; annual/weekly tables and CSV preserve full-precision model estimates.
 
 Grades 7–8 application with partial TEKS 6.12A/B foundations and an NGSS MS-LS2-1 resource investigation. The synthetic model is not a wildlife forecast. English/Spanish interface and public vocabulary print/CSV/offline HTML tools; Spanish native science educator review remains pending. Use the matching private 3.0.0 teacher pack. Paid documents and build sources are excluded from this repository.
+
+
+## Gravity Drop
+
+`gravity-drop/` 1.0.1 serves grades 6–8 with air/vacuum comparison, controlled experiments and seeded prediction challenges. Five supplied object sprites and layered chambers accompany model-driven height, time, speed, force and acceleration readings. Students record evidence, calculate average speed and revise explanations using gravity and drag. TEKS 7.7A average-speed skill is directly practiced; TEKS 6.7A, 8.7A and NGSS MS-PS2-2/MS-PS2-4 connections are partial. English/Spanish interface and public vocabulary print/CSV/offline HTML tools; Spanish native science-educator review remains pending. Physics model 1.0.0 and private teacher pack 1.0.0 are compatible. Paid pack files are not included in this repository.
