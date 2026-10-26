@@ -5,37 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Explore free interactive science simulations for middle and high school. TEKS and NGSS connections, Chromebook friendly, and no login required.">
     <title>Free Science Simulations for Middle &amp; High School | Sciesmic</title>
+    <meta name="theme-color" content="#1c75bc">
     <link rel="canonical" href="https://labs.sciesmic.com/">
     <style>
-      body { margin: 0; font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif; color: #173138; background: radial-gradient(circle at 10% 2%, #eef7f1, transparent 31rem), #dce7e1; }
+      body { margin: 0; font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif; color: #152b40; background: radial-gradient(circle at 10% 2%, #e8f7fd, transparent 31rem), #f2f7fc; }
       main { max-width: 1180px; margin: auto; padding: clamp(1rem, 3vw, 3.2rem); }
-      .eyebrow { font-size: .69rem; font-weight: 800; letter-spacing: .13em; color: #527270; margin: 0; }
+      .eyebrow { font-size: .69rem; font-weight: 800; letter-spacing: .13em; color: #405f78; margin: 0; }
       h1 { font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1; letter-spacing: -.05em; margin: .4rem 0 .8rem; }
-      .lede { color: #597075; font-size: 1.1rem; max-width: 640px; line-height: 1.45; }
+      .lede { color: #4b6175; font-size: 1.1rem; max-width: 640px; line-height: 1.45; }
       .points { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.2rem 0 2.2rem; padding: 0; list-style: none; }
-      .points li { background: #fffdf8; border: 1px solid #d8ddd1; border-radius: 999px; padding: .35rem .8rem; font-size: .85rem; font-weight: 750; }
+      .points li { background: #ffffff; border: 1px solid #cbddea; border-radius: 999px; padding: .35rem .8rem; font-size: .85rem; font-weight: 750; }
       .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
-      .card { display: flex; flex-direction: column; background: #fffdf8; border: 1px solid rgba(29,65,59,.12); box-shadow: 0 14px 38px rgba(29,65,59,.08); border-radius: 1rem; overflow: hidden; color: inherit; text-decoration: none; }
-      .card:hover { border-color: #0b6a69; }
-      .card:focus-visible { outline: 3px solid #e3522a; outline-offset: 3px; }
+      .card { display: flex; flex-direction: column; background: #ffffff; border: 1px solid rgba(28,117,188,.18); box-shadow: 0 14px 38px rgba(28,117,188,.08); border-radius: 1rem; overflow: hidden; color: inherit; text-decoration: none; }
+      .card:hover { border-color: #17639f; }
+      .card:focus-visible { outline: 3px solid #17639f; outline-offset: 3px; }
       .thumb { height: 150px; background: center / cover no-repeat; }
       .body { padding: 1rem 1.1rem 1.2rem; display: grid; gap: .45rem; }
       .body h2 { margin: 0; font-size: 1.2rem; }
-      .body p { margin: 0; color: #597075; line-height: 1.45; font-size: .92rem; }
+      .body p { margin: 0; color: #4b6175; line-height: 1.45; font-size: .92rem; }
       .tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .3rem; }
-      .tags span { font-size: .7rem; font-weight: 800; color: #0b6a69; background: #e9f1eb; border-radius: 999px; padding: .2rem .5rem; }
-      .soon { border-style: dashed; box-shadow: none; background: transparent; justify-content: center; align-items: center; min-height: 200px; color: #597075; font-weight: 750; text-align: center; padding: 1rem; }
-      footer { text-align: center; color: #58716c; font-size: .82rem; padding: 2rem 1rem; }
-      footer a { color: #0b6a69; }
+      .tags span { font-size: .7rem; font-weight: 800; color: #17639f; background: #e8f7fd; border-radius: 999px; padding: .2rem .5rem; }
+      .soon { border-style: dashed; box-shadow: none; background: transparent; justify-content: center; align-items: center; min-height: 200px; color: #4b6175; font-weight: 750; text-align: center; padding: 1rem; }
+      footer { text-align: center; color: #4b6175; font-size: .82rem; padding: 2rem 1rem; }
+      footer a { color: #17639f; }
 
 * { box-sizing: border-box; } html { scroll-behavior: smooth; } [hidden] { display:none !important; }
-.site-nav { max-width:1180px; margin:auto; padding:1rem clamp(1rem,3vw,3.2rem); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; } .site-nav a { color:#173138; font-weight:750; text-decoration:none; } nav { display:flex; gap:1.3rem; } a:hover { text-decoration:underline; }
+.site-nav { max-width:1180px; margin:auto; padding:1rem clamp(1rem,3vw,3.2rem); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; } .site-nav a { color:#152b40; font-weight:750; text-decoration:none; } nav { display:flex; gap:1.3rem; } a:hover { text-decoration:underline; }
 .skip { position:absolute; left:1rem; top:-100px; padding:1rem; background:white; z-index:10; } .skip:focus { top:1rem; }
-:focus-visible { outline:3px solid #b33d1b; outline-offset:4px; } .grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); } .card { box-shadow:0 4px 14px #1d413b0a; } .thumb { width:100%; height:150px; object-fit:cover; } .body { flex:1; } .body h2 a { color:inherit; text-decoration:none; } .body h2 a:hover { text-decoration:underline; } .launch { color:#075c5b; font-weight:750; padding:.8rem 1.1rem; border-top:1px solid #d8ddd1; min-height:48px; } .standards { margin-top:.4rem; font-size:.85rem; } summary { cursor:pointer; min-height:44px; padding:.7rem 0; color:#365958; } .tags { padding-bottom:.5rem; } .tags span { color:#075957; } .eyebrow { color:#435e5c; } .body p,.lede { color:#465f64; }
-#filters { display:flex; flex-wrap:wrap; align-items:end; gap:.75rem; padding:1rem; background:#fffdf8; border:1px solid #c1d0c9; border-radius:1rem; } #filters div:first-child { flex:2 1 260px; } #filters div { flex:1 1 150px; } label { display:block; font-size:.85rem; font-weight:700; margin-bottom:.4rem; } input,select,button { font:inherit; min-height:44px; border:1px solid #7c9490; border-radius:.4rem; padding:.6rem; background:#fff; color:#173138; } input,select { width:100%; } button { cursor:pointer; } #results { color:#435e5c; font-size:.9rem; } .teacher { margin-top:2.5rem; padding:1.5rem; background:#fffdf8; border-radius:1rem; } .teacher h2 { margin-top:0; } .teacher a { color:#075c5b; font-weight:750; } .note { font-size:.85rem; color:#465f64; line-height:1.5; } @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+:focus-visible { outline:3px solid #17639f; outline-offset:4px; } .grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); } .card { box-shadow:0 4px 14px #153f650a; } .thumb { width:100%; height:150px; object-fit:cover; } .body { flex:1; } .body h2 a { color:inherit; text-decoration:none; } .body h2 a:hover { text-decoration:underline; } .launch { color:#17639f; font-weight:750; padding:.8rem 1.1rem; border-top:1px solid #cbddea; min-height:48px; } .standards { margin-top:.4rem; font-size:.85rem; } summary { cursor:pointer; min-height:44px; padding:.7rem 0; color:#405f78; } .tags { padding-bottom:.5rem; } .tags span { color:#17639f; } .eyebrow { color:#405f78; } .body p,.lede { color:#4b6175; }
+#filters { display:flex; flex-wrap:wrap; align-items:end; gap:.75rem; padding:1rem; background:#ffffff; border:1px solid #cbddea; border-radius:1rem; } #filters div:first-child { flex:2 1 260px; } #filters div { flex:1 1 150px; } label { display:block; font-size:.85rem; font-weight:700; margin-bottom:.4rem; } input,select,button { font:inherit; min-height:44px; border:1px solid #6b879d; border-radius:.4rem; padding:.6rem; background:#fff; color:#152b40; } input,select { width:100%; } button { cursor:pointer; } #results { color:#405f78; font-size:.9rem; } .teacher { margin-top:2.5rem; padding:1.5rem; background:#ffffff; border-radius:1rem; } .teacher h2 { margin-top:0; } .teacher a { color:#17639f; font-weight:750; } .note { font-size:.85rem; color:#4b6175; line-height:1.5; } @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+/* Official Sciesmic palette. Darker blue supports readable text on white. */
+:root { --brand-cyan:#00aeef; --brand-blue:#1c75bc; --brand-link:#17639f; }
+.site-nav { align-items:center; border-bottom:1px solid #cbddea; }
+.brand-lockup { display:inline-flex; align-items:center; gap:.85rem; }
+.brand-lockup img { display:block; width:clamp(150px,23vw,205px); height:auto; }
+.brand-lockup span { border-left:1px solid #cbddea; padding-left:.85rem; color:var(--brand-link); font-size:.8rem; letter-spacing:.14em; }
+.points li { background:#e8f7fd; border-color:#b2e6f9; }
+.card:hover { border-color:var(--brand-blue); }
+.launch { background:#f0f8fd; color:var(--brand-link); }
+.launch:hover { background:#dff2fc; }
+#filters { border-top:3px solid var(--brand-cyan); }
+.teacher { border-top:3px solid var(--brand-blue); }
+#filters button { border-color:var(--brand-link); color:var(--brand-link); }
+#filters button:hover { background:#e8f7fd; }
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Sciesmic Labs", "url": "https://labs.sciesmic.com/", "description": "Free interactive science simulations."}</script></head>
-  <body><a class="skip" href="#simulations">Skip to simulations</a><header class="site-nav"><a href="./" aria-label="Sciesmic Labs home">SCIESMIC LABS</a><nav aria-label="Main"><a href="#simulations">Simulations</a><a href="#teachers">For teachers</a></nav></header>
+  <body><a class="skip" href="#simulations">Skip to simulations</a><header class="site-nav"><a href="./" aria-label="Sciesmic Labs home" class="brand-lockup"><img src="kit/brand/sciesmic-logo.png" alt="Sciesmic" width="600" height="173" decoding="async"><span>LABS</span></a><nav aria-label="Main"><a href="#simulations">Simulations</a><a href="#teachers">For teachers</a></nav></header>
     <main>
       <p class="eyebrow">SCIESMIC LABS</p>
       <h1>Free interactive science simulations</h1>
@@ -135,7 +151,7 @@
 
       </div>
     </section><section id="teachers" class="teacher"><h2>Teaching with these simulations?</h2><p>Take the experiment further with classroom worksheets, teacher guides, and supporting instructional resources.</p><a href="https://www.sciesmic.com/">Explore Sciesmic resources →</a><p class="note">Labs are free to use. Supporting teacher resources are available separately. Standards connections vary; see each lab’s alignment notes.</p></section></main>
-    <footer><a href="./">Sciesmic Labs</a> · <a href="https://sciesmic.com/a/members">Teacher library access</a> · © Sciesmic</footer><script src="kit/directory.js" defer></script>
+    <footer><a href="./">Sciesmic Labs</a> · <a href="https://sciesmic.com/a/members">Teacher library access</a> · © Sciesmic<br>Learn. Grow. Achieve.</footer><script src="kit/directory.js" defer></script>
   </body>
 </html>
 
