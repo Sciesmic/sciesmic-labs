@@ -67,3 +67,7 @@ Grades 7–8 application with partial TEKS 6.12A/B foundations and an NGSS MS-LS
 - `earth-moon/` 1.0.0: Earth & Moon; grades 6–8, TEKS 6–8.1G model development with worksheet, 7.9A partial and MS-ESS1-1 phases/eclipses component. Compare synchronized space/Earth views, orbit tilt, alignment and distance.
 
 All three include EN/ES interfaces, five checks, contextual definitions, evidence exports and public vocabulary print/CSV/offline HTML tools. Spanish native science educator review remains pending. Matching private English teacher packs 1.0.0 are distributed separately through the members library; no private documents are included here.
+
+## Photosynthesis
+
+`photosynthesis/` 1.0.1: grade 7 investigation with grade 6 energy foundations and grade 8 atom-conservation extension. Oxygen lab, Inside a leaf, Build a sugar, and Day & night connect trial evidence with matter and energy. Includes EN/ES, accessible comparison graphs and tables, five checks, ten contextual terms and public vocabulary print/CSV/offline HTML. Partial TEKS 6.8B and 7.5E; NGSS MS-LS1-6. Reuses Sciesmic art; deterministic rates are illustrative. Spanish educator review remains pending. Compatible private teacher pack 1.0.0 is prepared separately; member upload is pending. Private materials are excluded from this repository.
