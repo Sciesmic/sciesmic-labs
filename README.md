@@ -79,3 +79,9 @@ The homepage uses native controls and a small dependency-free filter. Cards and 
 Budget: keep the homepage HTML, JavaScript and all directory previews below 500 KB combined before compression. Use lazy loading below the first card and explicit image dimensions. Check every local link, canonical URL, JSON-LD block and sitemap entry when adding a lab. Include accurate grade eligibility and partial/extension alignment qualifiers.
 
 Before a release, check search, combined filters, empty/reset states, keyboard focus, 200% zoom, narrow screens and JavaScript-disabled browsing. Target mobile Lighthouse performance 90+, accessibility 95+, SEO 90+, and field LCP <=2.5 seconds at the 75th percentile. These are targets, not measured scores. Validate on a school Chromebook and throttled network; do not infer real-device performance from transfer size. GitHub Pages manages caching headers, so content-hashed asset naming is preferred when changing cached assets.
+
+
+
+## Density Detective
+
+`density-detective/` · v1.0.0 · Grades 6–8 · English/Spanish. Measure mass and full volume, compare density relative to water, graph recorded trials, and identify seeded mysteries. Three modes, 18 samples, five checks, and ten contextual terms with EN/ES/bilingual public flashcard print/CSV/offline HTML exports. Existing Sciesmic sprites are reused. TEKS 6.6D coverage is partial (water only); MS-PS1-2 is a prerequisite connection. Spanish is draft pending native science-educator review. Teacher-pack documents are distributed separately and are excluded from this public repository.
