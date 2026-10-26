@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Free plate tectonics simulation for middle school. Pull plates apart, push them together, slide them past each other or move them over a hot spot, and watch mountains, volcanoes, earthquakes and ocean basins form. TEKS 7.10A, 7.10B and NGSS MS-ESS2-2, MS-ESS2-3. English and Spanish." />
     <title>Plate Boundary Lab | Sciesmic Labs</title>
@@ -16,11 +17,7 @@
           <h1 data-i18n="h1">What happens where plates meet?</h1>
           <p class="lede" data-i18n-rich="lede">Pull plates apart, push them together, slide them past each other or move them over a hot spot, then run time forward millions of years and watch ocean basins, earthquakes, mountains and volcanoes form.</p>
         </div>
-        <div class="lk-context-tools"><button class="text-button" id="simplifications-button" aria-expanded="false" aria-controls="simplifications" data-i18n="modelNotesBtn">Model notes</button><details class="lk-about"><summary data-i18n="aboutLab">About this simulation &amp; standards</summary><p lang="en">Pull plates apart, push them together, slide them past each other or move them over a hot spot, then run time forward millions of years and watch ocean basins, earthquakes, mountains and volcanoes form.</p><p lang="en">EARTH SCIENCE · GRADES 6–8</p><p lang="en">TEKS 7.10B · TEKS 7.10A · MS-ESS2-2 · MS-ESS2-3</p><p lang="en">Connections may address only part of a standard; consult the lab’s model and alignment notes.</p></details></div>
       </header>
-
-
-      <aside id="simplifications" class="model-notes" hidden data-i18n-rich="modelNotes"></aside>
 
       <section class="question-card" aria-labelledby="question-heading">
         <div>
@@ -98,12 +95,12 @@
           <div class="panel-heading"><div><p class="eyebrow" data-i18n="whatHappened"></p><h2 id="outcome-heading" data-i18n="outcomeHeading"></h2></div></div>
           <p class="outcome-copy" id="outcome-copy" aria-live="polite"></p>
           <dl class="stat-row">
-            <div><dt data-i18n="statHigh"></dt><dd id="stat-high"></dd></div>
-            <div><dt data-i18n="statLow"></dt><dd id="stat-low"></dd></div>
-            <div><dt data-i18n="statVolc"></dt><dd id="stat-volc"></dd></div>
-            <div><dt data-i18n="statQuakes"></dt><dd id="stat-quakes"></dd></div>
-            <div><dt data-i18n="statDeep"></dt><dd id="stat-deep"></dd></div>
-            <div><dt data-i18n="statOcean"></dt><dd id="stat-ocean"></dd></div>
+            <div><img class="stat-icon" src="assets/art/stat_highest.svg" alt=""><dt data-i18n="statHigh"></dt><dd id="stat-high"></dd></div>
+            <div><img class="stat-icon" src="assets/art/stat_lowest.svg" alt=""><dt data-i18n="statLow"></dt><dd id="stat-low"></dd></div>
+            <div><img class="stat-icon" src="assets/art/stat_volcanoes.svg" alt=""><dt data-i18n="statVolc"></dt><dd id="stat-volc"></dd></div>
+            <div><img class="stat-icon" src="assets/art/stat_quakes.svg" alt=""><dt data-i18n="statQuakes"></dt><dd id="stat-quakes"></dd></div>
+            <div><img class="stat-icon" src="assets/art/stat_deepest.svg" alt=""><dt data-i18n="statDeep"></dt><dd id="stat-deep"></dd></div>
+            <div><img class="stat-icon" src="assets/art/stat_ocean.svg" alt=""><dt data-i18n="statOcean"></dt><dd id="stat-ocean"></dd></div>
           </dl>
         </section>
         <section class="chart-panel panel" aria-labelledby="chart-heading">
@@ -139,6 +136,19 @@
         <div id="lk-checks"></div>
       </section>
 
+      <div class="simulation-notes">
+        <details class="panel footer-notes" id="simplifications">
+          <summary data-i18n="modelNotesBtn">Model notes</summary>
+          <div class="notes-body" data-i18n-rich="modelNotes"></div>
+        </details>
+        <details class="lk-about footer-notes">
+          <summary data-i18n="aboutLab">About this simulation &amp; standards</summary>
+          <p data-i18n="aboutDescription"></p>
+          <p class="eyebrow" data-i18n="aboutGrade"></p>
+          <ul id="about-standards"></ul>
+          <p data-i18n="alignmentNote"></p>
+        </details>
+      </div>
       <footer data-i18n="footer"></footer>
     </main>
     <script type="module" src="app.js"></script>

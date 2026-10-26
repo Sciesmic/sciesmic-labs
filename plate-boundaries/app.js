@@ -1,6 +1,7 @@
 import { advanceRun, chainTable, createRun, MAX_TIME, SETUPS, slabDepth, stripeTable } from "./model.js";
 import { initLab, onLangChange, renderRich, t, getLang } from "../kit/labs-kit.js";
 import { content } from "./content.js";
+import { image, volcano, glow } from "./art.js";
 
 const $ = (selector) => document.querySelector(selector);
 const params = new URLSearchParams(location.search);
@@ -39,9 +40,9 @@ const hasStripes = () => state.boundary === "divergent" && (state.crust === "oo"
 /* ------------------------------------------------------------------ */
 function renderControls() {
   refs.boundaryChoices.innerHTML = Object.keys(SETUPS).map((b) =>
-    `<button type="button" class="choice ${b === state.boundary ? "active" : ""}" data-boundary="${b}" aria-pressed="${b === state.boundary}"><span>${esc(t(`b_${b}`))}</span><small>${esc(t(`b_${b}_sub`))}</small></button>`).join("");
+    `<button type="button" class="choice ${b === state.boundary ? "active" : ""}" data-boundary="${b}" aria-pressed="${b === state.boundary}"><img class="choice-icon" src="assets/art/boundary_${b}.svg" alt=""><span>${esc(t(`b_${b}`))}</span><small>${esc(t(`b_${b}_sub`))}</small></button>`).join("");
   refs.crustChoices.innerHTML = SETUPS[state.boundary].map((c) =>
-    `<button type="button" class="choice ${c === state.crust ? "active" : ""}" data-crust="${c}" aria-pressed="${c === state.crust}">${esc(t(`c_${c}`))}</button>`).join("");
+    `<button type="button" class="choice ${c === state.crust ? "active" : ""}" data-crust="${c}" aria-pressed="${c === state.crust}"><img class="choice-icon" src="assets/art/crust_${c}.svg" alt=""><span>${esc(t(`c_${c}`))}</span></button>`).join("");
   refs.boundaryChoices.querySelectorAll("[data-boundary]").forEach((button) => button.addEventListener("click", () => {
     if (state.running) return;
     state.boundary = button.dataset.boundary; state.crust = SETUPS[state.boundary][0]; state.measure = DEFAULT_MEASURE[state.boundary]; restart(); refs.boundaryChoices.querySelector(`[data-boundary="${state.boundary}"]`)?.focus();
@@ -73,6 +74,7 @@ function updateUrl() {
 function render() {
   const run = state.run, current = run.history.at(-1), complete = run.time >= MAX_TIME;
   renderControls();
+  $("#about-standards").innerHTML = content.standards.map(item => `<li><a href="${esc(item.url)}" target="_blank" rel="noopener">${esc(item.code)}</a> · ${esc(item[getLang()] ?? item.en)}</li>`).join("");
   refs.time.textContent = t("timeBadge", { n: num(run.time) });
   refs.sceneHeading.textContent = settingName();
   refs.sceneSub.textContent = state.boundary === "transform" ? t("mapView") : t("crossSection");
@@ -155,17 +157,22 @@ const range = (a, b, step = 4) => { const out = []; for (let x = a; x <= b; x +=
 const hash = (n) => { let v = (n * 2654435761) >>> 0; v ^= v >>> 13; v = Math.imul(v, 1274126177) >>> 0; return (v >>> 0) / 4294967296; };
 
 // A plate: surface from elev(x), crust band of given thickness and type(x), lithosphere down to base(x).
+let plateId = 0;
+function inkPlate(points,fill,shade,shift=3,extra='') {
+  const id=`plate-art-${plateId++}`;
+  return `<defs><clipPath id="${id}"><polygon points="${points}"/></clipPath></defs><polygon points="${points}" fill="${shade}"/><polygon points="${points}" fill="${fill}" transform="translate(0 -${shift})" clip-path="url(#${id})"/><polygon points="${points}" fill="none" stroke="#2a201d" stroke-width="3" stroke-linejoin="round" ${extra}/>`;
+}
 function plate(xs, elev, typeAt, base, opts = {}) {
   const top = xs.map((x) => [x, yE(elev(x))]);
   const bottom = xs.map((x) => [x, Math.max(base(x), yE(elev(x)) + 12)]).reverse();
-  let out = `<polygon points="${pts([...top, ...bottom])}" fill="${C.lith}"/>`;
+  let out = inkPlate(pts([...top, ...bottom]),C.lith,"#735845",4);
   let segment = [], segType = null;
   const flush = () => {
     if (segment.length > 1) {
       const thick = (x) => (segType === "c" ? 24 : 9) + (opts.root ? opts.root(x) : 0);
       const upper = segment.map((x) => [x, yE(elev(x))]);
       const lower = segment.map((x) => [x, yE(elev(x)) + thick(x)]).reverse();
-      out += `<polygon class="crust-${segType}" points="${pts([...upper, ...lower])}" fill="${segType === "c" ? C.contCrust : C.oceanCrust}"${opts.clip && segType === "o" ? ` id="${opts.clip}"` : ""}/>`;
+      out += inkPlate(pts([...upper, ...lower]),segType === "c" ? C.contCrust : C.oceanCrust,segType === "c" ? "#a9874f" : "#2f3a46",3,`class="crust-${segType}"`);
     }
   };
   xs.forEach((x) => { const type = typeAt(x); if (type !== segType) { if (segment.length) segment.push(x); flush(); segment = [x]; segType = type; } else segment.push(x); });
@@ -173,18 +180,15 @@ function plate(xs, elev, typeAt, base, opts = {}) {
   return out;
 }
 
-function arrow(x1, x2, y, label) {
-  const dir = Math.sign(x2 - x1), head = x2 - dir * 10;
-  const tx = (x1 + x2) / 2;
-  return `<g class="motion"><line x1="${x1}" y1="${y}" x2="${head}" y2="${y}" stroke="#fffdf8" stroke-width="5" stroke-linecap="round"/><polygon points="${x2},${y} ${head},${y - 8} ${head},${y + 8}" fill="#fffdf8"/>${label ? `<text x="${tx}" y="${y - 10}" text-anchor="middle" class="scene-label light">${esc(label)}</text>` : ""}</g>`;
+function arrow(x1,x2,y,label) {
+  const dir=Math.sign(x2-x1), length=Math.abs(x2-x1);
+  return `<g class="motion"><g transform="translate(${x1} ${y}) scale(${dir} 1)">${image('plate_arrow_tail',0,-12,8,24)}${image('plate_arrow_shaft',8,-12,length-32,24,'preserveAspectRatio="none"')}${image('plate_arrow_head',length-24,-12,24,24)}</g>${label ? `<text x="${(x1+x2)/2}" y="${y-20}" text-anchor="middle" class="scene-label light">${esc(label)}</text>` : ''}</g>`;
 }
 
-function volcanoShape(x, elev, baseElev, active, scale = 1) {
-  const apex = yE(elev), base = yE(baseElev), h = Math.max(6, base - apex), half = (10 + h * 0.5) * scale;
-  const color = active ? C.volc : C.extinct;
-  let svg = `<polygon points="${x - half},${base + 1} ${x - 4},${apex} ${x + 4},${apex} ${x + half},${base + 1}" fill="${color}" stroke="rgba(0,0,0,.25)"/>`;
-  if (active) svg += `<path d="M${x - 4} ${apex} q4 -10 8 0" fill="${C.magma}"/><circle class="glow" cx="${x}" cy="${apex - 4}" r="4" fill="${C.magma}" opacity=".8"/>`;
-  return svg;
+function volcanoShape(x,elev,baseElev,active) {
+  const type=state.boundary==='convergent' ? 'strato' : state.boundary==='hotspot' ? 'shield' : 'cinder';
+  const id=state.boundary==='hotspot' && elev<=0 ? (active?'seamount_active':'seamount_extinct') : `${type}_l_${active?'active':'extinct'}`;
+  return volcano(id,x,yE(elev),yE(baseElev));
 }
 
 function quakeDots(placer) {
@@ -194,20 +198,18 @@ function quakeDots(placer) {
     const age = list.length - 1 - back; // 0 = latest
     (h.event?.list ?? []).forEach(([depth, mag, r], index) => {
       const [x, y] = placer(depth, r, hash(index + h.time * 97));
-      const radius = 2 + Math.max(0, mag - 4) * 1.4;
-      svg += `<circle class="quake ${age === 0 ? "new" : ""}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${radius.toFixed(1)}" fill="${C.quake}" stroke="#7a2e00" stroke-width="1" opacity="${[1, 0.45, 0.22][age]}" style="--d:${(index % 12) * 40}ms"/>`;
+      const magnitude=Math.max(4,Math.min(9,Math.round(mag)));
+      const size=14+(magnitude-4)*3;
+      svg += `<g class="quake ${age===0?'new':''}" opacity="${[1,.45,.22][age]}" style="--d:${(index%12)*40}ms">${image(`quake_m${magnitude}`,x-size/2,y-size/2,size,size)}</g>`;
     });
   });
   return svg;
 }
 
-function background(water = true) {
-  return `<defs><linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${C.sky1}"/><stop offset="1" stop-color="${C.sky2}"/></linearGradient>
-    <linearGradient id="mantle" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${C.mantle}"/><stop offset="1" stop-color="${C.mantle2}"/></linearGradient></defs>
-    <rect width="${W}" height="${SEA}" fill="url(#sky)"/>
-    ${water ? `<rect y="${SEA}" width="${W}" height="150" fill="${C.water}"/>` : `<rect y="${SEA}" width="${W}" height="70" fill="${C.mantle}"/>`}
-    <rect y="205" width="${W}" height="215" fill="url(#mantle)"/>
-    <g class="mantle-flow" stroke="#c7794d" stroke-width="1.5" fill="none" opacity=".55"><path d="M40 360 q60 -26 120 0 t120 0"/><path d="M520 380 q60 -26 120 0 t120 0"/><path d="M300 400 q50 -20 100 0"/></g>`;
+function background(water=true) {
+  let svg='';
+  for(let x=0;x<W;x+=400) svg += image('bg_sky',x,0,400,150) + (water ? image('bg_ocean',x,150,400,150) : `<rect x="${x}" y="150" width="400" height="70" fill="${C.mantle}"/>`) + image('bg_mantle',x,200,400,220) + image('bg_mantle_flow_a',x,200,400,220);
+  return svg;
 }
 
 function labels(extra = "") {
@@ -217,6 +219,7 @@ function labels(extra = "") {
 }
 
 function drawScene() {
+  plateId = 0;
   const run = state.run, k = key(), now = run.history.at(-1);
   let svg = "";
   if (k === "divergent-oo" || (k === "divergent-cc" && flooded())) svg = sceneRidge(run, k);
@@ -273,7 +276,7 @@ function sceneRidge(run, k) {
   });
   svg += stripes;
   // magma rising under the ridge
-  svg += `<path d="M370 300 Q 400 250 395 ${yE(-2800)} L 405 ${yE(-2800)} Q 400 250 430 300 Z" fill="${C.magma}" opacity=".85"/>`;
+  svg += glow("ridge_upwelling",360,yE(-2800)-4,80,130);
   svg += quakeDots((depth, r) => [400 + (r - 0.5) * 40, yE(-2600) + 6 + depth * 1.2]);
   svg += arrow(330, 230, 236, t("plateMoves")) + arrow(470, 570, 236, t("plateMoves"));
   svg += labels(`<text x="400" y="${yE(-2500) - 34}" text-anchor="middle" class="scene-label">${esc(t(isRift ? "newOceanLabel" : "ridgeLabel"))}</text><line x1="400" y1="${yE(-2500) - 30}" x2="400" y2="${yE(-2500) - 6}" stroke="#173138" stroke-width="1"/>`);
@@ -296,8 +299,8 @@ function sceneRift(run, now) {
   svg += plate(xs.filter((x) => x >= 400), elev, () => "c", (x) => CB(300) - Math.max(0, 40 - Math.abs(x - 400)) * 0.6, { root: (x) => -Math.max(0, 16 - Math.abs(x - 400) / 4) });
   // faults on rift walls
   svg += `<g stroke="#5b4026" stroke-width="1.5"><line x1="${400 - rw}" y1="${yE(floor)}" x2="${400 - rw - 14}" y2="${yE(floor) + 30}"/><line x1="${400 + rw}" y1="${yE(floor)}" x2="${400 + rw + 14}" y2="${yE(floor) + 30}"/></g>`;
-  svg += `<path d="M380 320 Q 400 260 397 ${yE(floor) + 18} L 403 ${yE(floor) + 18} Q 400 260 420 320 Z" fill="${C.magma}" opacity=".7"/>`;
-  for (let i = 0; i < now.volcanoes; i++) { const x = 400 + (i % 2 ? 1 : -1) * (rw + 26 + i * 8); svg += volcanoShape(x, run.mountain + 900, run.mountain - 200, true, 0.6); }
+  svg += glow("ridge_upwelling",365,yE(floor)+14,70,150);
+  for (let i = 0; i < now.volcanoes; i++) { const x = 400 + (i % 2 ? 1 : -1) * (rw + 26 + i * 8); svg += volcanoShape(x, run.mountain + 900, run.mountain - 200, true); }
   svg += quakeDots((depth, r) => [400 + (r - 0.5) * (rw * 2 + 40), yE(floor) + 6 + depth * 1.2]);
   svg += arrow(330, 230, 200, t("plateMoves")) + arrow(470, 570, 200, t("plateMoves"));
   svg += labels(`<text x="400" y="${yE(floor) - 40}" text-anchor="middle" class="scene-label">${esc(t("riftLabel"))}</text>`);
@@ -314,8 +317,8 @@ function sceneSubduction(run, now, oceanOcean) {
   let svg = background();
   // sinking (subducting) ocean plate
   const leftTop = range(0, 400).map((x) => [x, yE(leftElev(x))]);
-  svg += `<polygon points="${pts([...leftTop, E, F, [gx, LB], [0, LB]])}" fill="${C.lith}"/>`;
-  svg += `<polygon points="${pts([...leftTop, ...range(0, 400).reverse().map((x) => [x, yE(leftElev(x)) + 9])])}" fill="${C.oceanCrust}"/>`;
+  svg += inkPlate(pts([...leftTop,E,F,[gx,LB],[0,LB]]),C.lith,"#735845",4);
+  svg += inkPlate(pts([...leftTop,...range(0,400).reverse().map(x=>[x,yE(leftElev(x))+9])]),C.oceanCrust,"#2f3a46");
   svg += `<line x1="${A[0]}" y1="${A[1] + 4}" x2="${E[0]}" y2="${E[1] + 4}" stroke="${C.oceanCrust}" stroke-width="9"/>`;
   // overriding plate
   const archX = oceanOcean ? 545 : 560;
@@ -327,11 +330,12 @@ function sceneSubduction(run, now, oceanOcean) {
   // magma from the slab once it is about 100 km deep
   if (now.volcanoes > 0) {
     const sx = 400 + (Math.max(yT, Y0) + 100 * KMY - yT);
-    svg += `<path d="M${sx} ${slabTopY(sx)} C ${sx + 20} ${slabTopY(sx) - 40}, ${archX - 10} ${yE(now.highest) + 70}, ${archX} ${yE(now.highest) + 12}" stroke="${C.magma}" stroke-width="6" fill="none" stroke-linecap="round" opacity=".85"/>`;
+    const topY=yE(now.highest)+12, bottomY=slabTopY(sx);
+    svg += `<g transform="translate(${archX} ${topY}) matrix(1 0 ${(sx-archX)/172} ${(bottomY-topY)/172} 0 0)">${glow('melt_ribbon',-20,-4,40,180)}</g>`;
     for (let i = 0; i < now.volcanoes; i++) {
       const x = archX + (i - (now.volcanoes - 1) / 2) * 26;
       const surfaceHere = rightElev(x);
-      svg += volcanoShape(x, surfaceHere + (oceanOcean ? 300 : 1100) * (1 - Math.abs(i - (now.volcanoes - 1) / 2) * 0.18), surfaceHere - 200, true, 0.55);
+      svg += volcanoShape(x, surfaceHere + (oceanOcean ? 300 : 1100) * (1 - Math.abs(i - (now.volcanoes - 1) / 2) * 0.18), surfaceHere - 200, true);
     }
   }
   svg += quakeDots((d, r, j) => {
@@ -368,16 +372,11 @@ function sceneCollision(run, now) {
 function sceneTransform(run) {
   const ocean = state.crust === "oo";
   const off = Math.min(640, run.moved * PXKM);
-  const plateFill = ocean ? "#4c7b94" : "#d9c08a", plateFill2 = ocean ? "#5a88a0" : "#cdb27a";
-  let svg = `<rect width="${W}" height="420" fill="${plateFill}"/><rect y="210" width="${W}" height="210" fill="${plateFill2}"/>`;
-  // texture
-  for (let i = 0; i < 40; i++) svg += `<circle cx="${hash(i) * W}" cy="${20 + hash(i + 99) * 380}" r="${1.5 + hash(i + 7) * 2.5}" fill="#000" opacity=".06"/>`;
-  const feature = ocean ? "#2a3d4a" : "#2f7fb3";
-  const topX = 400 - off / 2, botX = 400 + off / 2;
-  const wiggle = (x0, y0, y1) => range(y0, y1, 10).map((y) => [x0 + Math.sin(y / 22) * 8, y]);
-  svg += `<polyline points="${pts(wiggle(topX, 20, 210))}" fill="none" stroke="${feature}" stroke-width="${ocean ? 7 : 6}" stroke-linecap="round"/>`;
-  svg += `<polyline points="${pts(wiggle(botX, 210, 400))}" fill="none" stroke="${feature}" stroke-width="${ocean ? 7 : 6}" stroke-linecap="round"/>`;
-  svg += `<line x1="0" y1="210" x2="${W}" y2="210" stroke="#7a2e00" stroke-width="3" stroke-dasharray="10 6"/>`;
+  const topX=400-off/2, botX=400+off/2;
+  let svg='';
+  for(let x=0;x<W;x+=256) for(let y=0;y<420;y+=256) svg+=image(ocean?'map_ocean_tile':'map_land_tile',x,y,256,256);
+  svg+=image(ocean?'map_ridge_piece':'map_stream_piece',topX-24,10,48,200)+image(ocean?'map_ridge_piece':'map_stream_piece',botX-24,210,48,200);
+  for(let x=0;x<W;x+=256) svg+=image('map_fault_tile',x,198,256,24);
   if (off > 6) svg += `<g><line x1="${topX + 8}" y1="196" x2="${botX - 8}" y2="196" stroke="#173138" stroke-width="1.5"/><polygon points="${topX + 2},196 ${topX + 10},191 ${topX + 10},201" fill="#173138"/><polygon points="${botX - 2},196 ${botX - 10},191 ${botX - 10},201" fill="#173138"/><text x="${(topX + botX) / 2}" y="188" text-anchor="middle" class="scene-label">${esc(t("offsetLabel", { km: num(Math.round(run.moved)) }))}</text></g>`;
   svg += quakeDots((depth, r) => [40 + r * 720, 210 + (depth / 20 - 0.5) * 16]);
   svg += arrow(560, 440, 70, t("plateMoves")) + arrow(240, 360, 330, t("plateMoves"));
@@ -392,7 +391,8 @@ function sceneHotspot(run, now, ocean) {
   const elev = ocean ? () => -4000 : land;
   const xs = range(0, W);
   let svg = background(ocean);
-  svg += `<path d="M${PLUME - 40} 420 C ${PLUME - 30} 340, ${PLUME - 18} 280, ${PLUME - 10} ${ocean ? OB(-4000) : CB(1400)} L ${PLUME + 10} ${ocean ? OB(-4000) : CB(1400)} C ${PLUME + 18} 280, ${PLUME + 30} 340, ${PLUME + 40} 420 Z" fill="${C.magma}" opacity=".75"/>`;
+  const lithBase=ocean?OB(-4000):CB(1400);
+  svg += glow('hotspot_plume',PLUME-46,lithBase-4,92,424-lithBase);
   svg += plate(xs, elev, () => (ocean ? "o" : "c"), () => (ocean ? OB(-4000) : CB(1400)));
   svg += `<path d="M${PLUME} ${ocean ? OB(-4000) : CB(1400)} L ${PLUME} ${yE(ocean ? -3600 : now.highest) + 6}" stroke="${C.magma}" stroke-width="5" opacity=".9"/>`;
   let lastLabel = Infinity;
@@ -402,12 +402,12 @@ function sceneHotspot(run, now, ocean) {
     if (ocean) svg += volcanoShape(x, v.height, -4000, v.active);
     else {
       const surf = land(x);
-      svg += `<ellipse cx="${x}" cy="${yE(surf) + 1}" rx="17" ry="5" fill="${v.active ? "#5a2a1c" : "#7b6a55"}"/>`;
-      if (v.active) svg += `<path d="M${x - 6} ${yE(surf) - 4} q3 -8 6 0 t6 0" stroke="#fffdf8" stroke-width="2" fill="none" opacity=".8"/>`;
+      svg += image(v.active?'caldera_active':'caldera_old',x-25,yE(surf)-15,50,21);
     }
     if (Math.abs(lastLabel - x) > 38) { svg += `<text x="${x}" y="${(ocean ? Math.min(yE(Math.max(v.height, -2000)), yE(0)) : yE(land(x))) - 14}" text-anchor="middle" class="scene-label age">${esc(t("ageLabel", { a: num(v.age) }))}</text>`; lastLabel = x; }
   });
-  if (now.event?.supereruption) svg += `<g class="ash" fill="#7c7c7c" opacity=".75"><circle cx="${PLUME}" cy="40" r="26"/><circle cx="${PLUME - 26}" cy="56" r="20"/><circle cx="${PLUME + 28}" cy="52" r="22"/><rect x="${PLUME - 6}" y="56" width="12" height="${yE(now.highest) - 60}"/></g>`;
+  if (now.event?.supereruption) svg += image('ash_cloud_b',PLUME-65,yE(now.highest)-127,130,130);
+  svg += image('hotspot_fixed_pin',PLUME+23,365,24,32);
   svg += quakeDots((depth, r) => [PLUME + (r - 0.5) * 70, yE(elev(PLUME)) + 6 + depth * 1.2]);
   svg += arrow(320, 200, ocean ? 225 : 185, t("plateMoves"));
   svg += labels(`<text x="${PLUME + 48}" y="330" class="scene-label">${esc(t("plumeLabel"))}</text><text x="${PLUME + 48}" y="346" class="scene-label muted">${esc(t("plumeStays"))}</text>`);
@@ -606,7 +606,6 @@ refs.reset.addEventListener("click", () => restart());
 refs.trial.addEventListener("click", () => { state.seed = Math.floor(Math.random() * 2 ** 32) >>> 0; state.prediction = ""; refs.prediction.value = ""; restart(); });
 refs.clearChartSelection.addEventListener("click", () => { state.chartSelection = []; render(); });
 $("#copy-seed-button").addEventListener("click", async () => { try { await navigator.clipboard.writeText(String(state.seed)); } catch { /* clipboard is optional */ } });
-$("#simplifications-button").addEventListener("click", (event) => { const panel = $("#simplifications"); panel.hidden = !panel.hidden; event.currentTarget.setAttribute("aria-expanded", String(!panel.hidden)); });
 refs.speed.value = String(state.speed);
 onLangChange(() => render());
 initLab(content);

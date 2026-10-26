@@ -1,0 +1,1 @@
+Sciesmic Plate Boundaries sprite pack v1, kit 1.6, supplied Art Assets (2026-10-26). Original Sciesmic art. SVG files copied unchanged. Model-driven plates are drawn in code following the supplied plate style specification. Source: 6 - Art Assets/Plate Boundaries (volcanoes, quakes, magma + cross-sections)/manifest.json.

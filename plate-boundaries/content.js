@@ -204,6 +204,12 @@ export const content = {
 
   strings: {
     en: {
+      aboutLab: "About this simulation & standards",
+      allLabs: "Explore all science simulations",
+      aboutDescription: "Pull plates apart, push them together, slide them past each other or move them over a hot spot, then run time forward millions of years and watch ocean basins, earthquakes, mountains and volcanoes form.",
+      aboutGrade: "EARTH SCIENCE · GRADES 6–8",
+      alignmentNote: "Connections may address only part of a standard; consult the lab’s model and alignment notes.",
+
       title: "Plate Boundary Lab",
       eyebrow: "PLATE BOUNDARY LAB",
       h1: "What happens where plates meet?",
@@ -364,6 +370,12 @@ export const content = {
       footer: "Original simplified model for learning. Rates and depths match real Earth ranges, but it is not a forecast for a real place. ©Sciesmic 2026",
     },
     es: {
+      aboutLab: "Acerca de esta simulación y sus estándares",
+      allLabs: "Explora todas las simulaciones de ciencias",
+      aboutDescription: "Separa las placas, empújalas, deslízalas una junto a otra o muévelas sobre un punto caliente. Después avanza millones de años y observa cómo se forman cuencas oceánicas, sismos, montañas y volcanes.",
+      aboutGrade: "CIENCIAS DE LA TIERRA · GRADOS 6–8",
+      alignmentNote: "Las conexiones pueden abordar solo parte de un estándar; consulta las notas del modelo y de alineación de esta simulación.",
+
       title: "Laboratorio de límites de placas",
       eyebrow: "LABORATORIO DE LÍMITES DE PLACAS",
       h1: "¿Qué pasa donde se encuentran las placas?",

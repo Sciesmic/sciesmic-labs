@@ -120,3 +120,26 @@ footer { color:#6a5a48; text-align:center; font-size:.78rem; padding:1rem; }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-delay:0ms!important; transition-duration:.01ms!important; } }
 
 #chart line, #chart polyline, #chart text, #chart rect.range-band { pointer-events:none; }
+
+/* Supplied Sciesmic art stays decorative; controls retain their text labels. */
+.choice { grid-template-columns:32px minmax(0,1fr); align-items:center; column-gap:.55rem; min-height:48px; }
+.choice-icon { width:32px; height:32px; grid-row:1 / span 2; }
+.choice small { grid-column:2; }
+.stat-icon { width:27px; height:27px; float:right; margin-left:.35rem; }
+.art-glow { opacity:0; animation:art-glow 1.6s ease-in-out infinite alternate; }
+@keyframes art-glow { to { opacity:.65; } }
+.simulation-notes { margin-top:1.5rem; }
+.simulation-notes .footer-notes { padding:0; margin:0 0 .8rem; border:1px solid var(--line); border-radius:.75rem; background:var(--panel); color:var(--ink); box-shadow:none; text-align:left; font-size:.9rem; line-height:1.6; }
+.footer-notes summary { min-height:48px; padding:.85rem 1rem; cursor:pointer; font-weight:750; color:var(--teal); }
+.footer-notes summary:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+.footer-notes .notes-body { padding:0 1rem 1rem; }
+.footer-notes p { margin:.6rem 1rem; }
+.footer-notes p:last-child { margin-bottom:1rem; }
+#about-standards { padding:0 1rem 0 2.2rem; }
+#about-standards li { margin:.6rem 0; }
+#about-standards a { color:var(--teal); font-weight:750; }
+@media (prefers-reduced-motion:reduce) { .art-glow { display:none; } .quake { animation:none!important; } }
+
+/* Keep the event caption clear of the scientific labels in every viewport. */
+.scene-wrap { display:block; }
+.event-card { position:static; margin:0; border:0; border-top:1px solid var(--line); border-radius:0; padding:.65rem .75rem; }
