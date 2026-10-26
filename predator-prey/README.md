@@ -1,4 +1,4 @@
-# Predator Prey — 3.0.0
+# Predator Prey — 3.0.1
 
 Simulation for grades 6–8: a 13-week fixed-environment camouflage comparison and 5–30-year population investigation. Three comparison presets: constant baseline, seasonal progression and the Disturbance scenario with 100 hares and 10 foxes. The model uses expected animal abundance in a fixed modeled study area, not fitted wildlife densities.
 
@@ -9,3 +9,5 @@ The DOM-free seeded model uses logistic prey renewal, saturating captures and fo
 English and Spanish UI; Spanish remains a draft pending native science-educator review. Vocabulary flashcards retain English/Spanish/bilingual print/PDF, CSV and offline HTML exports.
 
 **Compatibility:** use the private 3.0.0 teacher pack with this model. Earlier 1.0.0/2.0.0 packs use different models and units. This public folder contains no paid materials. Spanish native science educator review remains pending. Shared kit unchanged.
+
+Artwork revision: predator-prey art pack v1 (sprite kit v1.2). Seasonal layers, snow-cover overlays, aligned brown/white coat blending, habitat and adult animal frames replace the placeholder scene. Motion is decorative and pauses with playback; reduced motion shows static poses. Mystery mode hides coat art. No ages, precipitation or individual hunting events are implied. Only used base-resolution PNG assets are included. The 3.0.0 numerical model and teacher pack remain compatible.
