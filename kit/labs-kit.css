@@ -72,13 +72,13 @@
 .lk-bar .lk-chip, .lk-bar .lk-btn { color: #17639f; border-color: #cbddea; }
 .lk-bar .lk-chip { background: #e8f7fd; }
 .lk-bar .lk-lang button[aria-pressed="true"] { background: #17639f; }
-.lk-about { margin: 0 0 1.5rem; border: 1px solid #cbddea; border-radius: .65rem; background: #fff; color: #152b40; font-size: .9rem; line-height: 1.5; }
-.lk-about > summary { cursor: pointer; padding: .7rem 1rem; min-height: 44px; box-sizing: border-box; color: #17639f; font-weight: 750; }
-.lk-about > summary:focus-visible, .lk-footer-nav a:focus-visible { outline: 3px solid #17639f; outline-offset: 3px; }
+.lk-about { margin: .75rem 0 1.5rem; border: 1px solid var(--lk-line); border-radius: .65rem; background: var(--lk-panel); color: var(--lk-ink); font-size: .9rem; line-height: 1.5; }
+.lk-about > summary { cursor: pointer; padding: .7rem 1rem; min-height: 44px; box-sizing: border-box; color: var(--lk-accent); font-weight: 750; }
+.lk-about > summary:focus-visible, .lk-footer-nav a:focus-visible { outline: 3px solid var(--lk-focus); outline-offset: 3px; }
 .lk-about p { margin: .6rem 1rem; }
 .lk-about p:last-child { margin-bottom: 1rem; }
 .lk-footer-nav { max-width: 72rem; margin: 1rem auto; padding: 1rem; text-align: center; font: inherit; }
-.lk-footer-nav a { color: #17639f; display: inline-flex; align-items: center; min-height: 44px; font-weight: 750; text-decoration: none; }
+.lk-footer-nav a { color: var(--lk-accent); display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; font-weight: 750; text-decoration: none; }
 .lk-footer-nav a:hover { text-decoration: underline; }
 @media (max-width: 620px) {
   .lk-bar-inner { gap: .5rem; }
@@ -92,3 +92,8 @@
 .lk-bar .lk-actions button.lk-btn:hover { background: #e8f7fd; }
 .lk-bar .lk-lang button[aria-pressed="true"] { background: #17639f !important; border-color: #17639f !important; color: #fff !important; }
 @media (max-width: 620px) { .lk-bar .lk-lang button { min-height: 44px !important; } }
+
+.lk-context-tools { display: flex; align-items: flex-start; flex-wrap: wrap; gap: .5rem; }
+.lk-context-tools > .lk-about { margin: 0; max-width: 28rem; flex: 1 1 15rem; }
+.lk-context-tools > button { flex-shrink: 0; }
+.lk-back-arrow { font-size: 1.25em; line-height: 1; }

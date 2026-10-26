@@ -11,7 +11,7 @@ const listeners = new Set();
 const KIT_STRINGS = {
   en: {
     brand: "Sciesmic Labs",
-    allLabs: "All science simulations",
+    allLabs: "Explore all science simulations",
     aboutLab: "About this simulation & standards",
     keyTerms: "Key terms",
     close: "Close",
@@ -29,7 +29,7 @@ const KIT_STRINGS = {
   },
   es: {
     brand: "Sciesmic Labs",
-    allLabs: "Todas las simulaciones de ciencias",
+    allLabs: "Explorar todas las simulaciones de ciencias",
     aboutLab: "Acerca de esta simulación y sus estándares",
     keyTerms: "Términos clave",
     close: "Cerrar",
