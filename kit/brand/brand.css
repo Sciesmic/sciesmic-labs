@@ -1,0 +1,4 @@
+.sciesmic-brand { display:inline-flex; align-items:center; gap:.75rem; margin:0 0 1.25rem; color:#17639f; text-decoration:none; font:750 .75rem system-ui,sans-serif; letter-spacing:.14em; }
+.sciesmic-brand img { display:block; width:156px; height:auto; }
+.sciesmic-brand span { border-left:1px solid #cbddea; padding-left:.75rem; }
+.sciesmic-brand:focus-visible { outline:3px solid #17639f; outline-offset:4px; }

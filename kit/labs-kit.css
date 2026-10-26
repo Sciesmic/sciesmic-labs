@@ -1,11 +1,11 @@
 /* Sciesmic Labs kit styles. Labs may override the --lk-* tokens. */
 :root {
   --lk-ink: #173138; --lk-muted: #597075; --lk-panel: #fffdf8; --lk-line: #d8ddd1;
-  --lk-accent: #0b6a69; --lk-accent-soft: #e9f1eb; --lk-focus: #e3522a;
+  --lk-accent: #17639f; --lk-accent-soft: #e8f7fd; --lk-focus: #e3522a;
   --lk-right: #1f7a4a; --lk-right-soft: #e6f4ec; --lk-wrong: #a3402a; --lk-wrong-soft: #fbece7;
 }
 
-.lk-bar { position: sticky; top: 0; z-index: 20; background: rgba(255, 253, 248, .94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--lk-line); }
+.lk-bar { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, .97); backdrop-filter: blur(6px); border-bottom: 1px solid var(--lk-line); }
 .lk-bar-inner { max-width: 1180px; margin: auto; padding: .55rem clamp(1rem, 3vw, 3.2rem); display: flex; align-items: center; gap: .75rem 1rem; flex-wrap: wrap; }
 .lk-brand { font-weight: 850; letter-spacing: -.02em; color: var(--lk-ink); text-decoration: none; font-size: 1rem; }
 .lk-standards { display: flex; flex-wrap: wrap; gap: .35rem; flex: 1; }
@@ -63,3 +63,32 @@
   .lk-standards { order: 3; flex-basis: 100%; }
 }
 @media print { .lk-bar, .lk-pop, .lk-drawer { display: none !important; } }
+
+/* Shared Sciesmic identity; retain each simulation's scientific color keys. */
+.lk-brand { display: inline-flex; align-items: center; gap: .75rem; flex-shrink: 0; }
+.lk-brand img { display: block; width: 156px; height: auto; }
+.lk-brand span { border-left: 1px solid #cbddea; padding-left: .75rem; color: #17639f; font-size: .75rem; letter-spacing: .14em; }
+.lk-bar { border-bottom-color: #cbddea; }
+.lk-bar .lk-chip, .lk-bar .lk-btn { color: #17639f; border-color: #cbddea; }
+.lk-bar .lk-chip { background: #e8f7fd; }
+.lk-bar .lk-lang button[aria-pressed="true"] { background: #17639f; }
+.lk-about { margin: 0 0 1.5rem; border: 1px solid #cbddea; border-radius: .65rem; background: #fff; color: #152b40; font-size: .9rem; line-height: 1.5; }
+.lk-about > summary { cursor: pointer; padding: .7rem 1rem; min-height: 44px; box-sizing: border-box; color: #17639f; font-weight: 750; }
+.lk-about > summary:focus-visible, .lk-footer-nav a:focus-visible { outline: 3px solid #17639f; outline-offset: 3px; }
+.lk-about p { margin: .6rem 1rem; }
+.lk-about p:last-child { margin-bottom: 1rem; }
+.lk-footer-nav { max-width: 72rem; margin: 1rem auto; padding: 1rem; text-align: center; font: inherit; }
+.lk-footer-nav a { color: #17639f; display: inline-flex; align-items: center; min-height: 44px; font-weight: 750; text-decoration: none; }
+.lk-footer-nav a:hover { text-decoration: underline; }
+@media (max-width: 620px) {
+  .lk-bar-inner { gap: .5rem; }
+  .lk-actions { width: 100%; }
+  .lk-bar .lk-btn { min-height: 44px; }
+  .lk-lang button { min-height: 44px; }
+}
+@media print { .lk-footer-nav { display: none; } }
+/* Keep lab-level button rules from recoloring the shared navigation. */
+.lk-bar .lk-actions button.lk-btn { background: #fff; color: #17639f; border-color: #cbddea; }
+.lk-bar .lk-actions button.lk-btn:hover { background: #e8f7fd; }
+.lk-bar .lk-lang button[aria-pressed="true"] { background: #17639f !important; border-color: #17639f !important; color: #fff !important; }
+@media (max-width: 620px) { .lk-bar .lk-lang button { min-height: 44px !important; } }

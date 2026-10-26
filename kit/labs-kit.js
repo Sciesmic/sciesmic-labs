@@ -11,6 +11,8 @@ const listeners = new Set();
 const KIT_STRINGS = {
   en: {
     brand: "Sciesmic Labs",
+    allLabs: "All science simulations",
+    aboutLab: "About this simulation & standards",
     keyTerms: "Key terms",
     close: "Close",
     teacher: "Teacher resources",
@@ -27,6 +29,8 @@ const KIT_STRINGS = {
   },
   es: {
     brand: "Sciesmic Labs",
+    allLabs: "Todas las simulaciones de ciencias",
+    aboutLab: "Acerca de esta simulación y sus estándares",
     keyTerms: "Términos clave",
     close: "Cerrar",
     teacher: "Recursos para docentes",
@@ -108,7 +112,7 @@ function renderShell() {
     `<a class="lk-chip" href="${s.url}" target="_blank" rel="noopener" title="${escapeHtml(s[lang] ?? s.en)}">${escapeHtml(s.code)}</a>`).join("");
   bar.innerHTML = `
     <div class="lk-bar-inner">
-      <a class="lk-brand" href="../">${t("brand")}</a>
+      <a class="lk-brand" href="../" aria-label="${t("brand")}"><img src="../kit/brand/sciesmic-logo.png" alt="Sciesmic" width="600" height="173"><span>LABS</span></a>
       <div class="lk-standards" aria-label="${t("standards")}">${chips}</div>
       <div class="lk-actions">
         <button type="button" class="lk-btn" id="lk-terms-open">${t("keyTerms")}</button>
