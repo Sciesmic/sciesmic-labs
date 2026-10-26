@@ -58,3 +58,12 @@ Grades 7–8 application with partial TEKS 6.12A/B foundations and an NGSS MS-LS
 ## Gravity Drop
 
 `gravity-drop/` 1.0.1 serves grades 6–8 with air/vacuum comparison, controlled experiments and seeded prediction challenges. Five supplied object sprites and layered chambers accompany model-driven height, time, speed, force and acceleration readings. Students record evidence, calculate average speed and revise explanations using gravity and drag. TEKS 7.7A average-speed skill is directly practiced; TEKS 6.7A, 8.7A and NGSS MS-PS2-2/MS-PS2-4 connections are partial. English/Spanish interface and public vocabulary print/CSV/offline HTML tools; Spanish native science-educator review remains pending. Physics model 1.0.0 and private teacher pack 1.0.0 are compatible. Paid pack files are not included in this repository.
+
+
+## Astronomy labs
+
+- `seasonal-changes/` 1.0.0: Seasonal Changes; grades 6–8, TEKS 6.9A grade 6 core, MS-ESS1-1 seasons component. Explore daylight, Sun angle, solar input and illustrative land/ocean temperature lag.
+- `solar-system/` 1.0.0: Solar System in Motion; grades 6–8, TEKS 7.9B, partial 7.9A/MS-ESS1-2/MS-ESS1-3. Explore eight planetary orbits, compare planetary years and investigate solar gravity.
+- `earth-moon/` 1.0.0: Earth & Moon; grades 6–8, TEKS 6–8.1G model development with worksheet, 7.9A partial and MS-ESS1-1 phases/eclipses component. Compare synchronized space/Earth views, orbit tilt, alignment and distance.
+
+All three include EN/ES interfaces, five checks, contextual definitions, evidence exports and public vocabulary print/CSV/offline HTML tools. Spanish native science educator review remains pending. Matching private English teacher packs 1.0.0 are distributed separately through the members library; no private documents are included here.

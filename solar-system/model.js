@@ -1,0 +1,14 @@
+// Original educational two-body model. Units: AU, Julian years, solar masses.
+export const VERSION='1.0.0', YEAR=365.25, MU=4*Math.PI**2, SUN_RADIUS=.00465;
+// Rounded J2000 semi-major axis/eccentricity from NASA JPL; phases are seeded illustrations.
+export const planets=[
+ ['mercury',.3871,.2056,'#b7b2b1',4],['venus',.7233,.0068,'#e6c38b',6],['earth',1,.0167,'#64c9f1',6.5],['mars',1.5237,.0934,'#ed8865',5],['jupiter',5.2029,.0484,'#d9b38b',13],['saturn',9.5367,.0539,'#e5ce97',11],['uranus',19.1892,.0473,'#99dedb',8],['neptune',30.0699,.0086,'#779bee',8]
+].map(([id,a,e,color,size])=>({id,a,e,color,size,period:Math.sqrt(a**3)}));
+export function phases(seed=42){let s=Number(seed)>>>0;return planets.map(()=>{s=(Math.imul(1664525,s)+1013904223)>>>0;return s/4294967296*2*Math.PI;});}
+export function planetAt(p,days,phase=0){const M=((days/YEAR/p.period*2*Math.PI+phase)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);let E=M;for(let i=0;i<12;i++)E-=(E-p.e*Math.sin(E)-M)/(1-p.e*Math.cos(E));const x=p.a*(Math.cos(E)-p.e),y=p.a*Math.sqrt(1-p.e*p.e)*Math.sin(E),r=Math.hypot(x,y);return {x,y,r,speed:Math.sqrt(MU*(2/r-1/p.a))*4.74047,orbits:days/YEAR/p.period,E,M};}
+export function sandboxSettings(p={}){const clamp=(v,a,b,d)=>Number.isFinite(Number(v))?Math.max(a,Math.min(b,Number(v))):d;return {distance:clamp(p.distance,.4,5,1),speed:clamp(p.speed,0,1.8,1),gravity:p.gravity!==false&&p.gravity!=='off'};}
+function derivative(s,g){const r=Math.hypot(s[0],s[1]),f=g?-MU/r**3:0;return [s[2],s[3],f*s[0],f*s[1]];}
+function rk4(s,h,g){const a=derivative(s,g),b=derivative(s.map((v,i)=>v+h*a[i]/2),g),c=derivative(s.map((v,i)=>v+h*b[i]/2),g),d=derivative(s.map((v,i)=>v+h*c[i]),g);return s.map((v,i)=>v+h*(a[i]+2*b[i]+2*c[i]+d[i])/6);}
+export function simulateSandbox(input={},duration=5){const p=sandboxSettings(input);let s=[p.distance,0,0,Math.sqrt(MU/p.distance)*p.speed],t=0,outcome='window';const samples=[];const save=()=>samples.push({days:t*YEAR,x:s[0],y:s[1],vx:s[2],vy:s[3],r:Math.hypot(s[0],s[1]),speed:Math.hypot(s[2],s[3])*4.74047});save();while(t<duration){const r=Math.hypot(s[0],s[1]);if(r<=SUN_RADIUS){outcome='collision';break;}if(r>=50){outcome='outside';break;}const h=Math.min(.25/YEAR,.02*Math.sqrt(r**3/MU),duration-t);s=rk4(s,h,p.gravity);t+=h;save();}return {settings:p,samples,outcome,duration:t*YEAR};}
+export function sandboxAt(trial,days){const a=trial.samples;let lo=0,hi=a.length-1;while(lo<hi){const mid=Math.ceil((lo+hi)/2);if(a[mid].days<=days)lo=mid;else hi=mid-1;}const first=a[lo],next=a[lo+1];if(!next||days<=first.days)return first;const f=Math.min(1,(days-first.days)/(next.days-first.days)),q=Object.fromEntries(Object.keys(first).map(k=>[k,first[k]+(next[k]-first[k])*f]));q.r=Math.hypot(q.x,q.y);q.speed=Math.hypot(q.vx,q.vy)*4.74047;return q;}
+export function energy(s,gravity=true){return (s.vx**2+s.vy**2)/2-(gravity?MU/s.r:0);}
