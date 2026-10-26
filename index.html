@@ -49,6 +49,7 @@
 .teacher { border-top:3px solid var(--brand-blue); }
 #filters button { border-color:var(--brand-link); color:var(--brand-link); }
 #filters button:hover { background:#e8f7fd; }
+.preview-link { display:block; line-height:0; } .preview-link:focus-visible { outline:3px solid var(--brand-link); outline-offset:-3px; }
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Sciesmic Labs", "url": "https://labs.sciesmic.com/", "description": "Free interactive science simulations."}</script></head>
   <body><a class="skip" href="#simulations">Skip to simulations</a><header class="site-nav"><a href="./" aria-label="Sciesmic Labs home" class="brand-lockup"><img src="kit/brand/sciesmic-logo.png" alt="Sciesmic" width="600" height="173" decoding="async"><span>LABS</span></a><nav aria-label="Main"><a href="#simulations">Simulations</a><a href="#teachers">For teachers</a></nav></header>
@@ -62,7 +63,7 @@
 <form id="filters" role="search" hidden><div><label for="search">Search labs, concepts, or standards</label><input id="search" type="search" placeholder="Try photosynthesis or MS-PS1-4" autocomplete="off"></div><div><label for="subject">Subject</label><select id="subject"><option value="">All subjects</option><option>Life science</option><option>Physical science</option><option>Earth &amp; space science</option></select></div><div><label for="grade">Grade</label><select id="grade"><option value="">All grades</option><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></div><button type="reset">Clear filters</button></form>
 <p id="results" role="status" aria-live="polite">14 simulations · Choose a lab to start exploring.</p><p id="empty" hidden>No simulations match. Try a broader search or clear the filters.</p><noscript><p>All simulations are listed below. Search and filters require JavaScript.</p></noscript><div class="grid">
         <article class="card" data-subject="Life science" data-grades="7,8">
-          <img class="thumb" src="kit/previews/marsh-beetles.webp" alt="" width="480" height="240" decoding="async" loading="eager">
+          <a class="preview-link" href="marsh-beetles/" aria-label="Open Marsh Beetles: Selection Lab"><img class="thumb" src="kit/previews/marsh-beetles.webp" alt="" width="480" height="240" decoding="async" loading="eager"></a>
           <div class="body">
             <p class="eyebrow">LIFE SCIENCE · GRADES 7–8</p>
             <h2><a href="marsh-beetles/">Marsh Beetles: Selection Lab</a></h2>
@@ -71,7 +72,7 @@
           </div>
         <a class="launch" href="marsh-beetles/" aria-label="Open Marsh Beetles: Selection Lab">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Earth & space science" data-grades="6,7,8">
-          <img class="thumb" src="kit/previews/plate-boundaries.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
+          <a class="preview-link" href="plate-boundaries/" aria-label="Open Plate Boundary Lab"><img class="thumb" src="kit/previews/plate-boundaries.webp" alt="" width="480" height="240" decoding="async" loading="lazy"></a>
           <div class="body">
             <p class="eyebrow">EARTH SCIENCE · GRADES 6–8</p>
             <h2><a href="plate-boundaries/">Plate Boundary Lab</a></h2>
@@ -80,7 +81,7 @@
           </div>
         <a class="launch" href="plate-boundaries/" aria-label="Open Plate Boundary Lab">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Physical science" data-grades="6,7,8">
-          <img class="thumb" src="kit/previews/net-force-cart.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
+          <a class="preview-link" href="net-force-cart/" aria-label="Open Net Force Cart Lab"><img class="thumb" src="kit/previews/net-force-cart.webp" alt="" width="480" height="240" decoding="async" loading="lazy"></a>
           <div class="body">
             <p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p>
             <h2><a href="net-force-cart/">Net Force Cart Lab</a></h2>
@@ -89,7 +90,7 @@
           </div>
         <a class="launch" href="net-force-cart/" aria-label="Open Net Force Cart Lab">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Life science" data-grades="6,7,8">
-          <img class="thumb" src="kit/previews/cell-operations.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
+          <a class="preview-link" href="cell-operations/" aria-label="Open Cell Operations Lab"><img class="thumb" src="kit/previews/cell-operations.webp" alt="" width="480" height="240" decoding="async" loading="lazy"></a>
           <div class="body">
             <p class="eyebrow">LIFE SCIENCE · GRADES 6–8</p>
             <h2><a href="cell-operations/">Cell Operations Lab</a></h2>
@@ -98,7 +99,7 @@
           </div>
         <a class="launch" href="cell-operations/" aria-label="Open Cell Operations Lab">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Earth & space science" data-grades="8,9,10,11,12">
-          <img class="thumb" src="kit/previews/star-life-cycle.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
+          <a class="preview-link" href="star-life-cycle/" aria-label="Open Star Life Cycle Lab"><img class="thumb" src="kit/previews/star-life-cycle.webp" alt="" width="480" height="240" decoding="async" loading="lazy"></a>
           <div class="body">
             <p class="eyebrow">SPACE SCIENCE · GRADE 8+</p>
             <h2><a href="star-life-cycle/">Star Life Cycle Lab</a></h2>
@@ -107,7 +108,7 @@
           </div>
         <a class="launch" href="star-life-cycle/" aria-label="Open Star Life Cycle Lab">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Physical science" data-grades="6,7,8">
-          <img class="thumb" src="kit/previews/states-of-matter.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
+          <a class="preview-link" href="states-of-matter/" aria-label="Open States of Matter Lab"><img class="thumb" src="kit/previews/states-of-matter.webp" alt="" width="480" height="240" decoding="async" loading="lazy"></a>
           <div class="body">
             <p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p>
             <h2><a href="states-of-matter/">States of Matter Lab</a></h2>
@@ -116,36 +117,36 @@
           </div>
         <a class="launch" href="states-of-matter/" aria-label="Open States of Matter Lab">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Life science" data-grades="7,8,9,10,11,12">
-          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="central-dogma/assets/central-dogma-thumb.svg" alt="DNA template, mRNA bases, and amino acid building blocks" style="width:100%;object-fit:cover" />
+          <a class="preview-link" href="central-dogma/" aria-label="Open Central Dogma Lab"><img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="central-dogma/assets/central-dogma-thumb.svg" alt="DNA template, mRNA bases, and amino acid building blocks" style="width:100%;object-fit:cover" /></a>
           <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 7–8 INTRODUCTION · BIOLOGY EXTENSION</p><h2><a href="central-dogma/">Central Dogma Lab</a></h2><p>Build complementary DNA and mRNA, decode an amino acid chain, then investigate one-base changes and mystery fragments.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS B.7B extension</span><span>MS-LS3-1 partial</span><span>HS-LS1-1 extension</span></div></details></div>
         <a class="launch" href="central-dogma/" aria-label="Open Central Dogma Lab">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Life science" data-grades="7,8">
-          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="predator-prey/assets/predator-prey-thumb.svg" alt="A white snowshoe hare and red fox in a snowy forest-edge meadow" style="width:100%;object-fit:cover" />
+          <a class="preview-link" href="predator-prey/" aria-label="Open Predator Prey Lab"><img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="predator-prey/assets/predator-prey-thumb.svg" alt="A white snowshoe hare and red fox in a snowy forest-edge meadow" style="width:100%;object-fit:cover" /></a>
           <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 7–8 APPLICATION</p><h2><a href="predator-prey/">Predator Prey Lab</a></h2><p>Compare camouflage, trace food-linked predator–prey cycles across seasons, and investigate carrying capacity on a shared population graph.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.12A/B foundations · partial</span><span>MS-LS2-1</span></div></details></div>
         <a class="launch" href="predator-prey/" aria-label="Open Predator Prey Lab">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Physical science" data-grades="6,7,8">
-          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="kit/previews/roller-coaster.webp" alt="A three-car train with riders follows a loop in an illustrated amusement park" style="width:100%;object-fit:cover" />
+          <a class="preview-link" href="roller-coaster/" aria-label="Open Energy on the Rails"><img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="kit/previews/roller-coaster.webp" alt="A three-car train with riders follows a loop in an illustrated amusement park" style="width:100%;object-fit:cover" /></a>
           <div class="body"><p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p><h2><a href="roller-coaster/">Energy on the Rails</a></h2><p>Build a powered lift, repeated hills, and loops. Add cars and riders, then collect kinetic, gravitational potential, and thermal energy data as the ride unfolds.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.8B</span><span>MS-PS3-1 with worksheet</span><span>MS-PS3-2 gravitational model</span></div></details></div>
         <a class="launch" href="roller-coaster/" aria-label="Open Energy on the Rails">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Physical science" data-grades="6,7,8">
-          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="gravity-drop/thumbnail.svg" alt="A feather and bowling ball illustrate a gravity drop comparison" style="width:100%;object-fit:cover" />
+          <a class="preview-link" href="gravity-drop/" aria-label="Open Gravity Drop"><img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="gravity-drop/thumbnail.svg" alt="A feather and bowling ball illustrate a gravity drop comparison" style="width:100%;object-fit:cover" /></a>
           <div class="body"><p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p><h2><a href="gravity-drop/">Gravity Drop</a></h2><p>Drop feathers, balls, and paper in air and vacuum. Compare fall times, inspect forces, and use evidence to explain gravity and air resistance.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.7A · partial</span><span>TEKS 7.7A</span><span>TEKS 8.7A · partial</span><span>MS-PS2-2/4 · partial</span></div></details></div>
         <a class="launch" href="gravity-drop/" aria-label="Open Gravity Drop">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Earth & space science" data-grades="6,7,8">
-          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="seasonal-changes/assets/seasonal-changes-thumb.svg" alt="A tilted Earth beside the Sun with parallel sunlight rays and an orbit outline" style="width:100%;object-fit:cover" />
+          <a class="preview-link" href="seasonal-changes/" aria-label="Open Seasonal Changes"><img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="seasonal-changes/assets/seasonal-changes-thumb.svg" alt="A tilted Earth beside the Sun with parallel sunlight rays and an orbit outline" style="width:100%;object-fit:cover" /></a>
           <div class="body"><p class="eyebrow">WEATHER AND CLIMATE · GRADES 6–8</p><h2><a href="seasonal-changes/">Seasonal Changes</a></h2><p>Compare daylight, Sun angle and solar energy across latitudes and seasons. Test zero tilt and investigate how heat storage delays seasonal temperature changes.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.9A · grade 6 core</span><span>MS-ESS1-1 · seasons component</span></div></details></div>
         <a class="launch" href="seasonal-changes/" aria-label="Open Seasonal Changes">Open simulation <span aria-hidden="true">→</span></a></article>
         <article class="card" data-subject="Earth & space science" data-grades="6,7,8">
-          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="earth-moon/thumbnail.svg" alt="An orbital Moon and its appearance from Earth connect phases with viewing geometry" style="width:100%;object-fit:cover" />
+          <a class="preview-link" href="earth-moon/" aria-label="Open Earth &amp; Moon"><img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="earth-moon/thumbnail.svg" alt="An orbital Moon and its appearance from Earth connect phases with viewing geometry" style="width:100%;object-fit:cover" /></a>
           <div class="body"><p class="eyebrow">EARTH &amp; SPACE · GRADES 6–8</p><h2><a href="earth-moon/">Earth &amp; Moon</a></h2><p>Connect the Moon’s orbit with its appearance from Earth. Investigate phases, tilted shadow misses, and solar and lunar eclipses.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6–8.1G · models</span><span>TEKS 7.9A · partial</span><span>MS-ESS1-1 · partial</span></div></details></div>
         <a class="launch" href="earth-moon/" aria-label="Open Earth &amp; Moon">Open simulation <span aria-hidden="true">→</span></a></article>
 <article class="card" data-subject="Earth & space science" data-grades="6,7,8">
- <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="solar-system/assets/solar-system-thumb.svg" alt="Eight planets in a compressed orbital diagram around the Sun" style="width:100%;object-fit:cover">
+ <a class="preview-link" href="solar-system/" aria-label="Open Solar System in Motion"><img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="solar-system/assets/solar-system-thumb.svg" alt="Eight planets in a compressed orbital diagram around the Sun" style="width:100%;object-fit:cover"></a>
  <div class="body"><p class="eyebrow">EARTH &amp; SPACE · GRADES 6–8</p><h2><a href="solar-system/">Solar System in Motion</a></h2><p>Follow eight planetary orbits, compare planetary years, and investigate how solar gravity curves a moving planet’s path.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 7.9B</span><span>MS-ESS1-2 · partial</span></div></details></div>
 <a class="launch" href="solar-system/" aria-label="Open Solar System in Motion">Open simulation <span aria-hidden="true">→</span></a></article>
 
         <article class="card" data-subject="Life science" data-grades="6,7,8">
-          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="photosynthesis/thumbnail.svg" alt="Sunlight reaches a plant with visible roots; carbon dioxide enters and oxygen leaves" style="width:100%;object-fit:cover" />
+          <a class="preview-link" href="photosynthesis/" aria-label="Open Photosynthesis"><img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="photosynthesis/thumbnail.svg" alt="Sunlight reaches a plant with visible roots; carbon dioxide enters and oxygen leaves" style="width:100%;object-fit:cover" /></a>
           <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 6–8</p><h2><a href="photosynthesis/">Photosynthesis</a></h2><p>Investigate oxygen collection, explore a leaf, account for atoms in sugar, and compare photosynthesis with respiration during day and night.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.8B · partial</span><span>TEKS 7.5E · partial</span><span>MS-LS1-6</span></div></details></div>
         <a class="launch" href="photosynthesis/" aria-label="Open Photosynthesis">Open simulation <span aria-hidden="true">→</span></a></article>
 
