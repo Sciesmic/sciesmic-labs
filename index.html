@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Free science simulations for middle and high school from Sciesmic. TEKS and NGSS aligned, English and Spanish, no accounts." />
-    <title>Sciesmic Labs | Free Science Simulations</title>
-    <link rel="stylesheet" href="kit/labs-kit.css" />
+    <meta name="description" content="Explore free interactive science simulations for middle and high school. TEKS and NGSS connections, Chromebook friendly, and no login required.">
+    <title>Free Science Simulations for Middle &amp; High School | Sciesmic</title>
+    <link rel="canonical" href="https://labs.sciesmic.com/">
     <style>
       body { margin: 0; font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif; color: #173138; background: radial-gradient(circle at 10% 2%, #eef7f1, transparent 31rem), #dce7e1; }
       main { max-width: 1180px; margin: auto; padding: clamp(1rem, 3vw, 3.2rem); }
@@ -27,107 +27,115 @@
       .soon { border-style: dashed; box-shadow: none; background: transparent; justify-content: center; align-items: center; min-height: 200px; color: #597075; font-weight: 750; text-align: center; padding: 1rem; }
       footer { text-align: center; color: #58716c; font-size: .82rem; padding: 2rem 1rem; }
       footer a { color: #0b6a69; }
-    </style>
-  </head>
-  <body>
+
+* { box-sizing: border-box; } html { scroll-behavior: smooth; } [hidden] { display:none !important; }
+.site-nav { max-width:1180px; margin:auto; padding:1rem clamp(1rem,3vw,3.2rem); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; } .site-nav a { color:#173138; font-weight:750; text-decoration:none; } nav { display:flex; gap:1.3rem; } a:hover { text-decoration:underline; }
+.skip { position:absolute; left:1rem; top:-100px; padding:1rem; background:white; z-index:10; } .skip:focus { top:1rem; }
+:focus-visible { outline:3px solid #b33d1b; outline-offset:4px; } .grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); } .card { box-shadow:0 4px 14px #1d413b0a; } .thumb { width:100%; height:150px; object-fit:cover; } .body { flex:1; } .body h2 a { color:inherit; text-decoration:none; } .body h2 a:hover { text-decoration:underline; } .launch { color:#075c5b; font-weight:750; padding:.8rem 1.1rem; border-top:1px solid #d8ddd1; min-height:48px; } .standards { margin-top:.4rem; font-size:.85rem; } summary { cursor:pointer; min-height:44px; padding:.7rem 0; color:#365958; } .tags { padding-bottom:.5rem; } .tags span { color:#075957; } .eyebrow { color:#435e5c; } .body p,.lede { color:#465f64; }
+#filters { display:flex; flex-wrap:wrap; align-items:end; gap:.75rem; padding:1rem; background:#fffdf8; border:1px solid #c1d0c9; border-radius:1rem; } #filters div:first-child { flex:2 1 260px; } #filters div { flex:1 1 150px; } label { display:block; font-size:.85rem; font-weight:700; margin-bottom:.4rem; } input,select,button { font:inherit; min-height:44px; border:1px solid #7c9490; border-radius:.4rem; padding:.6rem; background:#fff; color:#173138; } input,select { width:100%; } button { cursor:pointer; } #results { color:#435e5c; font-size:.9rem; } .teacher { margin-top:2.5rem; padding:1.5rem; background:#fffdf8; border-radius:1rem; } .teacher h2 { margin-top:0; } .teacher a { color:#075c5b; font-weight:750; } .note { font-size:.85rem; color:#465f64; line-height:1.5; } @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+</style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Sciesmic Labs", "url": "https://labs.sciesmic.com/", "description": "Free interactive science simulations."}</script></head>
+  <body><a class="skip" href="#simulations">Skip to simulations</a><header class="site-nav"><a href="./" aria-label="Sciesmic Labs home">SCIESMIC LABS</a><nav aria-label="Main"><a href="#simulations">Simulations</a><a href="#teachers">For teachers</a></nav></header>
     <main>
       <p class="eyebrow">SCIESMIC LABS</p>
-      <h1>Free science simulations</h1>
-      <p class="lede">Run real experiments in the browser. Every lab is TEKS and NGSS aligned, works in English and Spanish, and needs no accounts or downloads.</p>
-      <ul class="points"><li>TEKS + NGSS</li><li>English / Español</li><li>Chromebook ready</li><li>No sign-up</li></ul>
+      <h1>Free interactive science simulations</h1>
+      <p class="lede">Explore science through virtual experiments. Built for middle school with selected high school extensions, TEKS and NGSS connections, and English and Spanish interfaces. No accounts or downloads.</p>
+      <ul class="points"><li>TEKS + NGSS connections</li><li>English / Español</li><li>Chromebook ready</li><li>No sign-up</li></ul>
 
-      <div class="grid">
-        <a class="card" href="marsh-beetles/">
-          <div class="thumb" style="background-image:url('marsh-beetles/assets/mixed-marsh.webp')"></div>
+      <section id="simulations" aria-labelledby="directory-heading"><h2 id="directory-heading">Explore simulations</h2>
+<form id="filters" role="search" hidden><div><label for="search">Search labs, concepts, or standards</label><input id="search" type="search" placeholder="Try photosynthesis or MS-PS1-4" autocomplete="off"></div><div><label for="subject">Subject</label><select id="subject"><option value="">All subjects</option><option>Life science</option><option>Physical science</option><option>Earth &amp; space science</option></select></div><div><label for="grade">Grade</label><select id="grade"><option value="">All grades</option><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></div><button type="reset">Clear filters</button></form>
+<p id="results" role="status" aria-live="polite">14 simulations · Choose a lab to start exploring.</p><p id="empty" hidden>No simulations match. Try a broader search or clear the filters.</p><noscript><p>All simulations are listed below. Search and filters require JavaScript.</p></noscript><div class="grid">
+        <article class="card" data-subject="Life science" data-grades="7,8">
+          <img class="thumb" src="kit/previews/marsh-beetles.webp" alt="" width="480" height="240" decoding="async" loading="eager">
           <div class="body">
             <p class="eyebrow">LIFE SCIENCE · GRADES 7–8</p>
-            <h2>Marsh Beetles: Selection Lab</h2>
+            <h2><a href="marsh-beetles/">Marsh Beetles: Selection Lab</a></h2>
             <p>Change the marsh background and predation pressure, then watch inherited beetle patterns rise and fall over generations.</p>
-            <div class="tags"><span>MS-LS4-4</span><span>MS-LS4-6</span><span>TEKS 7.13D</span><span>TEKS 8.13C</span></div>
+            <details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>MS-LS4-4</span><span>MS-LS4-6</span><span>TEKS 7.13D</span><span>TEKS 8.13C</span></div></details>
           </div>
-        </a>
-        <a class="card" href="plate-boundaries/">
-          <div class="thumb" style="background-image:url('plate-boundaries/assets/plate-boundary-thumb.webp')"></div>
+        <a class="launch" href="marsh-beetles/" aria-label="Open Marsh Beetles: Selection Lab">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Earth & space science" data-grades="6,7,8">
+          <img class="thumb" src="kit/previews/plate-boundaries.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
           <div class="body">
             <p class="eyebrow">EARTH SCIENCE · GRADES 6–8</p>
-            <h2>Plate Boundary Lab</h2>
+            <h2><a href="plate-boundaries/">Plate Boundary Lab</a></h2>
             <p>Pull plates apart, push them together, slide them past each other or move them over a hot spot, then run time forward millions of years and watch ocean basins, earthquakes, mountains and volcanoes form.</p>
-            <div class="tags"><span>TEKS 7.10B</span><span>TEKS 7.10A</span><span>MS-ESS2-2</span><span>MS-ESS2-3</span></div>
+            <details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 7.10B</span><span>TEKS 7.10A</span><span>MS-ESS2-2</span><span>MS-ESS2-3</span></div></details>
           </div>
-        </a>
-        <a class="card" href="net-force-cart/">
-          <div class="thumb" style="background-image:url('net-force-cart/assets/net-force-cart-thumb.webp'); background-color:#e9efec"></div>
+        <a class="launch" href="plate-boundaries/" aria-label="Open Plate Boundary Lab">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Physical science" data-grades="6,7,8">
+          <img class="thumb" src="kit/previews/net-force-cart.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
           <div class="body">
             <p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p>
-            <h2>Net Force Cart Lab</h2>
+            <h2><a href="net-force-cart/">Net Force Cart Lab</a></h2>
             <p>Push, pull and launch carts on a track. Change net force, mass and friction, then measure acceleration on a velocity–time graph and test all three of Newton's laws.</p>
-            <div class="tags"><span>TEKS 8.7A</span><span>TEKS 8.7B</span><span>TEKS 7.7D</span><span>TEKS 6.7B</span><span>MS-PS2-2</span></div>
+            <details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 8.7A</span><span>TEKS 8.7B</span><span>TEKS 7.7D</span><span>TEKS 6.7B</span><span>MS-PS2-2</span></div></details>
           </div>
-        </a>
-        <a class="card" href="cell-operations/">
-          <div class="thumb" style="background-image:url('cell-operations/assets/cell-operations-thumb.webp'); background-color:#f3f7ee"></div>
+        <a class="launch" href="net-force-cart/" aria-label="Open Net Force Cart Lab">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Life science" data-grades="6,7,8">
+          <img class="thumb" src="kit/previews/cell-operations.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
           <div class="body">
             <p class="eyebrow">LIFE SCIENCE · GRADES 6–8</p>
-            <h2>Cell Operations Lab</h2>
+            <h2><a href="cell-operations/">Cell Operations Lab</a></h2>
             <p>Shut down one organelle at a time in a plant or animal cell, read six health gauges over a 24-hour day, then diagnose a mystery cell from its symptoms.</p>
-            <div class="tags"><span>TEKS 8.13A</span><span>TEKS 6.13A</span><span>MS-LS1-2</span></div>
+            <details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 8.13A</span><span>TEKS 6.13A</span><span>MS-LS1-2</span></div></details>
           </div>
-        </a>
-        <a class="card" href="star-life-cycle/">
-          <div class="thumb" style="background-image:url('star-life-cycle/assets/star-life-cycle-thumb.webp'); background-color:#0d1630"></div>
+        <a class="launch" href="cell-operations/" aria-label="Open Cell Operations Lab">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Earth & space science" data-grades="8,9,10,11,12">
+          <img class="thumb" src="kit/previews/star-life-cycle.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
           <div class="body">
             <p class="eyebrow">SPACE SCIENCE · GRADE 8+</p>
-            <h2>Star Life Cycle Lab</h2>
+            <h2><a href="star-life-cycle/">Star Life Cycle Lab</a></h2>
             <p>Pick a star's starting mass and follow it across the H-R diagram from nebula to white dwarf, neutron star or black hole, then sort mystery stars by type.</p>
-            <div class="tags"><span>TEKS 8.9A</span><span>HS-ESS1-1</span><span>HS-ESS1-3</span></div>
+            <details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 8.9A</span><span>HS-ESS1-1</span><span>HS-ESS1-3</span></div></details>
           </div>
-        </a>
-        <a class="card" href="states-of-matter/">
-          <div class="thumb" style="background-image:url('states-of-matter/assets/states-of-matter-thumb.webp'); background-color:#eef3ef"></div>
+        <a class="launch" href="star-life-cycle/" aria-label="Open Star Life Cycle Lab">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Physical science" data-grades="6,7,8">
+          <img class="thumb" src="kit/previews/states-of-matter.webp" alt="" width="480" height="240" decoding="async" loading="lazy">
           <div class="body">
             <p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p>
-            <h2>States of Matter Lab</h2>
+            <h2><a href="states-of-matter/">States of Matter Lab</a></h2>
             <p>Heat or cool water and dry ice, watch their particles, and find the flat parts of the heating curve where they change state. Then identify a mystery substance.</p>
-            <div class="tags"><span>TEKS 6.6A</span><span>TEKS 7.8C</span><span>MS-PS1-4</span></div>
+            <details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.6A</span><span>TEKS 7.8C</span><span>MS-PS1-4</span></div></details>
           </div>
-        </a>
-        <a class="card" href="central-dogma/">
-          <img class="thumb" src="central-dogma/assets/central-dogma-thumb.svg" alt="DNA template, mRNA bases, and amino acid building blocks" style="width:100%;object-fit:cover" />
-          <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 7–8 INTRODUCTION · BIOLOGY EXTENSION</p><h2>Central Dogma Lab</h2><p>Build complementary DNA and mRNA, decode an amino acid chain, then investigate one-base changes and mystery fragments.</p><div class="tags"><span>TEKS B.7B extension</span><span>MS-LS3-1 partial</span><span>HS-LS1-1 extension</span></div></div>
-        </a>
-        <a class="card" href="predator-prey/">
-          <img class="thumb" src="predator-prey/assets/predator-prey-thumb.svg" alt="A white snowshoe hare and red fox in a snowy forest-edge meadow" style="width:100%;object-fit:cover" />
-          <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 7–8 APPLICATION</p><h2>Predator Prey Lab</h2><p>Compare camouflage, trace food-linked predator–prey cycles across seasons, and investigate carrying capacity on a shared population graph.</p><div class="tags"><span>TEKS 6.12A/B foundations · partial</span><span>MS-LS2-1</span></div></div>
-        </a>
-        <a class="card" href="roller-coaster/">
-          <img class="thumb" src="roller-coaster/assets/roller-coaster-thumb-v2.webp" alt="A three-car train with riders follows a loop in an illustrated amusement park" style="width:100%;object-fit:cover" />
-          <div class="body"><p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p><h2>Energy on the Rails</h2><p>Build a powered lift, repeated hills, and loops. Add cars and riders, then collect kinetic, gravitational potential, and thermal energy data as the ride unfolds.</p><div class="tags"><span>TEKS 6.8B</span><span>MS-PS3-1 with worksheet</span><span>MS-PS3-2 gravitational model</span></div></div>
-        </a>
-        <a class="card" href="gravity-drop/">
-          <img class="thumb" src="gravity-drop/thumbnail.svg" alt="A feather and bowling ball illustrate a gravity drop comparison" style="width:100%;object-fit:cover" />
-          <div class="body"><p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p><h2>Gravity Drop</h2><p>Drop feathers, balls, and paper in air and vacuum. Compare fall times, inspect forces, and use evidence to explain gravity and air resistance.</p><div class="tags"><span>TEKS 6.7A · partial</span><span>TEKS 7.7A</span><span>TEKS 8.7A · partial</span><span>MS-PS2-2/4 · partial</span></div></div>
-        </a>
-        <a class="card" href="seasonal-changes/">
-          <img class="thumb" src="seasonal-changes/assets/seasonal-changes-thumb.svg" alt="A tilted Earth beside the Sun with parallel sunlight rays and an orbit outline" style="width:100%;object-fit:cover" />
-          <div class="body"><p class="eyebrow">WEATHER AND CLIMATE · GRADES 6–8</p><h2>Seasonal Changes</h2><p>Compare daylight, Sun angle and solar energy across latitudes and seasons. Test zero tilt and investigate how heat storage delays seasonal temperature changes.</p><div class="tags"><span>TEKS 6.9A · grade 6 core</span><span>MS-ESS1-1 · seasons component</span></div></div>
-        </a>
-        <a class="card" href="earth-moon/">
-          <img class="thumb" src="earth-moon/thumbnail.svg" alt="An orbital Moon and its appearance from Earth connect phases with viewing geometry" style="width:100%;object-fit:cover" />
-          <div class="body"><p class="eyebrow">EARTH &amp; SPACE · GRADES 6–8</p><h2>Earth &amp; Moon</h2><p>Connect the Moon’s orbit with its appearance from Earth. Investigate phases, tilted shadow misses, and solar and lunar eclipses.</p><div class="tags"><span>TEKS 6–8.1G · models</span><span>TEKS 7.9A · partial</span><span>MS-ESS1-1 · partial</span></div></div>
-        </a>
-<a class="card" href="solar-system/">
- <img class="thumb" src="solar-system/assets/solar-system-thumb.svg" alt="Eight planets in a compressed orbital diagram around the Sun" style="width:100%;object-fit:cover">
- <div class="body"><p class="eyebrow">EARTH &amp; SPACE · GRADES 6–8</p><h2>Solar System in Motion</h2><p>Follow eight planetary orbits, compare planetary years, and investigate how solar gravity curves a moving planet’s path.</p><div class="tags"><span>TEKS 7.9B</span><span>MS-ESS1-2 · partial</span></div></div>
-</a>
+        <a class="launch" href="states-of-matter/" aria-label="Open States of Matter Lab">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Life science" data-grades="7,8,9,10,11,12">
+          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="central-dogma/assets/central-dogma-thumb.svg" alt="DNA template, mRNA bases, and amino acid building blocks" style="width:100%;object-fit:cover" />
+          <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 7–8 INTRODUCTION · BIOLOGY EXTENSION</p><h2><a href="central-dogma/">Central Dogma Lab</a></h2><p>Build complementary DNA and mRNA, decode an amino acid chain, then investigate one-base changes and mystery fragments.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS B.7B extension</span><span>MS-LS3-1 partial</span><span>HS-LS1-1 extension</span></div></details></div>
+        <a class="launch" href="central-dogma/" aria-label="Open Central Dogma Lab">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Life science" data-grades="7,8">
+          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="predator-prey/assets/predator-prey-thumb.svg" alt="A white snowshoe hare and red fox in a snowy forest-edge meadow" style="width:100%;object-fit:cover" />
+          <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 7–8 APPLICATION</p><h2><a href="predator-prey/">Predator Prey Lab</a></h2><p>Compare camouflage, trace food-linked predator–prey cycles across seasons, and investigate carrying capacity on a shared population graph.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.12A/B foundations · partial</span><span>MS-LS2-1</span></div></details></div>
+        <a class="launch" href="predator-prey/" aria-label="Open Predator Prey Lab">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Physical science" data-grades="6,7,8">
+          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="kit/previews/roller-coaster.webp" alt="A three-car train with riders follows a loop in an illustrated amusement park" style="width:100%;object-fit:cover" />
+          <div class="body"><p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p><h2><a href="roller-coaster/">Energy on the Rails</a></h2><p>Build a powered lift, repeated hills, and loops. Add cars and riders, then collect kinetic, gravitational potential, and thermal energy data as the ride unfolds.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.8B</span><span>MS-PS3-1 with worksheet</span><span>MS-PS3-2 gravitational model</span></div></details></div>
+        <a class="launch" href="roller-coaster/" aria-label="Open Energy on the Rails">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Physical science" data-grades="6,7,8">
+          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="gravity-drop/thumbnail.svg" alt="A feather and bowling ball illustrate a gravity drop comparison" style="width:100%;object-fit:cover" />
+          <div class="body"><p class="eyebrow">PHYSICAL SCIENCE · GRADES 6–8</p><h2><a href="gravity-drop/">Gravity Drop</a></h2><p>Drop feathers, balls, and paper in air and vacuum. Compare fall times, inspect forces, and use evidence to explain gravity and air resistance.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.7A · partial</span><span>TEKS 7.7A</span><span>TEKS 8.7A · partial</span><span>MS-PS2-2/4 · partial</span></div></details></div>
+        <a class="launch" href="gravity-drop/" aria-label="Open Gravity Drop">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Earth & space science" data-grades="6,7,8">
+          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="seasonal-changes/assets/seasonal-changes-thumb.svg" alt="A tilted Earth beside the Sun with parallel sunlight rays and an orbit outline" style="width:100%;object-fit:cover" />
+          <div class="body"><p class="eyebrow">WEATHER AND CLIMATE · GRADES 6–8</p><h2><a href="seasonal-changes/">Seasonal Changes</a></h2><p>Compare daylight, Sun angle and solar energy across latitudes and seasons. Test zero tilt and investigate how heat storage delays seasonal temperature changes.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.9A · grade 6 core</span><span>MS-ESS1-1 · seasons component</span></div></details></div>
+        <a class="launch" href="seasonal-changes/" aria-label="Open Seasonal Changes">Open simulation <span aria-hidden="true">→</span></a></article>
+        <article class="card" data-subject="Earth & space science" data-grades="6,7,8">
+          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="earth-moon/thumbnail.svg" alt="An orbital Moon and its appearance from Earth connect phases with viewing geometry" style="width:100%;object-fit:cover" />
+          <div class="body"><p class="eyebrow">EARTH &amp; SPACE · GRADES 6–8</p><h2><a href="earth-moon/">Earth &amp; Moon</a></h2><p>Connect the Moon’s orbit with its appearance from Earth. Investigate phases, tilted shadow misses, and solar and lunar eclipses.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6–8.1G · models</span><span>TEKS 7.9A · partial</span><span>MS-ESS1-1 · partial</span></div></details></div>
+        <a class="launch" href="earth-moon/" aria-label="Open Earth &amp; Moon">Open simulation <span aria-hidden="true">→</span></a></article>
+<article class="card" data-subject="Earth & space science" data-grades="6,7,8">
+ <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="solar-system/assets/solar-system-thumb.svg" alt="Eight planets in a compressed orbital diagram around the Sun" style="width:100%;object-fit:cover">
+ <div class="body"><p class="eyebrow">EARTH &amp; SPACE · GRADES 6–8</p><h2><a href="solar-system/">Solar System in Motion</a></h2><p>Follow eight planetary orbits, compare planetary years, and investigate how solar gravity curves a moving planet’s path.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 7.9B</span><span>MS-ESS1-2 · partial</span></div></details></div>
+<a class="launch" href="solar-system/" aria-label="Open Solar System in Motion">Open simulation <span aria-hidden="true">→</span></a></article>
 
-        <a class="card" href="photosynthesis/">
-          <img class="thumb" src="photosynthesis/thumbnail.svg" alt="Sunlight reaches a plant with visible roots; carbon dioxide enters and oxygen leaves" style="width:100%;object-fit:cover" />
-          <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 6–8</p><h2>Photosynthesis</h2><p>Investigate oxygen collection, explore a leaf, account for atoms in sugar, and compare photosynthesis with respiration during day and night.</p><div class="tags"><span>TEKS 6.8B · partial</span><span>TEKS 7.5E · partial</span><span>MS-LS1-6</span></div></div>
-        </a>
-        <div class="card soon">More labs are on the way.</div>
+        <article class="card" data-subject="Life science" data-grades="6,7,8">
+          <img width="480" height="240" decoding="async" loading="lazy" class="thumb" src="photosynthesis/thumbnail.svg" alt="Sunlight reaches a plant with visible roots; carbon dioxide enters and oxygen leaves" style="width:100%;object-fit:cover" />
+          <div class="body"><p class="eyebrow">LIFE SCIENCE · GRADES 6–8</p><h2><a href="photosynthesis/">Photosynthesis</a></h2><p>Investigate oxygen collection, explore a leaf, account for atoms in sugar, and compare photosynthesis with respiration during day and night.</p><details class="standards"><summary>Standards & alignment</summary><div class="tags"><span>TEKS 6.8B · partial</span><span>TEKS 7.5E · partial</span><span>MS-LS1-6</span></div></details></div>
+        <a class="launch" href="photosynthesis/" aria-label="Open Photosynthesis">Open simulation <span aria-hidden="true">→</span></a></article>
+
       </div>
-    </main>
-    <footer>Worksheets, answer keys and lesson plans for every lab are available to <a href="https://sciesmic.com/a/members">Sciesmic library members</a>. © Sciesmic</footer>
+    </section><section id="teachers" class="teacher"><h2>Teaching with these simulations?</h2><p>Take the experiment further with classroom worksheets, teacher guides, and supporting instructional resources.</p><a href="https://www.sciesmic.com/">Explore Sciesmic resources →</a><p class="note">Labs are free to use. Supporting teacher resources are available separately. Standards connections vary; see each lab’s alignment notes.</p></section></main>
+    <footer><a href="./">Sciesmic Labs</a> · <a href="https://sciesmic.com/a/members">Teacher library access</a> · © Sciesmic</footer><script src="kit/directory.js" defer></script>
   </body>
 </html>
 

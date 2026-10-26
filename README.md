@@ -71,3 +71,11 @@ All three include EN/ES interfaces, five checks, contextual definitions, evidenc
 ## Photosynthesis
 
 `photosynthesis/` 1.0.1: grade 7 investigation with grade 6 energy foundations and grade 8 atom-conservation extension. Oxygen lab, Inside a leaf, Build a sugar, and Day & night connect trial evidence with matter and energy. Includes EN/ES, accessible comparison graphs and tables, five checks, ten contextual terms and public vocabulary print/CSV/offline HTML. Partial TEKS 6.8B and 7.5E; NGSS MS-LS1-6. Reuses Sciesmic art; deterministic rates are illustrative. Spanish educator review remains pending. Compatible private teacher pack 1.0.0 is prepared separately; member upload is pending. Private materials are excluded from this repository.
+
+## Directory performance and release checks
+
+The homepage uses native controls and a small dependency-free filter. Cards and links remain available without JavaScript. Keep simulation code on individual lab pages. Homepage preview copies live in `kit/previews/`; preserve original lab artwork. Use system fonts and avoid third-party scripts.
+
+Budget: keep the homepage HTML, JavaScript and all directory previews below 500 KB combined before compression. Use lazy loading below the first card and explicit image dimensions. Check every local link, canonical URL, JSON-LD block and sitemap entry when adding a lab. Include accurate grade eligibility and partial/extension alignment qualifiers.
+
+Before a release, check search, combined filters, empty/reset states, keyboard focus, 200% zoom, narrow screens and JavaScript-disabled browsing. Target mobile Lighthouse performance 90+, accessibility 95+, SEO 90+, and field LCP <=2.5 seconds at the 75th percentile. These are targets, not measured scores. Validate on a school Chromebook and throttled network; do not infer real-device performance from transfer size. GitHub Pages manages caching headers, so content-hashed asset naming is preferred when changing cached assets.
