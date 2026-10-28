@@ -5,7 +5,7 @@ export const content = {
       "code": "TEKS 6.8B",
       "en": "Energy conservation in an amusement park ride",
       "es": "Conservación de energía en una atracción",
-      "url": "https://tea.texas.gov/data-reports/staar/2026-staar-middle-school-science-assessed-curriculum.pdf"
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112"
     },
     {
       "code": "MS-PS3-1",
@@ -27,7 +27,7 @@ export const content = {
       "h1": "Energy on the rails.",
       "lede": "Build a ride. Predict the energy story. Then watch the evidence appear—one climb, drop, and loop at a time.",
       "intro": "The lift motor adds energy to the train–Earth [[system|system]]. Height stores [[potential|gravitational potential energy]]; motion carries [[kinetic|kinetic energy]]. Can your train finish the ride using the energy supplied by its first climb?",
-      "openFlashcards": "Vocabulary cards · print & export ↗",
+      "openFlashcards": "Vocabulary flashcards · print & export ↗",
       "step1": "01 / PREDICT",
       "step2": "02 / INVESTIGATE",
       "step3": "03 / EXPLAIN",

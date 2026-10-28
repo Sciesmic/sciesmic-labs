@@ -97,3 +97,7 @@
 .lk-context-tools > .lk-about { margin: 0; max-width: 28rem; flex: 1 1 15rem; }
 .lk-context-tools > button { flex-shrink: 0; }
 .lk-back-arrow { font-size: 1.25em; line-height: 1; }
+
+/* Public vocabulary tools remain visible near the introduction. */
+.lk-flashcards-link { display: inline-block; color: var(--lk-accent); padding: .6rem 0; font-weight: 700; }
+.lk-flashcards-link:focus-visible { outline: 3px solid var(--lk-focus); outline-offset: 3px; }

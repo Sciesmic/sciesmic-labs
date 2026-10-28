@@ -141,7 +141,7 @@ export const content = {
       "artDNA": "DNA",
       "artFlow": "RNA → PROTEIN",
       "flashcards": "Vocabulary flashcards",
-      "openFlashcards": "Print or export vocabulary",
+      "openFlashcards": "Vocabulary flashcards · print & export ↗",
       "cardsIntro": "Print cut-and-fold vocabulary cards, save them as a PDF, or export the terms and definitions. Choose English, Spanish, or both.",
       "cardsLanguage": "Card language",
       "english": "English",
@@ -298,7 +298,7 @@ export const content = {
       "artDNA": "ADN",
       "artFlow": "ARN → PROTEÍNA",
       "flashcards": "Tarjetas de vocabulario",
-      "openFlashcards": "Imprimir o exportar vocabulario",
+      "openFlashcards": "Tarjetas de vocabulario · imprimir y exportar ↗",
       "cardsIntro": "Imprime tarjetas de vocabulario para recortar y doblar, guárdalas como PDF o exporta los términos y sus definiciones. Elige inglés, español o ambos.",
       "cardsLanguage": "Idioma de las tarjetas",
       "english": "Inglés",
@@ -322,7 +322,7 @@ export const content = {
   "standards": [
     {
       "code": "TEKS B.7B · extension",
-      "url": "https://tea.texas.gov/laws-and-rules/sboe-rules-tac/sboe-tac-currently-effect/ch112c.pdf",
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       "en": "Biology extension: model gene expression and protein synthesis.",
       "es": "Extensión de Biología: modelar expresión génica y síntesis de proteínas."
     },

@@ -88,7 +88,7 @@ export const content = {
       "ellipseNote": "A planet’s idealized [[orbit|orbit]] is an [[ellipse|ellipse]], with the Sun at one focus. Changing display [[scale|scale]] never changes its physical motion.",
       "sourceLabel": "Science and standards sources",
       "footer": "Sciesmic Labs · Learn. Grow. Achieve! · Simulation 1.0.0 · Spanish draft pending educator review",
-      "openFlashcards": "Vocabulary flashcards · Print & export",
+      "openFlashcards": "Vocabulary flashcards · print & export ↗",
       "backLab": "← Back to the lab",
       "cardsTitle": "Solar System in Motion Vocabulary",
       "cardsIntro": "Build your science vocabulary from the same definitions used in the simulation.",
@@ -208,7 +208,7 @@ export const content = {
       "ellipseNote": "La [[orbit|órbita]] idealizada de un planeta es una [[ellipse|elipse]], con el Sol en un foco. Cambiar la [[scale|escala]] de la vista no cambia su movimiento físico.",
       "sourceLabel": "Fuentes de ciencia y estándares",
       "footer": "Sciesmic Labs · Learn. Grow. Achieve! · Simulación 1.0.0 · Español provisional pendiente de revisión docente",
-      "openFlashcards": "Tarjetas de vocabulario · Imprimir y exportar",
+      "openFlashcards": "Tarjetas de vocabulario · imprimir y exportar ↗",
       "backLab": "← Volver al laboratorio",
       "cardsTitle": "Vocabulario del sistema solar en movimiento",
       "cardsIntro": "Aprende con las mismas definiciones de la simulación.",
@@ -249,13 +249,13 @@ export const content = {
       "code": "TEKS 7.9B",
       "en": "Gravity governs solar-system motion",
       "es": "La gravedad rige el movimiento del sistema solar",
-      "url": "https://tea.texas.gov/laws-and-rules/sboe-rules-tac/sboe-tac-currently-effect/ch112b.pdf"
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112"
     },
     {
       "code": "7.9A · partial",
       "en": "Planet locations and movements only",
       "es": "Solo posiciones y movimientos planetarios",
-      "url": "https://tea.texas.gov/laws-and-rules/sboe-rules-tac/sboe-tac-currently-effect/ch112b.pdf"
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112"
     },
     {
       "code": "MS-ESS1-2 · partial",

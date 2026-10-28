@@ -5,13 +5,13 @@ export const content = {
       "code": "TEKS 6–8.1G · models",
       "en": "Develop and use models with a student drawing and revision",
       "es": "Desarrollar y usar modelos con dibujo y revisión",
-      "url": "https://tea.texas.gov/laws-and-rules/sboe-rules-tac/sboe-tac-currently-effect/ch112b.pdf"
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112"
     },
     {
       "code": "TEKS 7.9A · partial",
       "en": "Moon movement within the solar system",
       "es": "Movimiento lunar en el sistema solar",
-      "url": "https://tea.texas.gov/laws-and-rules/sboe-rules-tac/sboe-tac-currently-effect/ch112b.pdf"
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112"
     },
     {
       "code": "MS-ESS1-1 · partial",
@@ -48,7 +48,7 @@ export const content = {
       "eyebrow": "EARTH & SPACE · GRADES 6–8",
       "lede": "Connect the Moon’s orbit to what we see from Earth. Then discover when an alignment becomes an eclipse.",
       "gradeNote": "Grades 6–8 · English teacher pack · Spanish simulation draft",
-      "openCards": "Vocabulary flashcards ↗ Print · CSV · Offline HTML",
+      "openCards": "Vocabulary flashcards · print & export ↗",
       "step1": "01 / PREDICT",
       "step2": "02 / INVESTIGATE",
       "step3": "03 / EXPLAIN",
@@ -166,7 +166,7 @@ export const content = {
       "eyebrow": "TIERRA Y ESPACIO · GRADOS 6–8",
       "lede": "Relaciona la órbita lunar con lo que vemos desde la Tierra. Después descubre cuándo una alineación produce un eclipse.",
       "gradeNote": "Grados 6–8 · Paquete docente en inglés · Simulación en español en borrador",
-      "openCards": "Tarjetas de vocabulario ↗ Imprimir · CSV · HTML sin conexión",
+      "openCards": "Tarjetas de vocabulario · imprimir y exportar ↗",
       "step1": "01 / PREDECIR",
       "step2": "02 / INVESTIGAR",
       "step3": "03 / EXPLICAR",

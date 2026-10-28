@@ -8,7 +8,7 @@ export const content = {
   teacherPackUrl: "https://sciesmic.com/a/members",
 
   standards: [
-    { code: "TEKS 8.9A", url: "https://www.law.cornell.edu/regulations/texas/19-Tex-Admin-Code-SS-112-28",
+    { code: "TEKS 8.9A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Describe the life cycle of stars, and compare and classify stars using the Hertzsprung-Russell diagram. (Grade 8 STAAR Readiness)",
       es: "Describir el ciclo de vida de las estrellas, y comparar y clasificar estrellas usando el diagrama de Hertzsprung-Russell. (Grado 8, estándar de preparación STAAR)" },
     { code: "NGSS HS-ESS1-1", url: "https://www.nextgenscience.org/pe/hs-ess1-1-earths-place-universe",

@@ -307,13 +307,13 @@ export const content = {
   "standards": [
     {
       "code": "TEKS 6.8B · partial",
-      "url": "https://tea.texas.gov/data-reports/staar/2026-staar-middle-school-science-assessed-curriculum.pdf",
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       "en": "Grade 6 foundation: describe light-to-chemical energy transformation; partial energy-conservation coverage.",
       "es": "Base de grado 6: describir la transformación de energía luminosa en química; cobertura parcial de conservación de energía."
     },
     {
       "code": "TEKS 7.5E · partial",
-      "url": "https://texasgateway.org/teks/s75e/alignments",
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       "en": "Grade 7 recurring theme: trace matter and energy in a plant; partial systems coverage.",
       "es": "Tema recurrente de grado 7: rastrear materia y energía en una planta; cobertura parcial de sistemas."
     },

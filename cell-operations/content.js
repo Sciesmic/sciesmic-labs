@@ -7,10 +7,10 @@ export const content = {
   teacherPackUrl: "https://sciesmic.com/a/members",
 
   standards: [
-    { code: "TEKS 8.13A", url: "https://www.law.cornell.edu/regulations/texas/19-Tex-Admin-Code-SS-112-28",
+    { code: "TEKS 8.13A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Identify the function of the cell membrane, cell wall, nucleus, ribosomes, cytoplasm, mitochondria, chloroplasts and vacuoles in plant or animal cells.",
       es: "Identificar la función de la membrana celular, la pared celular, el núcleo, los ribosomas, el citoplasma, las mitocondrias, los cloroplastos y las vacuolas en células vegetales o animales." },
-    { code: "TEKS 6.13A", url: "https://www.law.cornell.edu/regulations/texas/19-Tex-Admin-Code-SS-112-26",
+    { code: "TEKS 6.13A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Explain that organisms are made of one or more cells, and that cells are the basic unit of structure and function.",
       es: "Explicar que los organismos están formados por una o más células, y que las células son la unidad básica de estructura y función." },
     { code: "NGSS MS-LS1-2", url: "https://www.nextgenscience.org/pe/ms-ls1-2-molecules-organisms-structures-and-processes",

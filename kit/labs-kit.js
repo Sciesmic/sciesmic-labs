@@ -14,6 +14,7 @@ const KIT_STRINGS = {
     allLabs: "Explore all science simulations",
     aboutLab: "About this simulation & standards",
     keyTerms: "Key terms",
+    vocabularyCards: "Vocabulary flashcards · print & export ↗",
     close: "Close",
     teacher: "Teacher resources",
     teacherNote: "Worksheets, answer keys and lesson plans are in the Sciesmic members area.",
@@ -32,6 +33,7 @@ const KIT_STRINGS = {
     allLabs: "Explorar todas las simulaciones de ciencias",
     aboutLab: "Acerca de esta simulación y sus estándares",
     keyTerms: "Términos clave",
+    vocabularyCards: "Tarjetas de vocabulario · imprimir y exportar ↗",
     close: "Cerrar",
     teacher: "Recursos para docentes",
     teacherNote: "Las hojas de trabajo, claves de respuestas y planes de lección están en el área de miembros de Sciesmic.",
@@ -86,6 +88,8 @@ export function setLang(next) {
   try { localStorage.setItem(STORAGE_KEY, lang); } catch { /* storage optional */ }
   applyStatic();
   renderShell();
+  const cardsLink = document.getElementById("flashcards-link");
+  if (cardsLink) cardsLink.href = `flashcards.html?lang=${lang}`;
   renderChecks();
   listeners.forEach((fn) => fn(lang));
 }

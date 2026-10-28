@@ -85,7 +85,7 @@ export const content = {
       "notes": "Model notes and sources",
       "modelNotes": "Preview 3 uses continuous expected animal abundance in one fixed modeled study area. Hare births are 0.06 × hares per week, modified gradually by ±10% with seasons; resource-related losses are the same rate × hares² / carrying capacity. With no food, births stop and losses increase. Expected search encounters saturate as hares become abundant (Type II response, half-saturation 80). Detection = (0.50 + 0.15 × coat–snow mismatch) × (1 − 0.20 × shelter fraction); expected captures are 65% of detections, capped by available hares. Maximum capture rate is 0.95 × detection / 0.50 per fox per week before weather. Weekly search varies ±2% with the seed. Fox births equal 0.06 × captures; weekly fox losses are foxes × [0.025 + 0.08 × max(0, 1 − intake per fox / 0.5)]. Less intake therefore reduces births and increases losses in the same interval. A delayed population peak emerges from accumulated births and deaths, not an extra reserve or delay queue. Eight integration substeps per week maintain numerical stability. Seasonal carrying capacity varies smoothly by ±8%; snow timing varies independently from a daylength coat proxy. Constant conditions hold the environment fixed, and the short 13-week experiment always holds it fixed. No population waves, immigration or rescue animals are imposed. Expected abundance below 0.01 is treated as local extinction and counted in losses. Other fox foods, space, age/sex structure and genetics are omitted. Synthetic teaching rates are not fitted wildlife parameters or predictions of real cycle lengths. Estimated counts can damp toward balance or collapse under extreme settings.",
       "footer": "Sciesmic Labs · Learn. Grow. Achieve! · 3.0.1 · Spanish draft pending educator review",
-      "openFlashcards": "Vocabulary cards ↗ Print · CSV · Offline HTML",
+      "openFlashcards": "Vocabulary flashcards · print & export ↗",
       "cardsTitle": "Predator Prey Vocabulary Cards",
       "cardsIntro": "Explore the words used in the meadow investigation.",
       "backLab": "← Back to the lab",
@@ -227,7 +227,7 @@ export const content = {
       "notes": "Notas del modelo y fuentes",
       "modelNotes": "La vista previa 3 usa abundancia continua esperada en un área de estudio fija. Los nacimientos de liebres son 0.06 × liebres por semana, con modificación estacional gradual de ±10%; las pérdidas por recursos usan esa tasa × liebres² / capacidad de carga. Sin alimento no hay nacimientos y aumentan las pérdidas. Los encuentros se saturan con liebres abundantes (respuesta de tipo II; semisaturación 80). Detección = (0.50 + 0.15 × desajuste entre pelaje y nieve) × (1 − 0.20 × fracción de refugio); se captura 65% de las detecciones, sin exceder las liebres disponibles. La captura máxima por zorro por semana es 0.95 × detección / 0.50 antes del clima. La búsqueda varía ±2% con la semilla. Nacimientos de zorros = 0.06 × capturas; pérdidas semanales = zorros × [0.025 + 0.08 × max(0, 1 − ingesta por zorro / 0.5)]. Menor ingesta reduce nacimientos y aumenta pérdidas en el mismo intervalo. El retraso entre máximos surge de nacimientos y muertes acumulados; no hay índice de reservas ni cola de retraso. Se usan ocho subpasos por semana. La capacidad estacional varía suavemente ±8%; la nieve y el indicador de duración del día para la muda varían de forma independiente. Las condiciones constantes y el experimento corto de 13 semanas mantienen fijo el ambiente. No se imponen ondas, inmigración ni animales de rescate. La abundancia esperada menor de 0.01 se considera extinción local y se cuenta en las pérdidas. Se omiten otros alimentos de zorros, espacio, edades, sexos y genética. Las tasas didácticas no son parámetros de campo ni pronósticos de ciclos reales. Las fluctuaciones pueden amortiguarse o colapsar con ajustes extremos.",
       "footer": "Sciesmic Labs · Learn. Grow. Achieve! · 3.0.1 · Borrador en español pendiente de revisión docente",
-      "openFlashcards": "Tarjetas de vocabulario ↗ Imprimir · CSV · HTML sin conexión",
+      "openFlashcards": "Tarjetas de vocabulario · imprimir y exportar ↗",
       "cardsTitle": "Tarjetas de vocabulario de depredadores y presas",
       "cardsIntro": "Explora las palabras de la investigación de la pradera.",
       "backLab": "← Volver al laboratorio",
@@ -583,7 +583,7 @@ export const content = {
       "code": "TEKS 6.12A/B",
       "en": "Grade 6 ecology foundations; resource and predator–prey aspects only",
       "es": "Bases de grado 6; solo recursos y depredación",
-      "url": "https://legacycms.tea.texas.gov/about-tea/laws-and-rules/sboe-rules-tac/sboe-tac-currently-in-effect/ch112b.pdf"
+      "url": "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112"
     },
     {
       "code": "MS-LS2-1",

@@ -7,10 +7,10 @@ export const content = {
   teacherPackUrl: "https://sciesmic.com/a/members",
 
   standards: [
-    { code: "TEKS 6.6A", url: "https://www.law.cornell.edu/regulations/texas/19-Tex-Admin-Code-SS-112-26",
+    { code: "TEKS 6.6A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Compare solids, liquids and gases by their structure, shape, volume and the kinetic energy of their atoms and molecules.",
       es: "Comparar sólidos, líquidos y gases según su estructura, forma, volumen y la energía cinética de sus átomos y moléculas." },
-    { code: "TEKS 7.8C", url: "https://www.law.cornell.edu/regulations/texas/19-Tex-Admin-Code-SS-112-27",
+    { code: "TEKS 7.8C", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Explain the relationship between temperature and the kinetic energy of the particles in a substance.",
       es: "Explicar la relación entre la temperatura y la energía cinética de las partículas de una sustancia." },
     { code: "NGSS MS-PS1-4", url: "https://www.nextgenscience.org/pe/ms-ps1-4-matter-and-its-interactions",

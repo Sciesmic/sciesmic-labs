@@ -7,10 +7,10 @@ export const content = {
   teacherPackUrl: "https://sciesmic.com/a/members",
 
   standards: [
-    { code: "TEKS 7.10B", url: "https://www.law.cornell.edu/regulations/texas/19-Tex-Admin-Code-SS-112-27",
+    { code: "TEKS 7.10B", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Describe how plate tectonics causes ocean basins, earthquakes, mountain building and volcanic eruptions, including supervolcanoes and hot spots.",
       es: "Describir cómo la tectónica de placas causa la formación de cuencas oceánicas, sismos, montañas y erupciones volcánicas, incluidos supervolcanes y puntos calientes." },
-    { code: "TEKS 7.10A", url: "https://www.law.cornell.edu/regulations/texas/19-Tex-Admin-Code-SS-112-27",
+    { code: "TEKS 7.10A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Describe evidence that Earth has changed over time, including fossils, plate tectonics and superposition.",
       es: "Describir la evidencia de que la Tierra ha cambiado con el tiempo, incluidos los fósiles, la tectónica de placas y la superposición." },
     { code: "NGSS MS-ESS2-2", url: "https://www.nextgenscience.org/pe/ms-ess2-2-earths-systems",
