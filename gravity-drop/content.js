@@ -47,7 +47,7 @@ export const content = {
       "cardNumber": "Card {n} of {total}",
       "cardsFile": "gravity-drop-vocabulary",
       "cardsInstructions": "Print one-sided on US Letter at 100%. Cut on dashed borders. Fold on the dotted vertical line, with the term on one face and the definition on the other.",
-      "cardsIntro": "Ten terms for investigating falling objects.",
+      "cardsIntro": "Nine terms for investigating falling objects.",
       "cardsLanguage": "Card language",
       "cardsNotice": "Free glossary only · © Sciesmic 2026",
       "cardsReview": "Spanish is a draft pending native science-educator review.",
@@ -109,7 +109,7 @@ export const content = {
       "paper": "Flat paper",
       "paused": "Paused · readings show the current time",
       "position": "Height (m)",
-      "predictHelp": "Compare a [[feather|feather]] and a bowling ball in air, then in a [[vacuum|vacuum]]. Does [[mass|mass]] alone explain the result?",
+      "predictHelp": "Compare a feather and a bowling ball in air, then in a [[vacuum|vacuum]]. Does [[mass|mass]] alone explain the result?",
       "predictPrompt": "Which object reaches the ground first?",
       "prediction": "My prediction and reason",
       "printCards": "Print / Save as PDF",
@@ -163,7 +163,7 @@ export const content = {
       "cardNumber": "Tarjeta {n} de {total}",
       "cardsFile": "gravity-drop-vocabulary",
       "cardsInstructions": "Imprime por un lado en tamaño carta al 100%. Recorta por los bordes discontinuos. Dobla por la línea vertical punteada: término de un lado y definición del otro.",
-      "cardsIntro": "Diez términos para investigar la caída de objetos.",
+      "cardsIntro": "Nueve términos para investigar la caída de objetos.",
       "cardsLanguage": "Idioma de las tarjetas",
       "cardsNotice": "Solo glosario gratuito · © Sciesmic 2026",
       "cardsReview": "El español es un borrador pendiente de revisión por un docente de ciencias hispanohablante nativo.",
@@ -225,7 +225,7 @@ export const content = {
       "paper": "Papel extendido",
       "paused": "En pausa · las lecturas muestran el tiempo actual",
       "position": "Altura (m)",
-      "predictHelp": "Compara una [[feather|pluma]] y una bola de boliche en aire y luego en un [[vacuum|vacío]]. ¿La [[mass|masa]] por sí sola explica el resultado?",
+      "predictHelp": "Compara una pluma y una bola de boliche en aire y luego en un [[vacuum|vacío]]. ¿La [[mass|masa]] por sí sola explica el resultado?",
       "predictPrompt": "¿Qué objeto llega primero al suelo?",
       "prediction": "Mi predicción y razón",
       "printCards": "Imprimir / Guardar como PDF",
@@ -364,17 +364,6 @@ export const content = {
       "es": {
         "term": "Caída libre",
         "def": "Movimiento bajo la acción exclusiva de la gravedad. Aquí las caídas en vacío son caída libre; en aire hay arrastre."
-      }
-    },
-    {
-      "id": "feather",
-      "en": {
-        "term": "Feather",
-        "def": "A light object with a large area compared with its mass; air strongly affects its fall."
-      },
-      "es": {
-        "term": "Pluma",
-        "def": "Objeto ligero con gran área en relación con su masa; el aire afecta mucho su caída."
       }
     }
   ],
