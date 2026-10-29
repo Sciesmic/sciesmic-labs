@@ -1,4 +1,4 @@
-import {content} from './content.js';
+import {content} from './content.js?v=1.0.2';
 import {samples,testSample,dilute,neutralize,measure} from './model.js';
 import {initLab,onLangChange,getLang,t,renderRich} from '../kit/labs-kit.js';
 const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

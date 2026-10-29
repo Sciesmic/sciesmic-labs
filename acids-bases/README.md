@@ -1,4 +1,4 @@
-# Acids & Bases: pH Lab 1.0.1
+# Acids & Bases: pH Lab 1.0.2
 
 Free simulation for grades 6–8, with high-school chemistry extensions. Use the existing Sciesmic shared kit at `../kit/`. Run an HTTP server from the site root, then open `/acids-bases/`. Opening ES modules as local files will not work.
 
@@ -17,10 +17,12 @@ Ideal aqueous solutions at 25 °C. Kw = 1e-14; H - OH = excess strong-acid conce
 - [TEA Chemistry breakouts](https://tea.texas.gov/academics/instructional-materials/review-and-adoption-process/breakout-documents/chemistry-breakouts.pdf): Chemistry 12D/E, high-school extension with partial support. Students explain water formation, compare H3O+ and pH, and use pH evidence. No comprehensive acid/base course coverage or assessment designation is claimed.
 - [NGSS MS-PS1-2](https://www.nextgenscience.org/pe/ms-ps1-2-matter-and-its-interactions): connection to analyzing data and chemical changes. pH is outside its assessment property list; this is not full PE coverage.
 
-Spanish simulation and vocabulary remain drafts pending native science-educator review. The simulation was tested in desktop Chrome at 1440 and 390 px with normal/reduced motion; real Chromebook hardware and screen-reader testing are pending. Teacher resources link to the existing members landing page; English teacher pack 1.0.0 is prepared separately in editable Word and PDF formats; member-library upload is tracked separately.
+Spanish simulation and vocabulary are approved by Matt for classroom use (2026-10-29). The simulation was tested in desktop Chrome at 1440 and 390 px with normal/reduced motion; real Chromebook hardware and screen-reader testing are pending. Teacher resources link to the existing members landing page; English teacher pack 1.0.0 is prepared separately in editable Word and PDF formats; member-library upload is tracked separately.
 
 ## Existing art
 
 Supplied Acids & Bases v1 (2026-10-29), Density glassware, Conservation of Mass bench and zoom rim. SVG assets are reused locally, with runtime color/level changes. The thumbnail assembles the same art. No generated raster art, external fonts, tracking or library downloads. Copyright Sciesmic; existing project rights apply.
 
 Measurement reveal: the pH marker, classification, ion diagram and concentrations stay hidden until Measure pH is pressed. Changing a sample, solution, instrument, mode or manual added volume, resetting or starting a trial clears the current reveal while keeping recorded observations. Automatic addition only updates live results after measurement has been activated; starting automatic addition alone does not reveal pH. The reference scale remains visible.
+
+The header illustration reuses existing glassware, lemon, indicator and reference-scale SVGs. It contains no selected-sample result or pH marker.
