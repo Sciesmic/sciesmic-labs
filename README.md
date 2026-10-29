@@ -85,3 +85,9 @@ Before a release, check search, combined filters, empty/reset states, keyboard f
 ## Density Detective
 
 `density-detective/` · v1.0.0 · Grades 6–8 · English/Spanish. Measure mass and full volume, compare density relative to water, graph recorded trials, and identify seeded mysteries. Three modes, 18 samples, five checks, and ten contextual terms with EN/ES/bilingual public flashcard print/CSV/offline HTML exports. Existing Sciesmic sprites are reused. TEKS 6.6D coverage is partial (water only); MS-PS1-2 is a prerequisite connection. Spanish is draft pending native science-educator review. Teacher-pack documents are distributed separately and are excluded from this public repository.
+
+
+
+## Acids and Bases pH Lab
+
+`acids-bases/` 1.0.1 supports grades 6–8 qualitative investigation and high-school TEKS Chemistry 12D/E extensions (partial). MS-PS1-2 is a supporting data-analysis connection; pH is outside its assessed property list. Three modes provide ten reference household samples, defined-solution dilution and HCl/NaOH neutralization. Current pH marker, classification and particle/concentration evidence appear only after measurement. Inquiry CSV, trial comparisons, graph enlargement, per-point inspection, ten contextual terms and public EN/ES/bilingual vocabulary exports are included. Existing Sciesmic SVG art is reused. English private teacher pack 1.0.0 is prepared separately, with six DOCX/PDF pairs; no paid content is included here. Native science-educator review of Spanish and physical Chromebook testing remain pending.
