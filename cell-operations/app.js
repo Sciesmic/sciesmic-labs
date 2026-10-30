@@ -1,3 +1,4 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceTrial, createRun, newMystery, normalize, DEFAULTS, HAS, PARTS, SHUTDOWNS, GAUGES, START, HOURS, makeRng } from "./model.js";
 import { initLab, onLangChange, renderRich, t } from "../kit/labs-kit.js";
 import { content } from "./content.js";
@@ -577,3 +578,5 @@ initLab(content);
 renderControls();
 renderChartGauges();
 render();
+
+createGraphTools(document.getElementById('chart'), {legacy:true});

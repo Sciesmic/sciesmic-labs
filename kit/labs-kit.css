@@ -101,3 +101,27 @@
 /* Public vocabulary tools remain visible near the introduction. */
 .lk-flashcards-link { display: inline-block; color: var(--lk-accent); padding: .6rem 0; font-weight: 700; }
 .lk-flashcards-link:focus-visible { outline: 3px solid var(--lk-focus); outline-offset: 3px; }
+
+.lk-review-note { flex-basis:100%; margin:0; color:var(--lk-muted); font-size:.75rem; line-height:1.4; }
+.lk-chip { white-space:normal; max-width:100%; overflow-wrap:anywhere; }
+.lk-feedback:focus { outline:3px solid var(--lk-focus); outline-offset:4px; }
+
+.lk-graph-tools { min-width:0; max-width:100%; }
+.lk-graph-tools > svg,.lk-graph-tools > div > svg { display:block; width:100%; height:auto; max-width:100%; }
+.lk-graph-toolbar { display:flex; justify-content:flex-end; gap:.5rem; margin:.5rem 0; }
+.lk-graph-selects { display:flex; flex-wrap:wrap; gap:.75rem; }
+.lk-graph-selects label { display:grid; flex:1 1 230px; gap:.3rem; min-width:0; font:inherit; font-size:.85rem; }
+.lk-graph-selects select { width:100%; max-width:100%; min-height:44px; font:inherit; }
+.lk-point-readout,.lk-graph-hint { font-size:.85rem; line-height:1.5; overflow-wrap:anywhere; }
+.lk-graph-table { overflow:auto; max-height:24rem; }
+.lk-graph-tools circle[role=button] { cursor:pointer; }
+.lk-graph-tools circle:focus { outline:3px solid #e3522a; outline-offset:3px; }
+.lk-graph-dialog { width:min(96vw,1300px); max-width:96vw; max-height:94vh; overflow:auto; box-sizing:border-box; background:#fffdf8; color:#173138; border:1px solid #9eb8c3; border-radius:1rem; padding:1rem; }
+.lk-graph-dialog::backdrop { background:#142a3bcc; }
+.lk-graph-dialog > button { position:sticky; top:0; z-index:2; margin-bottom:.5rem; }
+.lk-graph-dialog .chart-panel { max-width:100%; width:100%; }
+.lk-graph-dialog .chart-wrap { width:100%; overflow:auto; }
+.lk-graph-dialog .chart-wrap svg { width:100%; min-width:0; height:auto; }
+.lk-graph-legend { display:flex; flex-wrap:wrap; gap:.4rem 1rem; list-style:none; padding:0; font-size:.8rem; overflow-wrap:anywhere; }
+.lk-graph-legend li { display:flex; gap:.4rem; align-items:center; }
+.lk-graph-legend span { display:inline-block; width:1.5rem; flex-shrink:0; border-top:3px solid; }

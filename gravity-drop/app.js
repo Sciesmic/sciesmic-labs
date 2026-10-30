@@ -1,3 +1,4 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import {content} from './content.js';
 import {initLab,onLangChange,t,renderRich,getLang} from '../kit/labs-kit.js';
 import {OBJECTS,simulate,challenge,settings} from './model.js';
@@ -5,7 +6,8 @@ const $=id=>document.getElementById(id),q=new URLSearchParams(location.search),i
 let seed=Number(q.get('seed')??42)>>>0,mode=['compare','experiment','challenge'].includes(q.get('mode'))?q.get('mode'):'compare';
 let p=settings({a:q.get('a')??'feather',b:q.get('b')??'bowling',height:q.has('height')?q.get('height'):10,environment:q.get('environment')});
 if(mode==='challenge')p=challenge(seed);
-let trials=[],time=0,observed=0,playing=false,started=false,raf=0,last=0,historyRows=[],recorded=false,run=0;
+const sharedGraph=createGraphTools(document.getElementById('graph'));let savedFlights=[];
+let trials=[],time=0,observed=0,playing=false,started=false,raf=0,last=0,historyRows=[],recorded=false,run=1;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=(n,d=3)=>Number(n).toLocaleString(getLang()==='es'?'es-MX':'en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const name=id=>t(id),env=e=>t(e),safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -29,14 +31,13 @@ function table(head,rows){return `<thead><tr>${head.map(v=>`<th scope="col">${sa
 function drawReadings(){const rows=[];trials.forEach(r=>r.objects.forEach((o,i)=>{const s=o.at(time);rows.push([env(r.settings.environment),(i?'B · ':'A · ')+name(o.id),fmt(o.mass),fmt(s.height),fmt(s.speed),fmt(s.weight,4),fmt(s.drag,4),fmt(s.net,4),fmt(s.acceleration),t(started&&s.impact?'landed':!started?'waiting':'falling')]);}));
  $('readings').innerHTML=table(['chamber','object','mass','position','speed','weight','drag','net','acceleration','state'].map(t),rows);
 }
-function graph(){const d=Math.max(.5,observed),h=Math.max(1,p.height),X=x=>60+730*x/d,Y=y=>250-215*y/h;
- let svg='';for(let j=0;j<=4;j++){const y=j*h/4,x=j*d/4;svg+=`<line x1="60" x2="790" y1="${Y(y)}" y2="${Y(y)}" stroke="#dbe5df"/><text x="48" y="${Y(y)+4}" text-anchor="end" font-size="12" fill="#536b66">${fmt(y,1)}</text><text x="${X(x)}" y="274" text-anchor="middle" font-size="12" fill="#536b66">${fmt(x,2)}</text>`;}
- svg+='<text x="16" y="20" font-size="12">m</text><text x="805" y="292" font-size="12">s</text>';
- const rows=[],times=new Set([0]);if(observed>0){for(let j=1;j<=10;j++)times.add(observed*j/10);trials.forEach(r=>r.objects.forEach(o=>{if(o.duration<=observed)times.add(o.duration);}));}
- trials.forEach(r=>r.objects.forEach((o,i)=>{const end=Math.min(observed,o.duration),points=Array.from({length:101},(_,j)=>{const x=end*j/100;return `${X(x)},${Y(o.at(x).height)}`;}).join(' ');svg+=`<polyline points="${points}" fill="none" stroke="${r.settings.environment==='air'?'#086e72':'#a95018'}" stroke-width="${i?2.5:3}" ${i?'stroke-dasharray="8 6"':''}/>`;}));
- $('graph').innerHTML=svg;
- [...times].sort((a,b)=>a-b).forEach(x=>rows.push([fmt(x),...trials.flatMap(r=>r.objects.map(o=>fmt(o.at(x).height)))]));
- $('samples').innerHTML=table([t('sampleTime'),...trials.flatMap(r=>r.objects.map((o,i)=>env(r.settings.environment)+' '+(i?'B':'A')+' (m)'))],rows);
+function graph(){
+ const curves=[];
+ const add=(r,label,until)=>r.objects.forEach((o,i)=>{const end=Math.min(until,o.duration);curves.push({id:label+'-'+i,label:label+' · '+(i?'B':'A')+' '+name(o.id)+' · '+fmt(r.settings.height,1)+' m',points:Array.from({length:end>0?31:1},(_,j)=>{const x=end*j/30;return {x,y:o.at(x).height};})});});
+ savedFlights.forEach(f=>add(f.trial,t('trial')+' '+f.run+' · '+env(f.trial.settings.environment),f.trial.duration));
+ trials.forEach(r=>add(r,t('current')+' · '+env(r.settings.environment),observed));
+ sharedGraph.update({title:t('graphTitle'),xLabel:t('sampleTime'),yLabel:t('position'),yMin:0,series:curves});
+ const times=Array.from({length:11},(_,j)=>observed*j/10);$('samples').innerHTML=table([t('sampleTime'),...trials.flatMap(r=>r.objects.map((o,i)=>env(r.settings.environment)+' '+(i?'B':'A')+' (m)'))],times.map(x=>[fmt(x),...trials.flatMap(r=>r.objects.map(o=>fmt(o.at(x).height)))]));
 }
 function live(){const done=started&&observed>=duration();$('clock').textContent=fmt(time)+' s';$('timeline').max=observed;$('timeline').value=time;$('timeline').disabled=!started;
  $('status').textContent=t(!started?'ready':playing?'running':done&&time>=duration()?'finished':'paused');$('play').textContent=t(playing?'pause':started?'resume':'release');$('play').disabled=done&&time>=duration();$('step').disabled=done&&time>=duration();$('record').disabled=!done||recorded;$('guess').disabled=started;
@@ -53,9 +54,9 @@ $('timeline').oninput=()=>{stop();time=Number($('timeline').value);live();};
 ['a','b','height','environment'].forEach(k=>$(k).addEventListener('change',()=>{p=settings({...p,[k]:$(k).value});reset();}));
 for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>{mode=b.dataset.mode;if(mode==='challenge')p=challenge(seed);reset();};
 $('new-trial').onclick=()=>{seed=(seed+1)>>>0;p=challenge(seed);reset();};
-$('record').onclick=()=>{if(observed<duration()||recorded)return;trials.forEach(r=>r.objects.forEach((o,i)=>historyRows.push({trial:run,environment:r.settings.environment,object:o.id,lane:i?'B':'A',height:p.height,mass:o.mass,time:o.duration,speed:o.impact.speed})));recorded=true;$('record-status').textContent=t('saved');live();drawHistory();};
+$('record').onclick=()=>{if(observed<duration()||recorded)return;savedFlights.push(...trials.map(trial=>({run,trial})));trials.forEach(r=>r.objects.forEach((o,i)=>historyRows.push({trial:run,environment:r.settings.environment,object:o.id,lane:i?'B':'A',height:p.height,mass:o.mass,time:o.duration,speed:o.impact.speed})));recorded=true;$('record-status').textContent=t('saved');live();drawHistory();};
 function drawHistory(){$('history').innerHTML=table(['trial','chamber','object','height','mass','fallTime','impactSpeed'].map(t),historyRows.map(r=>[r.trial,env(r.environment),r.lane+' · '+name(r.object),fmt(r.height,1),fmt(r.mass),fmt(r.time),fmt(r.speed)]));$('download').disabled=!historyRows.length;}
-$('clear').onclick=()=>{historyRows=[];drawHistory();$('record-status').textContent=t('cleared');};
+$('clear').onclick=()=>{historyRows=[];savedFlights=[];graph();drawHistory();$('record-status').textContent=t('cleared');};
 $('download').onclick=()=>{const head=['trial','environment','object','lane','height_m','mass_kg','fall_time_s','impact_speed_m_s'];const quote=x=>'"'+String(x).replaceAll('"','""')+'"';const rows=historyRows.map(r=>[r.trial,r.environment,r.object,r.lane,r.height,r.mass,r.time,r.speed]);const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+[head,...rows].map(row=>row.map(quote).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));a.download='gravity-drop-evidence.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText(url().href);$('copy-status').textContent=t('copied');}catch{$('copy-status').textContent=t('copyFallback')+' '+url().href;}};
 // Close active definition before language changes so its text cannot become stale.

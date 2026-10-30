@@ -24,7 +24,7 @@ export const content = {
       "hintLab": "Change one condition. Compare collected [[oxygen|oxygen]] at the same elapsed time. Water, temperature and plant size stay fixed.",
       "hintLeaf": "Move from a plant to a leaf to a [[chloroplast|chloroplast]]. A land leaf exchanges gases through [[stoma|stomata]]; the underwater setup is a different representation.",
       "hintAtoms": "Trace [[carbon-dioxide|carbon dioxide]] and [[water|water]] into [[glucose|glucose]]. Light supplies energy; it adds no atoms. Each button press represents one complete net reaction packet.",
-      "hintCycle": "Compare photosynthesis with [[respiration|cellular respiration]]. Both occur in light; respiration continues in darkness using stored food. Arrows show NET gas exchange.",
+      "hintCycle": "Compare photosynthesis with [[respiration|cellular respiration]]. Both occur in light; respiration continues in darkness using stored food. Arrows show separate gas flows for photosynthesis and respiration; the net readout shows their difference.",
       "light": "Light intensity (relative %)",
       "co2": "Dissolved carbon supply (relative %)",
       "color": "Light color",
@@ -152,6 +152,11 @@ export const content = {
       "cycleVisualNote": "Top lane: CO₂ enters photosynthesis and O₂ leaves; light supplies energy and water is also required. Bottom lane: O₂ enters respiration, which uses stored sugar and releases CO₂. Moving icons show direction; denser, faster flow means a higher model rate, not a count of real molecules. In darkness only respiration continues. Reduced motion keeps the same labeled still diagram.",
       "inventoryNote": "Molecule inventory: each icon represents the displayed number of molecules. Build a sugar to use reactants and reveal products; the balanced net equation is shown below.",
       "moleculesReset": "Molecules reset: 6 CO₂, 6 H₂O, no products, and light available."
+    ,
+      "aboutDescription": "Investigate oxygen collection, explore a leaf, account for atoms in sugar, and compare photosynthesis with respiration during day and night.",
+      "aboutGrades": "LIFE SCIENCE · GRADES 6–8",
+      "aboutStandards": "TEKS 6.8B · partial · TEKS 7.5E · partial · MS-LS1-6",
+      "aboutScope": "Connections may address only part of a standard; consult the lab’s model and alignment notes."
     },
     "es": {
       "title": "Fotosíntesis",
@@ -174,7 +179,7 @@ export const content = {
       "hintLab": "Cambia una condición. Compara el [[oxygen|oxígeno]] recolectado durante el mismo tiempo. El agua, la temperatura y el tamaño de la planta permanecen constantes.",
       "hintLeaf": "Pasa de una planta a una hoja y a un [[chloroplast|cloroplasto]]. Una hoja terrestre intercambia gases por los [[stoma|estomas]]; el montaje acuático es una representación diferente.",
       "hintAtoms": "Rastrea el [[carbon-dioxide|dióxido de carbono]] y el [[water|agua]] hasta la [[glucose|glucosa]]. La luz aporta energía; no añade átomos. Cada pulsación representa un paquete completo de la reacción neta.",
-      "hintCycle": "Compara la fotosíntesis con la [[respiration|respiración celular]]. Ambas ocurren con luz; la respiración continúa en la oscuridad usando alimento almacenado. Las flechas muestran el intercambio NETO de gases.",
+      "hintCycle": "Compara la fotosíntesis con la [[respiration|respiración celular]]. Ambas ocurren con luz; la respiración continúa en la oscuridad usando alimento almacenado. Las flechas muestran por separado los flujos de gases de la fotosíntesis y la respiración; la lectura neta muestra su diferencia.",
       "light": "Intensidad de luz (% relativo)",
       "co2": "Suministro de carbono disuelto (% relativo)",
       "color": "Color de la luz",
@@ -302,6 +307,11 @@ export const content = {
       "cycleVisualNote": "Carril superior: entra CO₂ en la fotosíntesis y sale O₂; la luz aporta energía y también se necesita agua. Carril inferior: entra O₂ en la respiración, que usa azúcar almacenado y libera CO₂. Los iconos móviles indican la dirección; un flujo más denso y rápido representa una tasa mayor del modelo, no un conteo de moléculas reales. En la oscuridad solo continúa la respiración. Con movimiento reducido se conserva el diagrama estático con etiquetas.",
       "inventoryNote": "Inventario molecular: cada icono representa la cantidad de moléculas indicada. Forma un azúcar para usar reactivos y revelar productos; la ecuación neta balanceada aparece abajo.",
       "moleculesReset": "Moléculas reiniciadas: 6 CO₂, 6 H₂O, ningún producto y luz disponible."
+    ,
+      "aboutDescription": "Investiga la recolección de oxígeno, explora una hoja, lleva la cuenta de los átomos y compara fotosíntesis y respiración durante día y noche.",
+      "aboutGrades": "CIENCIAS DE LA VIDA · GRADOS 6–8",
+      "aboutStandards": "TEKS 6.8B · partial · TEKS 7.5E · partial · MS-LS1-6",
+      "aboutScope": "Las conexiones pueden cubrir solo parte de un estándar; consulta las notas del modelo y de alineación."
     }
   },
   "standards": [
@@ -510,7 +520,7 @@ export const content = {
     {
       "id": "rate",
       "answer": "A",
-      "standard": "7.2B",
+      "standard": "TEKS 7.2C",
       "en": {
         "prompt": "A trial collects 3.00 mL of O₂ in 10.00 min. What is its average collection rate?",
         "options": [

@@ -1,3 +1,4 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import {content} from './content.js';
 import {initLab,onLangChange,t,renderRich,getLang} from '../kit/labs-kit.js';
 import {state,settings,series,challenge,MONTH,RM} from './model.js';
@@ -5,6 +6,7 @@ const $=id=>document.getElementById(id),query=new URLSearchParams(location.searc
 let seed=Number(query.get('seed')??42)>>>0,mode=['phases','eclipses','challenge'].includes(query.get('mode'))?query.get('mode'):'phases';
 let p=settings(Object.fromEntries(['day','tilt','node','distance'].filter(k=>query.has(k)).map(k=>[k,query.get(k)]))),hemisphere=query.get('hemisphere')==='south'?'south':'north';
 if(mode==='challenge')p=challenge(seed);
+const sharedGraph=createGraphTools(document.getElementById('graph'));
 let rows=[],revealed=false,playing=false,last=0,raf=0;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=(n,d=2)=>Number(n).toLocaleString(getLang()==='es'?'es-MX':'en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -27,9 +29,8 @@ function sun(s){const scale=70/s.sunRadius,w=256*(70/72)*(s.moonRadius/s.sunRadi
  $('eclipse-caption').textContent=t(s.eclipse);$('tilt-art').src=`assets/orbit_tilt_${Math.abs(p.node%180)<.001||p.tilt===0?'eclipse':'miss'}.png`;$('tilt-art').alt=t('tiltCaption')+' · '+t('tiltNote');
 }
 const table=(heads,data)=>`<thead><tr>${heads.map(v=>`<th scope="col">${safe(v)}</th>`).join('')}</tr></thead><tbody>${data.map(row=>`<tr>${row.map(v=>`<td>${safe(v)}</td>`).join('')}</tr>`).join('')}</tbody>`;
-function graph(){const ss=series(p),X=d=>65+d/MONTH*720,Y=f=>230-f*190;let g='';for(let j=0;j<=4;j++){g+=`<line x1="65" x2="785" y1="${Y(j/4)}" y2="${Y(j/4)}" stroke="#d8dfd4"/><text x="53" y="${Y(j/4)+4}" text-anchor="end" font-size="13">${j*25}%</text><text x="${X(MONTH*j/4)}" y="257" text-anchor="middle" font-size="13">${fmt(MONTH*j/4)}</text>`;}
- g+=`<polyline points="${ss.map(s=>X(s.day)+','+Y(s.fraction)).join(' ')}" fill="none" stroke="#21625a" stroke-width="3"/><line x1="${X(p.day)}" x2="${X(p.day)}" y1="40" y2="230" stroke="#b05b16" stroke-dasharray="5 5"/><circle cx="${X(p.day)}" cy="${Y(state(p).fraction)}" r="5" fill="#b05b16"/><text x="425" y="284" text-anchor="middle" font-size="13">${safe(t('day'))}</text>`;
- $('graph').innerHTML=`<svg viewBox="0 0 840 295" role="img" aria-labelledby="chart-note">${g}</svg>`;
+function graph(){const ss=series(p),snapshotLabel=s=>fmt(s.tilt,1)+'° · '+fmt(s.node,0)+'° · '+fmt(s.distance,0)+' km';
+ sharedGraph.update({title:t('fraction'),xLabel:t('day')+' (d)',yLabel:t('fraction')+' (%)',xMin:0,xMax:MONTH,yMin:0,yMax:100,series:[{id:'current',label:t('current')+' · '+snapshotLabel(p),points:ss.map(s=>({x:s.day,y:s.fraction*100,label:t(s.phaseId)}))},...rows.map((s,i)=>({id:'record-'+i,label:t('trial')+' '+(i+1)+' · '+snapshotLabel(s),line:false,points:[{x:s.day,y:s.fraction*100,label:t(s.phaseId)+' · '+t(s.eclipse)}]}))]});
  $('cycle-table').innerHTML=table([t('day'),t('fraction'),t('phaseLabel'),t('event')],ss.map(s=>[fmt(s.day),fmt(s.fraction*100),t(s.phaseId),t(s.eclipse)]));
 }
 function history(){const heads=['trial','day','tilt','node','distance','phaseLabel','fraction','event'];$('history').innerHTML=table(heads.map(t),rows.map((s,j)=>[j+1,fmt(s.day),fmt(s.tilt,1),fmt(s.node,0),fmt(s.distance,0),t(s.phaseId),fmt(s.fraction*100),t(s.eclipse)]));$('download').disabled=!rows.length;}
@@ -54,7 +55,7 @@ for(const k of ['day','tilt','node','distance'])$(k).oninput=()=>{stop();p=setti
 $('hemisphere').onchange=()=>{hemisphere=$('hemisphere').value;live();};
 for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>{stop();mode=b.dataset.mode;revealed=false;if(mode==='challenge')p=challenge(seed);render();};
 $('reveal').onclick=()=>{revealed=true;render();};$('new-trial').onclick=()=>{stop();seed=(seed+1)>>>0;p=challenge(seed);revealed=false;$('guess').value='';render();};
-$('record').onclick=()=>{rows.push(state(p));history();$('record-status').textContent=t('saved');};$('clear').onclick=()=>{rows=[];history();$('record-status').textContent=t('cleared');};
+$('record').onclick=()=>{rows.push(state(p));history();graph();$('record-status').textContent=t('saved');};$('clear').onclick=()=>{rows=[];history();graph();$('record-status').textContent=t('cleared');};
 $('download').onclick=()=>{const quote=v=>'"'+String(v).replaceAll('"','""')+'"',heads=['record','day','tilt_deg','node_deg','distance_km','phase_id','phase_illumination_percent','eclipse_id'];const data=rows.map((s,j)=>[j+1,s.day,s.tilt,s.node,s.distance,s.phaseId,s.fraction*100,s.eclipse]);const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+[heads,...data].map(row=>row.map(quote).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));a.download='earth-moon-evidence.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText(url().href);$('utility-status').textContent=t('copied');}catch{$('utility-status').textContent=t('copyFallback')+' '+url().href;}};
 document.addEventListener('click',e=>{if(e.target.closest('[data-lang]'))document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));},true);

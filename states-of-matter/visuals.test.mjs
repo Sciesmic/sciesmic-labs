@@ -92,3 +92,13 @@ test('beaker stays open and only boiling liquid produces bubbles', () => {
   assert.match(gas,/data-vapor/);
   assert.doesNotMatch(gas,/bag-glass/);
 });
+
+test('liquid and gas use the same kinetic-speed cue at a fixed temperature', () => {
+  const displacement=state=>{
+    context.phaseState=state;
+    return vm.runInContext(`particles.forEach(p=>{p.x=VIEW.cx;p.y=VIEW.cy+60;p.vx=1;p.vy=0;p.a=0;});
+      stepParticles({state:phaseState,T:100,change:null},1);
+      Math.hypot(particles[0].x-VIEW.cx,particles[0].y-(VIEW.cy+60));`,context);
+  };
+  assert.ok(Math.abs(displacement('liquid')-displacement('gas'))<1e-9);
+});

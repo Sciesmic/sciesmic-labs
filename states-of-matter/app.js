@@ -1,3 +1,4 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceTrial, createRun, newMystery, guessMystery, normalize, segmentsFor, motionLevel, DEFAULTS, MODES, POWERS, MASSES, MYSTERY_KEYS, SUBSTANCES } from "./model.js";
 import { initLab, onLangChange, renderRich, t } from "../kit/labs-kit.js";
 import { content } from "./content.js";
@@ -274,11 +275,11 @@ function stepParticles(frame, dtFrames) {
       return;
     }
     p.jx = 0; p.jy = 0;
-    const speed = (st === "liquid" ? 0.9 : 2.6) * level * dtFrames;
+    const speed = 0.9 * level * dtFrames;
     const norm = Math.hypot(p.vx, p.vy) || 1;
     p.x += (p.vx / norm) * speed;
     p.y += (p.vy / norm) * speed;
-    p.a += p.va * level * dtFrames * (st === "gas" ? 2.4 : 1);
+    p.a += p.va * level * dtFrames;
     if (st === "liquid") {
       // Liquid: stay close together near the bottom but slide past one another.
       if (p.y < VIEW.cy + 30) { p.vy = Math.abs(p.vy) + 0.3; p.y += 1.5 * dtFrames; }
@@ -664,3 +665,5 @@ initLab(content);
 renderControls();
 render();
 requestAnimationFrame(particleLoop);
+
+createGraphTools(document.getElementById('chart'), {legacy:true});

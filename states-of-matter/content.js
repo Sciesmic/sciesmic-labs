@@ -321,6 +321,11 @@ export const content = {
       step4: "4. CHECK YOUR THINKING",
       checksHeading: "Check your thinking",
       footer: "Original simplified model for learning. Real samples behave the same way but are never exact. ©Sciesmic 2026",
+
+      "aboutDescription": "Heat or cool water and dry ice, watch their particles, and find the flat parts of the heating curve where they change state. Then identify a mystery substance.",
+      "aboutGrades": "PHYSICAL SCIENCE · GRADES 6–8",
+      "aboutStandards": "TEKS 6.6A · TEKS 7.8C · NGSS MS-PS1-4",
+      "aboutScope": "Connections may address only part of a standard; consult the lab’s model and alignment notes."
     },
     es: {
       title: "Laboratorio de estados de la materia",
@@ -443,6 +448,11 @@ export const content = {
       step4: "4. COMPRUEBA LO QUE PIENSAS",
       checksHeading: "Comprueba lo que piensas",
       footer: "Modelo original y simplificado para aprender. Las muestras reales se comportan igual, pero nunca de forma exacta. ©Sciesmic 2026",
+
+      "aboutDescription": "Calienta o enfría agua y hielo seco, observa partículas y cambios de estado e identifica una sustancia misteriosa.",
+      "aboutGrades": "CIENCIAS FÍSICAS · GRADOS 6–8",
+      "aboutStandards": "TEKS 6.6A · TEKS 7.8C · NGSS MS-PS1-4",
+      "aboutScope": "Las conexiones pueden cubrir solo parte de un estándar; consulta las notas del modelo y de alineación."
     },
   },
 };

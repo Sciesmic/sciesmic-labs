@@ -1,3 +1,4 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceTrial, createRun, newSortSet, checkSort, normalize, DEFAULTS, MASSES, TYPES, SUPERNOVA_MASS, colorOf, msLuminosity, msRadius, temperature, makeRng } from "./model.js";
 import { initLab, onLangChange, renderRich, t, getLang } from "../kit/labs-kit.js";
 import { content } from "./content.js";
@@ -242,6 +243,7 @@ function centerScroll() {
 function sceneDescription(view) {
   if (!view.sample) return t("descIdle", { m: massLabel(view.mass) });
   const s = view.sample;
+  if (s.stage === "neutronStar") return t("descNeutron", { age: years(s.age) });
   if (s.L <= 0) return t("descRemnant", { age: years(s.age), stage: stageName(s.stage, view.mass) });
   return t("descStar", { age: years(s.age), stage: stageName(s.stage, view.mass), color: colorWord(s.T), T: kelvin(s.T), L: sig(s.L), R: sig(s.R) });
 }
@@ -277,7 +279,7 @@ function renderReadouts(sample, mass) {
   const swatch = lit ? `<span class="swatch" style="background:${starColor(sample.T)}"></span>` : "";
   refs.readouts.innerHTML = row(t("rdAge"), esc(years(sample.age))) + row(t("rdStage"), esc(stageName(sample.stage, mass)))
     + row(t("rdTemp"), lit ? esc(sample.stage === "supernova" ? "—" : kelvin(sample.T)) : "—") + row(t("rdColor"), lit && sample.stage !== "supernova" ? `${swatch}${esc(colorWord(sample.T))}` : "—")
-    + row(t("rdBright"), lit ? esc(sample.stage === "supernova" ? t("brightBillions") : t("timesSun", { v: sig(sample.L) })) : esc(t("brightNone")))
+    + row(t("rdBright"), lit ? esc(sample.stage === "supernova" ? t("brightBillions") : t("timesSun", { v: sig(sample.L) })) : esc(t(sample.stage === "neutronStar" ? "thermalOutside" : "brightNone")))
     + row(t("rdSize"), lit && sample.stage !== "supernova" ? esc(t("timesSun", { v: sig(sample.R) })) : esc(sample.stage === "neutronStar" ? t("sizeCity") : sample.stage === "blackHole" ? t("sizeHole") : "—"))
     + row(t("rdFusion"), esc(t(FUSION[sample.stage])), "wide");
 }
@@ -294,7 +296,7 @@ function lifeView(trial, index) {
     sample, mass: trial.settings.mass,
     progress: sample.stage === "protostar" ? pre.indexOf(sample) / Math.max(1, pre.length - 1) : 1,
     shellStep: sample.stage === "nebulaShell" ? shells.indexOf(sample) + 1 : 3,
-    cap: trial.result.endState === "alive" && index === trial.samples.length - 1,
+    cap: trial.result.ageLimited && index === trial.samples.length - 1,
   };
 }
 
@@ -589,3 +591,5 @@ onLangChange(() => { renderControls(); if (state.playing) { refs.runLabel.textCo
 initLab(content);
 renderControls();
 render();
+
+createGraphTools(document.getElementById('chart'), {legacy:true});

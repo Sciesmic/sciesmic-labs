@@ -13,12 +13,12 @@ export const content = {
     { code: "NGSS MS-LS4-6", url: "https://www.nextgenscience.org/pe/ms-ls4-6-biological-evolution-unity-and-diversity",
       en: "Use mathematical representations to explain how natural selection changes traits in populations over time.",
       es: "Usar representaciones matemáticas para explicar cómo la selección natural cambia los rasgos en las poblaciones con el tiempo." },
-    { code: "TEKS 7.13D", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
-      en: "Describe how natural and artificial selection change how often traits appear in a population over generations.",
-      es: "Describir cómo la selección natural y la artificial cambian la frecuencia de los rasgos en una población a lo largo de generaciones." },
-    { code: "TEKS 8.13C", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
-      en: "Describe how variation in traits leads to adaptations that affect survival and reproductive success over generations.",
-      es: "Describir cómo la variación de rasgos produce adaptaciones que afectan la supervivencia y el éxito reproductivo a lo largo de generaciones." },
+    { code: "TEKS 7.13D · partial", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
+      en: "Describe how natural and artificial selection change how often traits appear in a population over generations. Partial: natural selection only; artificial selection is not modeled.",
+      es: "Describir cómo la selección natural y la artificial cambian la frecuencia de los rasgos en una población a lo largo de generaciones. Parcial: solo selección natural; no se modela la selección artificial." },
+    { code: "TEKS 8.13C · partial", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
+      en: "Describe how variation in traits leads to adaptations that affect survival and reproductive success over generations. Partial: inherited structural variation; behavioral and physiological adaptations need other evidence.",
+      es: "Describir cómo la variación de rasgos produce adaptaciones que afectan la supervivencia y el éxito reproductivo a lo largo de generaciones. Parcial: variación estructural heredada; las adaptaciones conductuales y fisiológicas requieren otra evidencia." },
   ],
 
   vocab: [
@@ -48,7 +48,7 @@ export const content = {
         feedback: {
           A: "No individual changed its pattern during the run. Check the Model notes: patterns are inherited and fixed for life.",
           B: "The population changed because some individuals survived and reproduced more, not because any individual changed.",
-          C: "The model has no taste preference. Finches only detect beetles that contrast with the background.",
+          C: "Finches are more likely to detect beetles that contrast with the background. Camouflage lowers the chance of detection but does not eliminate it.",
           D: "The background never changes what offspring inherit. Offspring get their pattern from their parents.",
         },
       },
@@ -63,7 +63,7 @@ export const content = {
         feedback: {
           A: "Ningún individuo cambió su patrón durante la prueba. Revisa las notas del modelo: los patrones son heredados y no cambian en toda la vida.",
           B: "La población cambió porque algunos individuos sobrevivieron y se reprodujeron más, no porque algún individuo cambiara.",
-          C: "El modelo no tiene preferencia de sabor. Los pinzones solo detectan a los escarabajos que contrastan con el fondo.",
+          C: "Los pinzones detectan con mayor probabilidad los escarabajos que contrastan con el fondo. El camuflaje reduce la probabilidad de detección, pero no la elimina.",
           D: "El fondo nunca cambia lo que heredan las crías. Las crías reciben su patrón de sus padres.",
         },
       },
@@ -282,6 +282,11 @@ export const content = {
       step4: "4. CHECK YOUR THINKING",
       checksHeading: "Check your thinking",
       footer: "Original fictional model for learning. It shows a population pattern, not a prediction for a real species. © Sciesmic",
+
+      "aboutDescription": "Change the marsh background and predation pressure, then watch inherited beetle patterns rise and fall over generations.",
+      "aboutGrades": "LIFE SCIENCE · GRADES 7–8",
+      "aboutStandards": "NGSS MS-LS4-4 · NGSS MS-LS4-6 · TEKS 7.13D · partial · TEKS 8.13C · partial",
+      "aboutScope": "Connections may address only part of a standard; consult the lab’s model and alignment notes."
     },
     es: {
       title: "Escarabajos del pantano: Laboratorio de selección",
@@ -362,6 +367,11 @@ export const content = {
       step4: "4. COMPRUEBA TU RAZONAMIENTO",
       checksHeading: "Comprueba tu razonamiento",
       footer: "Modelo ficticio original para el aprendizaje. Muestra un patrón de población, no una predicción para una especie real. © Sciesmic",
+
+      "aboutDescription": "Cambia el fondo del pantano y la presión de depredación; observa cómo cambian los patrones heredados de escarabajos durante generaciones.",
+      "aboutGrades": "CIENCIAS DE LA VIDA · GRADOS 7–8",
+      "aboutStandards": "NGSS MS-LS4-4 · NGSS MS-LS4-6 · TEKS 7.13D · partial · TEKS 8.13C · partial",
+      "aboutScope": "Las conexiones pueden cubrir solo parte de un estándar; consulta las notas del modelo y de alineación."
     },
   },
 };

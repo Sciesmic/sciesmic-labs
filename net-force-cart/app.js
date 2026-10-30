@@ -1,3 +1,4 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceTrial, createRun, normalize, massOf, DEFAULTS, MODES, CART_HALF, TRACK, G, PUSH_STOP, LAUNCH, ROLL_SPEED } from "./model.js";
 import { initLab, onLangChange, renderRich, t } from "../kit/labs-kit.js";
 import { content } from "./content.js";
@@ -187,6 +188,11 @@ function cartForces(cx, f, showNet = true) {
     out += arrowPath(cx, RAIL + 8, cx + dir * len, COLORS.friction, 4, "friction");
     out += `<text class="force-label friction" x="${cx + dir * (len + 4)}" y="${RAIL + 4}" text-anchor="${dir > 0 ? "start" : "end"}">${t("lblFriction", { f: abs(f.friction) })}</text>`;
   }
+  if (Math.abs(f.stop || 0) >= 0.005) {
+    const dir = Math.sign(f.stop), len = arrowLen(f.stop), y = RAIL + 27;
+    out += arrowPath(cx, y, cx + dir * len, "#65549b", 4, "stop-contact");
+    out += `<text class="force-label" x="${cx + dir * (len + 4)}" y="${y + 16}" text-anchor="${dir > 0 ? "start" : "end"}">${t("lblStop", { f: abs(f.stop, 1) })}</text>`;
+  }
   if (showNet && f.net !== null) {
     const y = top - 8 * (f.bars ?? 0) - 18;
     if (Math.abs(f.net) < 0.005) out += `<text class="force-label net" x="${cx}" y="${y + 4}" text-anchor="middle">${t("lblNetZero")}</text>`;
@@ -217,14 +223,14 @@ function frameFromSample(trial, sample) {
   if (s.mode === "apart") {
     const contact = sample.spring > 0;
     return { mode: "apart", t: sample.t, spring: contact ? "pushing" : "released", carts: [
-      { x: sample.left.x, v: sample.left.vMeas, bars: s.barsLeft, pushLeft: contact ? sample.spring : 0, pushRight: 0, friction: sample.left.friction, net: sample.left.net, pair: contact ? -sample.spring : 0 },
-      { x: sample.right.x, v: sample.right.vMeas, bars: s.barsRight, pushLeft: 0, pushRight: contact ? sample.spring : 0, friction: sample.right.friction, net: sample.right.net, pair: contact ? sample.spring : 0 }] };
+      { x: sample.left.x, v: sample.left.vMeas, bars: s.barsLeft, pushLeft: contact ? sample.spring : 0, pushRight: 0, stop: sample.left.stop, friction: sample.left.friction, net: sample.left.net, pair: contact ? -sample.spring : 0 },
+      { x: sample.right.x, v: sample.right.vMeas, bars: s.barsRight, pushLeft: 0, pushRight: contact ? sample.spring : 0, stop: sample.right.stop, friction: sample.right.friction, net: sample.right.net, pair: contact ? sample.spring : 0 }] };
   }
   const r = trial.result;
   // The 0.5 s sample still holds the forces from just before the push stopped.
   const pushOn = s.mode === "tug" || s.pushTime === "all" || sample.t < PUSH_STOP + 1e-9;
   return { mode: s.mode, t: sample.t, carts: [{ x: sample.x, v: sample.vMeas, bars: s.bars,
-    pushRight: pushOn ? r.pushRight : 0, pushLeft: pushOn ? r.pushLeft : 0, friction: sample.friction, net: sample.net }] };
+    pushRight: pushOn ? r.pushRight : 0, pushLeft: pushOn ? r.pushLeft : 0, stop: sample.stop, friction: sample.friction, net: sample.net }] };
 }
 
 function drawScene(frame) {
@@ -621,3 +627,5 @@ onLangChange(() => { renderControls(); if (state.playing) { refs.runLabel.textCo
 initLab(content);
 renderControls();
 render();
+
+createGraphTools(document.getElementById('chart'), {legacy:true});

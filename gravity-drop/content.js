@@ -148,6 +148,16 @@ export const content = {
       "wrongGuess": "Compare your prediction with the fall times. Revise your explanation using gravity and drag.",
       "zeroNote": "At 0 m, both objects are already at the finish: duration and impact speed are zero.",
       "sourceNASA": "NASA · Falling objects and air resistance"
+    ,
+      "aboutDescription": "Drop feathers, balls, and paper in air and vacuum. Compare fall times, inspect forces, and use evidence to explain gravity and air resistance.",
+      "aboutGrades": "PHYSICAL SCIENCE · GRADES 6–8",
+      "aboutStandards": "TEKS 6.7A · partial · TEKS 7.7A · TEKS 8.7A · partial · MS-PS2-2 · partial · MS-PS2-4 · partial",
+      "aboutScope": "Connections may address only part of a standard; consult the lab’s model and alignment notes.",
+      "current": "Current investigation",
+      "allPlanets": "Eight planets",
+      "day": "Day",
+      "motorWork": "Motor work",
+      "setupDetails": "Full trial setup"
     },
     "es": {
       "a": "A llega primero",
@@ -264,6 +274,16 @@ export const content = {
       "wrongGuess": "Compara tu predicción con los tiempos. Revisa tu explicación usando gravedad y arrastre.",
       "zeroNote": "A 0 m, ambos objetos ya están en la meta: tiempo y rapidez de impacto son cero.",
       "sourceNASA": "NASA · Caída de objetos y resistencia del aire"
+    ,
+      "aboutDescription": "Deja caer objetos en aire y vacío; compara tiempos, fuerzas y evidencia de gravedad y resistencia del aire.",
+      "aboutGrades": "CIENCIAS FÍSICAS · GRADOS 6–8",
+      "aboutStandards": "TEKS 6.7A · partial · TEKS 7.7A · TEKS 8.7A · partial · MS-PS2-2 · partial · MS-PS2-4 · partial",
+      "aboutScope": "Las conexiones pueden cubrir solo parte de un estándar; consulta las notas del modelo y de alineación.",
+      "current": "Investigación actual",
+      "allPlanets": "Ocho planetas",
+      "day": "Día",
+      "motorWork": "Trabajo del motor",
+      "setupDetails": "Configuración completa"
     }
   },
   "vocab": [

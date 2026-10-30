@@ -5,7 +5,7 @@
 //
 // Misconception guardrails built into the model:
 //  - A cart never slows down "on its own". With net force = 0, velocity stays exactly the same.
-//    Any slowing always comes from a friction force, and that force is always drawn as an arrow.
+//    Slowing comes from friction or end-stop contact; collisions are not time-resolved.
 //  - A force is not "used up" or stored in the cart. When a push stops, its arrow disappears;
 //    the cart keeps the velocity it already had.
 //  - In Push apart mode the two carts always push on each other with equal and opposite forces,
@@ -90,15 +90,15 @@ function stepCart(cart, applied, mu) {
   if (x <= CART_HALF || x >= TRACK - CART_HALF) {
     // The end stop holds the cart: it is at rest and the stop balances any push, so the net force is zero.
     x = clamp(x, CART_HALF, TRACK - CART_HALF); v = 0; bumped = bumped || (x <= CART_HALF ? "left" : "right");
-    return { ...cart, x, v, a: 0, applied, friction: 0, net: 0, bumped };
+    return { ...cart, x, v, a: 0, applied, friction: 0, stop: -applied, net: 0, bumped };
   }
-  return { ...cart, x, v, a, applied, friction, net, bumped };
+  return { ...cart, x, v, a, applied, friction, stop: 0, net, bumped };
 }
 
 function sampleOf(cart, rng) {
   return {
     x: r3(cart.x), v: r3(cart.v), vMeas: r3(cart.v === 0 ? 0 : cart.v + normal(rng, 0.004)), // a still cart reads 0.00
-    applied: r2(cart.applied), friction: r2(cart.friction), net: r2(cart.net), a: r2(cart.a),
+    stop: r2(cart.stop || 0), applied: r2(cart.applied), friction: r2(cart.friction), net: r2(cart.net), a: r2(cart.a),
   };
 }
 

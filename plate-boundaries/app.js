@@ -1,3 +1,4 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceRun, chainTable, createRun, MAX_TIME, SETUPS, slabDepth, stripeTable } from "./model.js";
 import { initLab, onLangChange, renderRich, t, getLang } from "../kit/labs-kit.js";
 import { content } from "./content.js";
@@ -610,3 +611,5 @@ refs.speed.value = String(state.speed);
 onLangChange(() => render());
 initLab(content);
 render();
+
+createGraphTools(document.getElementById('chart'), {legacy:true});

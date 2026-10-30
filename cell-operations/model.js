@@ -114,7 +114,7 @@ export function simulateDay(cell, light, shutdown, rng) {
     const use = (on("mitochondria") ? 9 * flow : 1.2) * (s.sugar > 0 ? 1 : 0);
     const leak = membrane ? 0 : 0.18 * s.sugar;                 // a failed membrane lets the cell's contents leak out
     s.sugar = clamp(s.sugar + supply - use - leak);
-    // Energy: released from sugar by mitochondria only.
+    // Schematic aerobic ATP-supply gauge. Cytosolic ATP and chloroplast-internal ATP are omitted.
     let energyTarget = on("mitochondria") ? 92 * Math.min(1, s.sugar / 25) * (flow === 1 ? 1 : 0.5) : 6;
     if (!membrane) energyTarget *= 0.6;
     s.energy = clamp(s.energy + 0.5 * k.energy * (energyTarget - s.energy));
@@ -125,8 +125,8 @@ export function simulateDay(cell, light, shutdown, rng) {
     // Water.
     let waterTarget = plant ? 88 : 80;
     if (plant && !on("vacuole")) waterTarget = 32;              // no vacuole to store water: the cell wilts
-    if (plant && !on("wall")) waterTarget = 100;                // nothing pushes back, so water keeps coming in
-    if (!membrane) waterTarget = plant ? 22 : 100;               // plant: can't hold its water; animal: water floods in
+    if (plant && !on("wall")) waterTarget = 100;                // assumes hypotonic surroundings for this wall-removal illustration
+    if (!membrane) waterTarget = plant ? 22 : 100;               // schematic loss of regulation, NOT a calculation of osmotic water direction
     if (s.energy < 20 && membrane) waterTarget = (waterTarget + 50) / 2; // pumps that balance water need energy
     s.water = clamp(s.water + 0.3 * k.water * (waterTarget - s.water));
     // Waste.
@@ -139,7 +139,7 @@ export function simulateDay(cell, light, shutdown, rng) {
       if (!on("wall")) s.shape = clamp(s.shape - Math.max(0, s.water - 86) * 0.9);     // swells with no wall to hold it
       else s.shape = clamp(s.shape + 0.3 * ((s.water < 50 ? 75 : 95) - s.shape));      // wall keeps its shape; wilting softens it
     } else {
-      if (!membrane) s.shape = clamp(s.shape - 26 * k.water);                           // water floods in: the cell swells and bursts
+      if (!membrane) s.shape = clamp(s.shape - 26 * k.water);                           // schematic loss of shape after membrane failure
       else s.shape = clamp(s.shape + 0.3 * (85 - s.shape) - (s.water > 92 ? 8 : 0));
     }
     // Did the cell die this hour?

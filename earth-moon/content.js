@@ -138,6 +138,16 @@ export const content = {
       "cardsTitle": "Earth & Moon Vocabulary Flashcards",
       "cardsIntro": "Ten terms for investigating phases and eclipses.",
       "cardsFile": "earth-moon-vocabulary"
+    ,
+      "aboutDescription": "Connect the Moon’s orbit with its appearance from Earth. Investigate phases, tilted shadow misses, and solar and lunar eclipses.",
+      "aboutGrades": "EARTH & SPACE · GRADES 6–8",
+      "aboutStandards": "TEKS 6–8.1G · models · TEKS 7.9A · partial · MS-ESS1-1 · partial",
+      "aboutScope": "Connections may address only part of a standard; consult the lab’s model and alignment notes.",
+      "current": "Current investigation",
+      "allPlanets": "Eight planets",
+      "graphTitle": "Investigation graph",
+      "motorWork": "Motor work",
+      "setupDetails": "Full trial setup"
     },
     "es": {
       "backLab": "← Volver al laboratorio",
@@ -256,6 +266,16 @@ export const content = {
       "cardsTitle": "Tarjetas de vocabulario de Tierra y Luna",
       "cardsIntro": "Diez términos para investigar fases y eclipses.",
       "cardsFile": "tierra-luna-vocabulario"
+    ,
+      "aboutDescription": "Relaciona la órbita lunar con sus fases vistas desde la Tierra e investiga inclinación, sombras y eclipses.",
+      "aboutGrades": "TIERRA Y ESPACIO · GRADOS 6–8",
+      "aboutStandards": "TEKS 6–8.1G · models · TEKS 7.9A · partial · MS-ESS1-1 · partial",
+      "aboutScope": "Las conexiones pueden cubrir solo parte de un estándar; consulta las notas del modelo y de alineación.",
+      "current": "Investigación actual",
+      "allPlanets": "Ocho planetas",
+      "graphTitle": "Gráfica de investigación",
+      "motorWork": "Trabajo del motor",
+      "setupDetails": "Configuración completa"
     }
   },
   "vocab": [

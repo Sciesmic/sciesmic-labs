@@ -122,6 +122,16 @@ export const content = {
       "sun": "Sun",
       "auUnit": "AU",
       "elapsedYears": "Earth years"
+    ,
+      "aboutDescription": "Follow eight planetary orbits, compare planetary years, and investigate how solar gravity curves a moving planet’s path.",
+      "aboutGrades": "EARTH & SPACE · GRADES 6–8",
+      "aboutStandards": "TEKS 7.9B · 7.9A · partial · MS-ESS1-2 · partial · MS-ESS1-3 · partial",
+      "aboutScope": "Connections may address only part of a standard; consult the lab’s model and alignment notes.",
+      "current": "Current investigation",
+      "allPlanets": "Eight planets",
+      "day": "Day",
+      "motorWork": "Motor work",
+      "setupDetails": "Full trial setup"
     },
     "es": {
       "title": "El sistema solar en movimiento",
@@ -242,6 +252,16 @@ export const content = {
       "sun": "Sol",
       "auUnit": "UA",
       "elapsedYears": "Años terrestres"
+    ,
+      "aboutDescription": "Sigue ocho órbitas, compara años planetarios e investiga cómo la gravedad solar curva la trayectoria de un planeta.",
+      "aboutGrades": "TIERRA Y ESPACIO · GRADOS 6–8",
+      "aboutStandards": "TEKS 7.9B · 7.9A · partial · MS-ESS1-2 · partial · MS-ESS1-3 · partial",
+      "aboutScope": "Las conexiones pueden cubrir solo parte de un estándar; consulta las notas del modelo y de alineación.",
+      "current": "Investigación actual",
+      "allPlanets": "Ocho planetas",
+      "day": "Día",
+      "motorWork": "Trabajo del motor",
+      "setupDetails": "Configuración completa"
     }
   },
   "standards": [

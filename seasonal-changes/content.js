@@ -128,6 +128,18 @@ export const content = {
       "modelNotesBtn": "Model notes and scientific sources",
       "modelNotes": "Sunlight geometry is deterministic: identical settings give identical results. A circular orbit at constant Earth–Sun distance isolates axial tilt. Real Earth has a slightly elliptical orbit; distance slightly changes incoming energy but does not explain opposite seasons. The Sun is a point source; refraction, terrain, clouds, currents and daily weather are omitted. Temperature anomalies use a periodic first-order response to local daily-mean sunlight (18-day land or 60-day ocean response time; illustrative sensitivity 0.085 °C per W/m²). These are teaching parameters, not calibrated climate predictions. Rotation is represented in the daylight calculation, not animated at scale.",
       "footer": "Learn. Grow. Achieve! · © Sciesmic 2026 · Simulation 1.0.0"
+    ,
+      "aboutDescription": "Compare daylight, Sun angle and solar energy across latitudes and seasons. Test zero tilt and investigate how heat storage delays seasonal temperature changes.",
+      "aboutGrades": "WEATHER AND CLIMATE · GRADES 6–8",
+      "aboutStandards": "TEKS 6.9A · MS-ESS1-1 · seasons",
+      "aboutScope": "Connections may address only part of a standard; consult the lab’s model and alignment notes.",
+      "current": "Current investigation",
+      "allPlanets": "Eight planets",
+      "graphTitle": "Investigation graph",
+      "trial": "Trial",
+      "day": "Day",
+      "motorWork": "Motor work",
+      "setupDetails": "Full trial setup"
     },
     "es": {
       "cardsTitle": "Tarjetas de vocabulario de cambios estacionales",
@@ -242,6 +254,18 @@ export const content = {
       "modelNotesBtn": "Notas del modelo y fuentes científicas",
       "modelNotes": "La geometría solar es determinista: una configuración idéntica produce resultados idénticos. Una órbita circular con distancia Tierra–Sol constante aísla la inclinación del eje. La órbita real es ligeramente elíptica; la distancia modifica un poco la energía recibida, pero no explica estaciones opuestas. El Sol se representa como un punto; se omiten refracción, relieve, nubes, corrientes y tiempo diario. Las anomalías usan una respuesta periódica de primer orden a la luz solar media diaria local (18 días para tierra firme o 60 para océano; sensibilidad ilustrativa de 0.085 °C por W/m²). Son parámetros didácticos, no predicciones climáticas calibradas. La rotación se incluye en el cálculo de luz diurna y no se anima a escala.",
       "footer": "Learn. Grow. Achieve! · © Sciesmic 2026 · Simulación 1.0.0"
+    ,
+      "aboutDescription": "Compara duración del día, altura solar y energía solar entre latitudes y estaciones; investiga inclinación y almacenamiento de calor.",
+      "aboutGrades": "TIEMPO Y CLIMA · GRADOS 6–8",
+      "aboutStandards": "TEKS 6.9A · MS-ESS1-1 · seasons",
+      "aboutScope": "Las conexiones pueden cubrir solo parte de un estándar; consulta las notas del modelo y de alineación.",
+      "current": "Investigación actual",
+      "allPlanets": "Ocho planetas",
+      "graphTitle": "Gráfica de investigación",
+      "trial": "Prueba",
+      "day": "Día",
+      "motorWork": "Trabajo del motor",
+      "setupDetails": "Configuración completa"
     }
   },
   "vocab": [

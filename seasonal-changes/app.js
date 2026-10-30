@@ -1,3 +1,4 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import {content} from './content.js';
 import {initLab,onLangChange,t,getLang,renderRich} from '../kit/labs-kit.js';
 import {state,year,challenge,YEAR} from './model.js';
@@ -5,6 +6,7 @@ const $=id=>document.getElementById(id),params=new URLSearchParams(location.sear
 const number=(key,fallback,min,max)=>{const n=Number(params.get(key));return params.has(key)&&Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback;};
 let seed=number('seed',314159,0,4294967295)>>>0,mode=['explore','compare','claim'].includes(params.get('mode'))?params.get('mode'):'explore';
 let day=number('day',91.25,0,365),lat=number('lat',40,-80,80),latB=number('latB',-40,-80,80),tilt=number('tilt',23.5,0,35),surface=params.get('surface')==='ocean'?'ocean':'land';
+const sharedGraph=createGraphTools(document.getElementById('graph'));
 let playing=false,timer=null,rows=[];
 const fmt=(v,d=1)=>new Intl.NumberFormat(getLang()==='es'?'es-MX':'en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(Math.abs(v)<1e-9?0:v);
 const events=['mar','jun','sep','dec'],both=()=>mode!=='explore';
@@ -26,11 +28,10 @@ function readings(){const places=[[lat,'a'],...(both()?[[latB,'b']]:[])];
  $('readings').innerHTML=places.map(([l,name])=>{const s=state(l,day,tilt,surface);return `<div class="reading-row"><h3 class="reading-title">${t(name)} · ${fmt(l,1)}° · ${eventName(day)}</h3><div class="metrics">${[['daylight',s.daylight,'hours'],['noonAngle',s.noonAngle,'degrees'],['energy',s.energy,'energyUnit'],['temperature',s.temperature,'tempUnit']].map(([k,v,u])=>`<div class="stat"><span class="label">${t(k)}</span><span class="value">${fmt(v)}</span><span class="unit">${t(u)}</span></div>`).join('')}</div></div>`;}).join('');
  $('annual-table').innerHTML=tableHead()+'<tbody>'+events.flatMap((_,i)=>places.map(([l,n])=>tableRow(state(l,i*YEAR/4,tilt,surface),t(n)))).join('')+'</tbody>';
 }
-function graph(){const metric=$('metric').value,ys=year(lat,tilt,surface).values,bs=both()?year(latB,tilt,surface).values:[];
- const values=[...ys,...bs].map(s=>s[metric]);let lo=metric==='temperature'?Math.floor(Math.min(-1,...values)/5)*5:0,hi=metric==='daylight'?24:metric==='energy'?Math.ceil(Math.max(...values)/10)*10:Math.ceil(Math.max(1,...values)/5)*5;
- if(hi===lo)hi=lo+1;const X=d=>55+d/YEAR*670,Y=v=>255-(v-lo)/(hi-lo)*210;
- const path=data=>data.filter((_,i)=>i%8===0||i===data.length-1).map((s,i)=>(i?'L':'M')+X(s.day).toFixed(2)+' '+Y(s[metric]).toFixed(2)).join(' ');
- $('graph').innerHTML=`<svg viewBox="0 0 760 310" role="img" aria-label="${t(metric)}. ${t('chartDesc')}"><text x="55" y="21" font-size="12" fill="#50676b">${t(metric)} (${metric==='daylight'?'h':metric==='energy'?t('energyUnit'):'°C'})</text>${Array.from({length:5},(_,i)=>{let v=lo+(hi-lo)*i/4;return `<line x1="55" x2="725" y1="${Y(v)}" y2="${Y(v)}" stroke="#dce5dd"/><text x="45" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="#50676b">${fmt(v,0)}</text>`;}).join('')}<path d="${path(ys)}" fill="none" stroke="#086b70" stroke-width="3"/>${bs.length?`<path d="${path(bs)}" fill="none" stroke="#bd5725" stroke-width="3" stroke-dasharray="8 5"/>`:''}<line x1="${X(day)}" x2="${X(day)}" y1="40" y2="255" stroke="#173b47" stroke-width="1"/>${events.map((e,i)=>`<text x="${X(i*YEAR/4)}" y="279" text-anchor="${i===0?'start':'middle'}" font-size="10" fill="#50676b">${t(e)}</text>`).join('')}<text x="55" y="302" font-size="11" fill="#086b70">— ${t('a')} ${fmt(lat,0)}°</text>${both()?`<text x="265" y="302" font-size="11" fill="#a94b20">- - ${t('b')} ${fmt(latB,0)}°</text>`:''}</svg>`;
+function graph(){const metric=$('metric').value,unit=metric==='daylight'?'h':metric==='energy'?t('energyUnit'):'°C';
+ const curve=(latitude,id)=>({id,label:t(id)+' · '+fmt(latitude,1)+'° · '+fmt(tilt,1)+'° · '+t(surface),points:year(latitude,tilt,surface).values.filter((_,i)=>i%4===0).map(s=>({x:s.day,y:s[metric]}))});
+ const lines=[curve(lat,'a'),...(both()?[curve(latB,'b')]:[]),...rows.map((s,i)=>({id:'record-'+i,label:t('trial')+' '+(i+1)+' · '+fmt(s.latitude,1)+'° · '+fmt(s.tilt,1)+'° · '+t(s.surface),line:false,points:[{x:s.day,y:s[metric]}]}))];
+ sharedGraph.update({title:t(metric),xLabel:t('day')+' (d)',yLabel:t(metric)+' ('+unit+')',xMin:0,xMax:YEAR,...(metric==='daylight'?{yMin:0,yMax:24}:{}),series:lines});
 }
 function render(){
  $('latitude').value=lat;$('latitude-b').value=latB;$('tilt').value=tilt;$('date').value=day;$('surface').value=surface;
@@ -48,7 +49,7 @@ $('surface').addEventListener('change',()=>{stop();surface=$('surface').value;re
 const beginChallenge=()=>{const c=challenge(seed);lat=c.latitude;latB=c.opposite;day=c.day;tilt=c.tilt;surface='land';mode='claim';};
 document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{stop();mode=b.dataset.mode;if(mode==='claim')beginChallenge();render();}));
 document.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click',()=>{stop();day=Number(b.dataset.day);render();}));
-$('play').addEventListener('click',()=>{if(playing){stop();render();return;}if(day>=YEAR)day=0;playing=true;timer=setInterval(()=>{day=Math.min(YEAR,day+1.25);if(day>=YEAR)stop();render();},100);render();});
+$('play').addEventListener('click',()=>{if(playing){stop();render();return;}if(day>=YEAR)day=0;playing=true;const interval=matchMedia('(prefers-reduced-motion: reduce)').matches?250:100;timer=setInterval(()=>{day=Math.min(YEAR,day+1.25*interval/100);if(day>=YEAR)stop();render();},interval);render();});
 $('reset').addEventListener('click',()=>{stop();day=0;$('utility-status').textContent='';render();});
 $('new-trial').addEventListener('click',()=>{stop();seed=(seed+1)>>>0;beginChallenge();render();});
 $('record').addEventListener('click',()=>{rows.push({...state(lat,day,tilt,surface),place:'a',seed},...(both()?[{...state(latB,day,tilt,surface),place:'b',seed}]:[]));render();$('record-status').textContent=t('recorded',{n:rows.length});});

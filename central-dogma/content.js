@@ -160,6 +160,11 @@ export const content = {
       "cardsFile": "central-dogma-vocabulary",
       "cardsTitle": "Central Dogma Vocabulary Flashcards",
       "cardsNotice": "These cards contain the public simulation glossary. Teacher worksheets and answer keys remain separate."
+    ,
+      "aboutDescription": "Build complementary DNA and mRNA, decode an amino acid chain, then investigate one-base changes and mystery fragments.",
+      "aboutGrades": "LIFE SCIENCE · GRADES 7–8 INTRODUCTION · BIOLOGY EXTENSION",
+      "aboutStandards": "TEKS B.7B · extension · NGSS MS-LS3-1 · partial · NGSS HS-LS1-1 · extension",
+      "aboutScope": "Connections may address only part of a standard; consult the lab’s model and alignment notes."
     },
     "es": {
       "useTemplate": "Construir desde este molde",
@@ -317,6 +322,11 @@ export const content = {
       "cardsFile": "vocabulario-dogma-central",
       "cardsTitle": "Tarjetas de vocabulario del dogma central",
       "cardsNotice": "Estas tarjetas contienen el glosario público de la simulación. Las hojas de trabajo y las claves para docentes se mantienen por separado."
+    ,
+      "aboutDescription": "Construye ADN complementario y ARNm, decodifica una cadena de aminoácidos e investiga cambios de una base y fragmentos misteriosos.",
+      "aboutGrades": "CIENCIAS DE LA VIDA · GRADOS 7–8 INTRODUCCIÓN · EXTENSIÓN DE BIOLOGÍA",
+      "aboutStandards": "TEKS B.7B · extension · NGSS MS-LS3-1 · partial · NGSS HS-LS1-1 · extension",
+      "aboutScope": "Las conexiones pueden cubrir solo parte de un estándar; consulta las notas del modelo y de alineación."
     }
   },
   "standards": [

@@ -104,7 +104,7 @@ export function simulateStar(chosenMass, rng) {
   const L0 = msLuminosity(m), R0 = msRadius(m), T0 = temperature(L0, R0);
   const massive = m > SUPERNOVA_MASS;
   const samples = [];
-  const push = (age, stage, L, T) => samples.push({ age, stage, L, T, R: radius(L, T) });
+  const push = (age, stage, L, T) => samples.push({ age, stage, L, T, R: Number.isFinite(L) && T > 0 ? radius(L, T) : null });
 
   // Protostar: a glowing ball of gas contracting out of the nebula toward the main sequence.
   const pre = Math.min(life * 0.006, 5e7);
@@ -124,8 +124,8 @@ export function simulateStar(chosenMass, rng) {
     const end = msEnd + sgLife;
     push(end, "supernova", 4e9, 20000);
     const remnant = m >= holeLine ? "blackHole" : "neutronStar";
-    push(end + 1e4, remnant, 0, 0);
-    push(end + 1e6, remnant, 0, 0);
+    push(end + 1e4, remnant, remnant === "neutronStar" ? null : 0, null);
+    push(end + 1e6, remnant, remnant === "neutronStar" ? null : 0, null);
     return finish(false, remnant);
   }
   // Red giant: the core runs out of hydrogen; the star swells and cools, then brightens a lot.
@@ -138,20 +138,30 @@ export function simulateStar(chosenMass, rng) {
   }
   // Planetary nebula: the outer layers drift away; the hot core is uncovered.
   const gEnd = msEnd + gLife;
-  for (let i = 1; i <= 3; i++) { const f = i / 3; push(gEnd + 3e4 * f, "nebulaShell", Lpeak * lerp(1, 0.7, f), logLerp(3200, 90000, f)); }
+  for (let i = 1; i <= 3; i++) { const f = i / 3, age = gEnd + 3e4 * f;
+    if (age > UNIVERSE_AGE) { cappedSample(age, "nebulaShell", Lpeak * lerp(1, 0.7, f), logLerp(3200, 90000, f)); return finish(true, null, true); }
+    push(age, "nebulaShell", Lpeak * lerp(1, 0.7, f), logLerp(3200, 90000, f)); }
   // White dwarf: the leftover core, hot but tiny, cooling and fading for billions of years.
   const wdStart = gEnd + 3e4;
   const cool = [[1e5, 30, 70000], [1e6, 1.5, 45000], [1e8, 0.04, 22000], [1e9, 0.004, 12000]];
-  for (const [dt, L, T] of cool) push(wdStart + dt, "dwarf", L, T);
+  for (const [dt, L, T] of cool) {
+    if (wdStart + dt > UNIVERSE_AGE) { cappedSample(wdStart + dt, "dwarf", L, T); return finish(false, "whiteDwarf", true); }
+    push(wdStart + dt, "dwarf", L, T);
+  }
   return finish(false, "whiteDwarf");
 
-  function finish(stillAlive, endState = null) {
+  function cappedSample(age, stage, L, T) {
+    const prev = samples.at(-1), f = (UNIVERSE_AGE - prev.age) / (age - prev.age);
+    push(UNIVERSE_AGE, stage, logLerp(prev.L, L, f), logLerp(prev.T, T, f));
+  }
+  function finish(stillAlive, endState = null, ageLimited = false) {
     const peak = samples.filter((s) => s.L > 0 && s.stage !== "supernova" && s.stage !== "protostar");
     const giantPhase = samples.filter((s) => s.stage === "giant" || s.stage === "supergiant");
     return {
       samples,
       result: {
         actualMass: Math.round(m * 100) / 100,
+        ageLimited: ageLimited || stillAlive,
         msLife: stillAlive ? null : life,
         msLifeEstimate: life,
         totalLife: stillAlive ? null : (endState === "whiteDwarf" ? wdStart : samples.find((s) => s.stage === "supernova").age),
@@ -196,7 +206,7 @@ function mysteryStar(type, rng) {
 export function roundReading(star) {
   const T = Math.round(star.T / 100) * 100;
   const L = Number(star.L.toPrecision(2));
-  return { ...star, T, L, R: radius(L, T) };
+  return { ...star, T, L, R: Number.isFinite(L) && T > 0 ? radius(L, T) : null };
 }
 
 /** Pick a new set of 12 mystery stars: at least 2 of each type, the rest by chance, in shuffled order. */

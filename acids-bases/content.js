@@ -3,19 +3,25 @@ export const content = {
   "version": "1.0.2",
   "teacherPackUrl": "https://sciesmic.com/a/members",
   "standards": [
-    {
-      "code": "TEKS Chem. 12D/E · partial",
-      "en": "High-school extension: water-forming acid–base reaction and pH calculations; partial coverage",
-      "es": "Extensión de preparatoria: reacción ácido-base y cálculos de pH; cobertura parcial",
-      "url": "https://tea.texas.gov/academics/instructional-materials/review-and-adoption-process/breakout-documents/chemistry-breakouts.pdf"
-    },
-    {
-      "code": "MS-PS1-2 · connection",
-      "en": "Data-analysis connection only; pH is outside the assessed property list",
-      "es": "Conexión con el análisis de datos; el pH queda fuera de las propiedades evaluadas",
-      "url": "https://www.nextgenscience.org/pe/ms-ps1-2-matter-and-its-interactions"
-    }
-  ],
+  {
+    "code": "TEKS 8.6D · partial: pH",
+    "en": "Compare acids, water and bases by pH. Partial: other acid/base properties need another activity.",
+    "es": "Comparar ácidos, agua y bases por su pH. Parcial: otras propiedades requieren otra actividad.",
+    "url": "https://tea.texas.gov/laws-and-rules/sboe-rules-tac/sboe-tac-currently-effect/ch112b.pdf"
+  },
+  {
+    "code": "TEKS Chem. 12D/E · partial",
+    "en": "High-school extension: water-forming acid–base reaction and pH calculations; partial coverage",
+    "es": "Extensión de preparatoria: reacción ácido-base y cálculos de pH; cobertura parcial",
+    "url": "https://tea.texas.gov/laws-and-rules/sboe-rules-tac/sboe-tac-currently-effect/ch112c.pdf"
+  },
+  {
+    "code": "MS-PS1-2 · connection",
+    "en": "Data-analysis connection only; pH is outside the assessed property list",
+    "es": "Conexión con el análisis de datos; el pH queda fuera de las propiedades evaluadas",
+    "url": "https://www.nextgenscience.org/pe/ms-ps1-2-matter-and-its-interactions"
+  }
+],
   "strings": {
     "en": {
       "title": "Acids & Bases · pH Lab",
@@ -63,8 +69,8 @@ export const content = {
       "reset": "Reset this trial",
       "newTrial": "Start comparison trial",
       "record": "Record observation",
-      "download": "Export inquiry CSV",
-      "exported": "Inquiry CSV downloaded.",
+      "download": "Export inquiry spreadsheet",
+      "exported": "Inquiry spreadsheet downloaded.",
       "recorded": "Observation saved.",
       "trial": "Trial",
       "compare": "Compare recorded trials",
@@ -88,7 +94,7 @@ export const content = {
       "thNote": "Observation",
       "note": "Observation note (optional)",
       "noteHint": "Describe what changed and what stayed the same.",
-      "explain": "Use two recorded readings to support a claim. Explain the change using hydronium and hydroxide. What does the model leave out?",
+      "explain": "Use two recorded readings to support a claim. Explain the change using hydronium and hydroxide. What does the model leave out? Compare recorded pH values for an acid, pure water and a base. Which is below, equal to or above the pH of water at 25 °C?",
       "conclusion": "My evidence and explanation",
       "ions": "Inside the solution",
       "ionNote": "[[hydronium|Hydronium (H₃O⁺)]] and [[hydroxide|hydroxide (OH⁻)]] are present even at pH 7. Counts below are illustrative, never a literal sample or concentration ratio.",
@@ -103,7 +109,7 @@ export const content = {
       "modelNotesBtn": "Model & teaching notes",
       "modelNotes": "Ideal, fully mixed water solutions at 25 °C; Kw = 1 × 10⁻¹⁴. For defined HCl/NaOH solutions, [H₃O⁺] − [OH⁻] = excess acid concentration and [H₃O⁺][OH⁻] = Kw. Dilution approaches pH 7 without crossing it. The model does not simulate buffers, weak-acid equilibria, temperature changes or reaction heat. Household samples cannot be mixed here because their starting pH alone does not determine a mixture’s pH. Equal acid/base volumes are neutral only for this pair at equal molarity. Scene and particles are illustrations; the numeric volume and concentration readouts are authoritative. Readings are rounded, with no random instrument noise. The same actions give the same results. The 0–14 display is this lab’s range, not a universal limit. Colors appear only after adding indicator; native liquid colors do not tell you pH.",
       "safety": "Virtual samples only. Never taste chemicals or mix household cleaners. For a teacher-led classroom extension, compare water, vinegar and baking-soda solution separately with indicator paper.",
-      "alignment": "Grades 6–8: qualitative properties, evidence and particle explanations. High-school extension: TEKS Chemistry 12D/E (reaction products and pH calculations), partial support. NGSS MS-PS1-2: connection to analyzing data and chemical changes. pH is outside its assessed property list, so this lab does not fully address the performance expectation. Assessment classifications are not claimed.",
+      "alignment": "Grades 6–8: qualitative properties, evidence and particle explanations. High-school extension: TEKS Chemistry 12D/E (reaction products and pH calculations), partial support. NGSS MS-PS1-2: connection to analyzing data and chemical changes. pH is outside its assessed property list, so this lab does not fully address the performance expectation. Assessment classifications are not claimed. TEKS 8.6D is partially supported by comparing acid, water and base pH at 25 °C; other properties require another activity.",
       "review": "Available in English and Spanish.",
       "footer": "Sciesmic Labs · Ideal chemistry, real questions. Version 1.0.2 · No account or external libraries required.",
       "lemon_juice": "Lemon juice",
@@ -125,8 +131,14 @@ export const content = {
       "observationRequired": "Measure pH before recording.",
       "compareHelp": "Use a new trial to compare another solution. Reset clears the current trial’s settings, but keeps recorded observations and writing.",
       "cardsTitle": "Acids & Bases · Vocabulary flashcards",
-      "cardsReview": "English and Spanish vocabulary is ready for classroom use.",
+      "cardsReview": "Spanish vocabulary is a draft pending review by a native-speaking science educator.",
       "heroAlt": "Illustration of laboratory glassware, sample bottles and a reference pH scale."
+    ,
+      "current": "Current investigation",
+      "allPlanets": "Eight planets",
+      "day": "Day",
+      "motorWork": "Motor work",
+      "setupDetails": "Full trial setup"
     },
     "es": {
       "title": "Ácidos y bases · Laboratorio de pH",
@@ -174,8 +186,8 @@ export const content = {
       "reset": "Reiniciar este ensayo",
       "newTrial": "Iniciar ensayo de comparación",
       "record": "Registrar observación",
-      "download": "Exportar investigación en CSV",
-      "exported": "Se descargó el CSV de la investigación.",
+      "download": "Exportar hoja de cálculo de investigación",
+      "exported": "Se descargó la hoja de cálculo.",
       "recorded": "Observación guardada.",
       "trial": "Ensayo",
       "compare": "Comparar ensayos registrados",
@@ -199,7 +211,7 @@ export const content = {
       "thNote": "Observación",
       "note": "Nota de observación (opcional)",
       "noteHint": "Describe qué cambió y qué se mantuvo igual.",
-      "explain": "Usa dos lecturas registradas para apoyar una afirmación. Explica el cambio usando hidronio e hidróxido. ¿Qué deja fuera el modelo?",
+      "explain": "Usa dos lecturas registradas para apoyar una afirmación. Explica el cambio usando hidronio e hidróxido. ¿Qué deja fuera el modelo? Compara los valores registrados de un ácido, agua pura y una base. ¿Cuáles están por debajo, al mismo nivel o por encima del pH del agua a 25 °C?",
       "conclusion": "Mi evidencia y explicación",
       "ions": "Dentro de la solución",
       "ionNote": "El [[hydronium|hidronio (H₃O⁺)]] y el [[hydroxide|hidróxido (OH⁻)]] están presentes incluso a pH 7. Las cantidades ilustradas no representan una muestra real ni la proporción de concentraciones.",
@@ -214,7 +226,7 @@ export const content = {
       "modelNotesBtn": "Notas del modelo y la enseñanza",
       "modelNotes": "Soluciones acuosas ideales, completamente mezcladas, a 25 °C; Kw = 1 × 10⁻¹⁴. En HCl/NaOH definidos, [H₃O⁺] − [OH⁻] es la concentración de ácido en exceso y [H₃O⁺][OH⁻] = Kw. La dilución se acerca a pH 7 sin cruzarlo. No se simulan amortiguadores, equilibrios de ácidos débiles, cambios de temperatura ni calor de reacción. No se mezclan muestras caseras porque su pH inicial no determina el pH de la mezcla. Volúmenes iguales solo son neutros para este par con igual molaridad. La escena y las partículas son ilustraciones; los valores numéricos de volumen y concentración son los datos válidos. Las lecturas se redondean sin ruido aleatorio. Las mismas acciones dan los mismos resultados. El intervalo de 0–14 pertenece a este laboratorio; no es un límite universal. El color indicador aparece solo tras agregar indicador; el color natural no revela el pH.",
       "safety": "Solo muestras virtuales. Nunca pruebes sustancias ni mezcles limpiadores caseros. Como extensión dirigida por un docente, compara agua, vinagre y solución de bicarbonato por separado con papel indicador.",
-      "alignment": "Grados 6–8: propiedades cualitativas, evidencia y explicaciones con partículas. Extensión de preparatoria: TEKS Química 12D/E (productos y cálculos de pH), apoyo parcial. NGSS MS-PS1-2: conexión con el análisis de datos y los cambios químicos. El pH queda fuera de su lista de propiedades evaluadas; este laboratorio no cubre toda la expectativa. No se afirman clasificaciones de evaluación.",
+      "alignment": "Grados 6–8: propiedades cualitativas, evidencia y explicaciones con partículas. Extensión de preparatoria: TEKS Química 12D/E (productos y cálculos de pH), apoyo parcial. NGSS MS-PS1-2: conexión con el análisis de datos y los cambios químicos. El pH queda fuera de su lista de propiedades evaluadas; este laboratorio no cubre toda la expectativa. No se afirman clasificaciones de evaluación. TEKS 8.6D se apoya parcialmente al comparar el pH de un ácido, agua y una base a 25 °C; otras propiedades requieren otra actividad.",
       "review": "Disponible en inglés y español.",
       "footer": "Sciesmic Labs · Química ideal, preguntas reales. Versión 1.0.2 · Sin cuenta ni bibliotecas externas.",
       "lemon_juice": "Jugo de limón",
@@ -236,8 +248,14 @@ export const content = {
       "observationRequired": "Mide el pH antes de registrar.",
       "compareHelp": "Usa un ensayo nuevo para comparar otra solución. Reiniciar restablece los controles del ensayo actual, pero conserva las observaciones y tus textos.",
       "cardsTitle": "Ácidos y bases · Tarjetas de vocabulario",
-      "cardsReview": "El vocabulario en inglés y español está listo para usarse en clase.",
+      "cardsReview": "El vocabulario en español es un borrador pendiente de revisión por un docente de ciencias hablante nativo.",
       "heroAlt": "Ilustración de material de laboratorio, frascos de muestras y una escala de pH de referencia."
+    ,
+      "current": "Investigación actual",
+      "allPlanets": "Ocho planetas",
+      "day": "Día",
+      "motorWork": "Trabajo del motor",
+      "setupDetails": "Configuración completa"
     }
   },
   "vocab": [

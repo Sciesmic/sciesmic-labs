@@ -6,11 +6,13 @@
 const STORAGE_KEY = "sciesmic-labs-lang";
 let content = null;
 let lang = "en";
+let drawerOpener = null;
 const listeners = new Set();
 
 const KIT_STRINGS = {
   en: {
     brand: "Sciesmic Labs",
+    current: "Current investigation", trial: "Trial",
     allLabs: "Explore all science simulations",
     aboutLab: "About this simulation & standards",
     keyTerms: "Key terms",
@@ -26,10 +28,12 @@ const KIT_STRINGS = {
     notQuite: "Not quite.",
     score: "{n} of {total} correct",
     checksIntro: "Answer each question, then read the feedback. You can try again.",
+    spanishReview: "Spanish is a draft pending native science-educator review.",
     defineTerm: "Define {term}",
   },
   es: {
     brand: "Sciesmic Labs",
+    current: "Investigación actual", trial: "Prueba",
     allLabs: "Explorar todas las simulaciones de ciencias",
     aboutLab: "Acerca de esta simulación y sus estándares",
     keyTerms: "Términos clave",
@@ -45,6 +49,7 @@ const KIT_STRINGS = {
     notQuite: "Todavía no.",
     score: "{n} de {total} correctas",
     checksIntro: "Responde cada pregunta y luego lee la retroalimentación. Puedes intentarlo de nuevo.",
+    spanishReview: "El español es un borrador pendiente de revisión por un docente de ciencias hablante nativo.",
     defineTerm: "Definir {term}",
   },
 };
@@ -83,6 +88,7 @@ function readStoredLang() {
 }
 
 export function setLang(next) {
+  const restoreLanguageFocus = document.activeElement?.matches("[data-lang]");
   lang = next === "es" ? "es" : "en";
   document.documentElement.lang = lang;
   try { localStorage.setItem(STORAGE_KEY, lang); } catch { /* storage optional */ }
@@ -92,6 +98,7 @@ export function setLang(next) {
   if (cardsLink) cardsLink.href = `flashcards.html?lang=${lang}`;
   renderChecks();
   listeners.forEach((fn) => fn(lang));
+  if (restoreLanguageFocus) document.querySelector(`[data-lang="${lang}"]`)?.focus();
 }
 
 /** Fill every element marked data-i18n (plain text) or data-i18n-rich (term tokens allowed). */
@@ -127,6 +134,7 @@ function renderShell() {
         </div>
       </div>
     </div>`;
+  if (lang === "es") { const note = document.createElement("p"); note.className = "lk-review-note"; note.textContent = t("spanishReview"); bar.querySelector(".lk-bar-inner").append(note); }
   bar.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => setLang(button.dataset.lang)));
   bar.querySelector("#lk-terms-open").addEventListener("click", openDrawer);
   renderDrawer();
@@ -140,6 +148,7 @@ function renderDrawer() {
     drawer.id = "lk-drawer";
     drawer.className = "lk-drawer";
     document.body.append(drawer);
+    drawer.addEventListener("close", () => { if (drawerOpener?.isConnected) drawerOpener.focus(); drawerOpener = null; });
     drawer.addEventListener("click", (event) => { if (event.target === drawer) drawer.close(); });
   }
   const other = lang === "en" ? "es" : "en";
@@ -153,7 +162,8 @@ function renderDrawer() {
   drawer.querySelector("[data-close]").addEventListener("click", () => drawer.close());
 }
 
-function openDrawer(termId) {
+function openDrawer(termId, returnTo = document.activeElement) {
+  drawerOpener = returnTo;
   const drawer = document.getElementById("lk-drawer");
   drawer.showModal();
   drawer.querySelectorAll(".lk-def").forEach((node) => node.classList.remove("lk-flash"));
@@ -168,11 +178,15 @@ function openDrawer(termId) {
 function setupPopover() {
   const pop = document.createElement("div");
   pop.className = "lk-pop";
+  pop.id = "lk-term-definition";
+  pop.tabIndex = -1;
+  pop.setAttribute("aria-describedby", "lk-term-definition-body");
   pop.setAttribute("role", "dialog");
   pop.hidden = true;
   document.body.append(pop);
   let opener = null;
   const close = () => { pop.hidden = true; opener?.setAttribute("aria-expanded", "false"); opener = null; };
+  onLangChange(close);
   document.addEventListener("click", (event) => {
     const term = event.target.closest(".lk-term");
     if (term) {
@@ -182,18 +196,20 @@ function setupPopover() {
       if (!entry) return;
       opener = term;
       term.setAttribute("aria-expanded", "true");
+      term.setAttribute("aria-controls", pop.id);
       pop.setAttribute("aria-label", entry.term);
-      pop.innerHTML = `<strong>${escapeHtml(entry.term)}</strong><p>${escapeHtml(entry.def)}</p><button type="button" class="lk-link" data-more="${term.dataset.term}">${t("keyTerms")} →</button>`;
+      pop.innerHTML = `<strong>${escapeHtml(entry.term)}</strong><p id="lk-term-definition-body">${escapeHtml(entry.def)}</p><button type="button" class="lk-link" data-more="${term.dataset.term}">${t("keyTerms")} →</button>`;
       pop.hidden = false;
       const rect = term.getBoundingClientRect();
       const width = Math.min(300, window.innerWidth - 32);
       pop.style.width = `${width}px`;
       pop.style.left = `${Math.max(16, Math.min(rect.left + window.scrollX, window.scrollX + window.innerWidth - width - 16))}px`;
       pop.style.top = `${rect.bottom + window.scrollY + 8}px`;
+      pop.focus({preventScroll:true});
       return;
     }
     const more = event.target.closest("[data-more]");
-    if (more) { const id = more.dataset.more; close(); openDrawer(id); return; }
+    if (more) { const id = more.dataset.more, back = opener; close(); openDrawer(id, back); return; }
     if (!event.target.closest(".lk-pop")) close();
   });
   document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !pop.hidden) { const back = opener; close(); back?.focus(); } });
@@ -212,7 +228,7 @@ function renderChecks() {
     <ol class="lk-questions">${content.checks.map((q, index) => {
       const text = q[lang] ?? q.en;
       const state = answers.get(q.id) ?? {};
-      const feedback = state.checked ? text.feedback[state.chosen] : "";
+      const feedback = state.checked ? (Array.isArray(text.feedback) ? text.feedback["ABCD".indexOf(state.chosen)] : text.feedback[state.chosen]) : "";
       const right = state.checked && state.chosen === q.answer;
       return `<li class="lk-q" data-q="${q.id}">
         <span class="lk-tag">Q${index + 1} · ${escapeHtml(q.standard)}</span>
@@ -226,7 +242,7 @@ function renderChecks() {
         <div class="lk-q-actions">
           ${state.checked ? `<button type="button" class="lk-btn" data-retry="${q.id}">${t("tryAgain")}</button>` : `<button type="button" class="lk-btn lk-primary" data-check="${q.id}" ${state.chosen ? "" : "disabled"}>${t("check")}</button>`}
         </div>
-        <p class="lk-feedback ${right ? "lk-right" : state.checked ? "lk-wrong" : ""}" aria-live="polite">${state.checked ? `<b>${right ? t("correct") : t("notQuite")}</b> ${escapeHtml(feedback)}` : ""}</p>
+        <p tabindex="-1" class="lk-feedback ${right ? "lk-right" : state.checked ? "lk-wrong" : ""}" aria-live="polite">${state.checked ? `<b>${right ? t("correct") : t("notQuite")}</b> ${escapeHtml(feedback)}` : ""}</p>
       </li>`;
     }).join("")}</ol>`;
   host.querySelectorAll("input[type=radio]").forEach((input) => input.addEventListener("change", () => {

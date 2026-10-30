@@ -1,9 +1,11 @@
+import {createGraphTools} from '../kit/graph-tools.js';
 import {content} from './content.js';
 import {initLab,onLangChange,getLang,t} from '../kit/labs-kit.js';
 import {simulate,frameAt,challenge,settings,trainMass,positions,carPose,trackPoint,CAR_SPACING} from './model.js';
 import {carSymbols} from './art.js';
 const $=id=>document.getElementById(id),params=new URLSearchParams(location.search),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const keys=['height','mass','hill','hill2','hills','loops','radius','cars','riders','resistance','shape'];
+const energyGraph=createGraphTools(document.getElementById('energy-graph')),compareGraph=createGraphTools(document.getElementById('compare-graph'));
 let mode=['explore','compare','challenge'].includes(params.get('mode'))?params.get('mode'):'explore',seed=Number(params.get('seed')||42)>>>0;
 let p=settings(Object.fromEntries(keys.filter(k=>params.has(k)).map(k=>[k,params.get(k)])));if(mode==='challenge')p=challenge(seed);
 let trial=simulate(p),time=0,furthest=0,playing=false,started=false,last=0,records=[],guessTested=false,lastEvidence=-1,savedKind='';
@@ -44,14 +46,13 @@ function drawTrack(s){
  $('route-progress').textContent=t('progress',{n:fmt(100*frameAt(trial,furthest).distance/(track.finish.s-trial.startS),0)});
  $('track').setAttribute('aria-label',`${t('workspace')}. ${p.cars} ${t('cars')}; ${p.riders} ${t('riders')}. ${t('heightLabel')}: ${fmt(s.height)}; ${t('speedLabel')}: ${fmt(s.speed)}.`);
 }
-function graph(){
- const observed=trial.samples.filter(q=>q.time<=furthest+1e-8),samples=observed.filter((_,i)=>i%5===0||i===observed.length-1);if(furthest>0)samples.push(frameAt(trial,furthest));
- const maxD=trial.track.finish.s-trial.startS,maxE=Math.max(100,Math.ceil(Math.max(...samples.map(s=>s.total),0)/500)*500),x=q=>60+q.distance/maxD*510,y=v=>265-v/maxE*220;
- let ticks='';for(let i=0;i<=4;i++){const yy=265-55*i;ticks+=`<line x1="60" y1="${yy}" x2="570" y2="${yy}" stroke="#dae4e5"/><text x="50" y="${yy+4}" text-anchor="end" font-size="11">${fmt(maxE*i/4,0)}</text>`;}
- const lines=[['ke','#d0693a',''],['pe','#5f8fa6','9 5'],['thermal','#b8504a','2 5'],['motorWork','#54645c','12 3 2 3']].map(([k,c,d])=>`<path class="energy-series" data-quantity="${k}" data-latest-time="${furthest}" data-points="${furthest>0?samples.length:0}" d="${furthest>0?samples.map((s,i)=>(i?'L':'M')+x(s).toFixed(2)+','+y(s[k]).toFixed(2)).join(' '):''}" fill="none" stroke="${c}" stroke-width="3" stroke-dasharray="${d}"/>`).join('');
- const current=view(),marker=x(current);$('energy-graph').innerHTML=`${ticks}<path d="M60 35V265H570" fill="none" stroke="#526b76"/>${lines}<text x="60" y="282" font-size="11">0</text><text x="570" y="282" text-anchor="end" font-size="11">${fmt(maxD,1)}</text><text x="315" y="307" text-anchor="middle" font-size="12">${esc(t('distance'))}</text><text x="60" y="18" font-size="12">${esc(t('joules'))}</text><line x1="${marker}" x2="${marker}" y1="35" y2="265" stroke="#173343" stroke-dasharray="3 3"/>`;
- $('graph-empty').hidden=furthest>0;$('energy-graph').setAttribute('aria-label',t('graphTitle')+'. '+t('graphNote'));
+function graph(){const quantities=[['ke','kineticLabel'],['pe','potentialLabel'],['thermal','thermalLabel'],['motorWork','motorWork']];
+ const group=(samples,label,id)=>quantities.map(([key,name])=>({id:id+'-'+key,label:label+' · '+t(name),points:samples.filter((_,i)=>i%8===0||i===samples.length-1).map(s=>({x:s.distance,y:s[key]}))}));
+ const current=trial.samples.filter(q=>q.time<=furthest+1e-8);if(furthest>0)current.push(frameAt(trial,furthest));
+ energyGraph.update({title:t('graphTitle'),xLabel:t('distance'),yLabel:t('joules'),xMin:0,yMin:0,series:[...records.flatMap((r,i)=>group(r.observed,t('trial')+' '+(i+1),'saved-'+i)),...group(current,t('currentPoint'),'current')]});
+ $('graph-empty').hidden=furthest>0;
 }
+
 const headings=(id,items)=>$(id).innerHTML='<tr>'+items.map(v=>'<th scope="col">'+esc(v)+'</th>').join('')+'</tr>';
 function readingTable(s){
  headings('readings-head',[t('point'),t('heightLabel'),t('speedLabel'),t('kineticLabel')+' (J)',t('potentialLabel')+' (J)',t('thermalLabel')+' (J)']);
@@ -59,11 +60,11 @@ function readingTable(s){
  $('readings-body').innerHTML=rows.map(([label,q])=>`<tr><th scope="row">${esc(label)}</th>${q?[q.height,q.speed,q.ke,q.pe,q.thermal].map(v=>`<td>${fmt(v)}</td>`).join(''):`<td colspan="5">${t('notMeasured')}</td>`}</tr>`).join('');
 }
 function history(){
- headings('history-head',[t('trial'),t('height'),t('totalMass'),t('cars'),t('riders'),t('loops'),t('resistance'),t('bottomSpeed'),t('bottomKE'),t('outcome')]);
- $('history-body').innerHTML=records.length?records.map((r,i)=>`<tr><th scope="row">${i+1}</th>${[fmt(r.settings.height,0),fmt(r.mass,0),r.settings.cars,r.settings.riders,r.settings.loops,fmt(r.settings.resistance),fmt(r.bottom.speed),fmt(r.bottom.ke),t(r.outcome)].map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="10">${t('noRecords')}</td></tr>`;
+ headings('history-head',[t('trial'),t('height'),t('totalMass'),t('cars'),t('riders'),t('loops'),t('resistance'),t('bottomSpeed'),t('bottomKE'),t('outcome'),t('setupDetails')]);
+ $('history-body').innerHTML=records.length?records.map((r,i)=>`<tr><th scope="row">${i+1}</th>${[fmt(r.settings.height,0),fmt(r.mass,0),r.settings.cars,r.settings.riders,r.settings.loops,fmt(r.settings.resistance),fmt(r.bottom.speed),fmt(r.bottom.ke),t(r.outcome)].map(v=>`<td>${esc(v)}</td>`).join('')}<td><details><summary>${esc(t('setupDetails'))}</summary><dl>${Object.entries(r.settings).map(([key,v])=>`<dt>${esc(t('setting_'+key))}</dt><dd>${esc(typeof v==='number'?fmt(v,2):t(v))}</dd>`).join('')}</dl></details></td></tr>`).join(''):`<tr><td colspan="11">${t('noRecords')}</td></tr>`;
  $('comparison').hidden=mode!=='compare'&&!records.length;const byMass=$('compare-x').value==='mass',value=r=>byMass?r.mass:r.bottom.speed,axisLabel=t(byMass?'totalMass':'bottomSpeed'),maxV=Math.max(1,...records.map(value)),maxK=Math.max(1,...records.map(r=>r.bottom.ke));
- $('compare-graph').setAttribute('aria-label',axisLabel+' / '+t('bottomKE'));
- $('compare-graph').innerHTML=`<path d="M70 30V240H670" stroke="#526b76" fill="none"/><text x="70" y="19" font-size="12">${esc(t('bottomKE'))}</text><text x="360" y="285" text-anchor="middle" font-size="12">${esc(axisLabel)}</text>${[0,1,2,3,4].map(i=>`<text x="${70+i*145}" y="259" text-anchor="middle" font-size="11">${fmt(maxV*i/4,1)}</text><text x="60" y="${244-i*50}" text-anchor="end" font-size="11">${fmt(maxK*i/4,0)}</text><line x1="70" x2="670" y1="${240-i*50}" y2="${240-i*50}" stroke="#dae4e5"/>`).join('')}${records.map((r,i)=>`<circle cx="${70+value(r)/maxV*580}" cy="${240-r.bottom.ke/maxK*200}" r="7" fill="#d0693a"/><text x="${80+value(r)/maxV*580}" y="${234-r.bottom.ke/maxK*200}" font-size="12">${i+1}</text>`).join('')}`;
+ compareGraph.update({title:t('bottomKE'),xLabel:axisLabel,yLabel:t('bottomKE'),xMin:0,yMin:0,series:records.map((r,i)=>({id:'record-'+i,label:t('trial')+' '+(i+1)+' · '+t('height')+' '+fmt(r.settings.height,0)+' m · '+t('totalMass')+' '+fmt(r.mass,0)+' kg',line:false,points:[{x:value(r),y:r.bottom.ke}]}))});
+ graph();
 }
 function showGuess(){
  if(!guessTested)return;
@@ -91,6 +92,7 @@ $('test-prediction').addEventListener('click',()=>{guessTested=true;$('challenge
 $('guess').addEventListener('change',()=>{guessTested=false;$('challenge-feedback').textContent='';});
 $('copy').addEventListener('click',async()=>{const u=new URL(location.href);u.search='';for(const [k,v] of Object.entries({lang:getLang(),mode,seed,...p}))u.searchParams.set(k,v);try{await navigator.clipboard.writeText(u.href);$('copy-status').textContent=t('copied');}catch{$('copy-status').textContent=t('copyFail')+u.href;}});
 $('download').addEventListener('click',()=>{const fields=['trial','lift_height_m','empty_car_mass_kg','cars','riders_per_car','total_mass_kg','loops','loop_radius_m','later_hills','second_hill_m','third_hill_m','resistance','shape','bottom_speed_m_s','bottom_KE_J','observed_until_s','observed_outcome','model_version','seed'];const rows=records.map((r,i)=>[i+1,r.settings.height,r.settings.mass,r.settings.cars,r.settings.riders,r.mass,r.settings.loops,r.settings.radius,r.settings.hills,r.settings.hill,r.settings.hill2,r.settings.resistance,r.settings.shape,r.bottom.speed,r.bottom.ke,r.observedUntil,r.outcome,'2.0.0',r.seed]);const csv='\uFEFF'+[fields,...rows].map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='energy-on-the-rails-trials.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);});
-function animate(now){if(playing){time=Math.min(trial.duration,time+Math.min(.08,(now-last)/1000)*Number($('playback-speed').value));furthest=Math.max(furthest,time);if(time>=trial.duration)playing=false;draw();}last=now;requestAnimationFrame(animate);}
+const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');let lastMotionDraw=0;
+function animate(now){if(playing){time=Math.min(trial.duration,time+Math.min(.08,(now-last)/1000)*Number($('playback-speed').value));furthest=Math.max(furthest,time);if(time>=trial.duration)playing=false;if(!motionPreference.matches||now-lastMotionDraw>=250||!playing){draw();lastMotionDraw=now;}}last=now;requestAnimationFrame(animate);}
 onLangChange(()=>{const pop=document.querySelector('.lk-pop');if(pop)pop.hidden=true;document.querySelectorAll('.lk-term[aria-expanded=true]').forEach(n=>n.setAttribute('aria-expanded','false'));render();});
 initLab(content);requestAnimationFrame(animate);
