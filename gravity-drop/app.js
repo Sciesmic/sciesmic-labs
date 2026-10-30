@@ -1,3 +1,4 @@
+import {motionPreference, animationFrame} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import {content} from './content.js';
 import {initLab,onLangChange,t,renderRich,getLang} from '../kit/labs-kit.js';
@@ -8,7 +9,7 @@ let p=settings({a:q.get('a')??'feather',b:q.get('b')??'bowling',height:q.has('he
 if(mode==='challenge')p=challenge(seed);
 const sharedGraph=createGraphTools(document.getElementById('graph'));let savedFlights=[];
 let trials=[],time=0,observed=0,playing=false,started=false,raf=0,last=0,historyRows=[],recorded=false,run=1;
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduced=motionPreference;
 const fmt=(n,d=3)=>Number(n).toLocaleString(getLang()==='es'?'es-MX':'en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const name=id=>t(id),env=e=>t(e),safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function url(){const u=new URL(location.href);for(const[k,v]of Object.entries({...p,mode,seed,lang:getLang()}))u.searchParams.set(k,v);return u;}
@@ -33,9 +34,9 @@ function drawReadings(){const rows=[];trials.forEach(r=>r.objects.forEach((o,i)=
 }
 function graph(){
  const curves=[];
- const add=(r,label,until)=>r.objects.forEach((o,i)=>{const end=Math.min(until,o.duration);curves.push({id:label+'-'+i,label:label+' · '+(i?'B':'A')+' '+name(o.id)+' · '+fmt(r.settings.height,1)+' m',points:Array.from({length:end>0?31:1},(_,j)=>{const x=end*j/30;return {x,y:o.at(x).height};})});});
- savedFlights.forEach(f=>add(f.trial,t('trial')+' '+f.run+' · '+env(f.trial.settings.environment),f.trial.duration));
- trials.forEach(r=>add(r,t('current')+' · '+env(r.settings.environment),observed));
+ const add=(r,id,label,until)=>r.objects.forEach((o,i)=>{const end=Math.min(until,o.duration);curves.push({id:id+'-'+i,label:label+' · '+(i?'B':'A')+' '+name(o.id)+' · '+fmt(r.settings.height,1)+' m',points:Array.from({length:end>0?31:1},(_,j)=>{const x=end*j/30;return {x,y:o.at(x).height};})});});
+ savedFlights.forEach(f=>add(f.trial,'saved-'+f.run+'-'+f.trial.settings.environment,t('trial')+' '+f.run+' · '+env(f.trial.settings.environment),f.trial.duration));
+ trials.forEach(r=>add(r,'current-'+r.settings.environment,t('current')+' · '+env(r.settings.environment),observed));
  sharedGraph.update({title:t('graphTitle'),xLabel:t('sampleTime'),yLabel:t('position'),yMin:0,series:curves});
  const times=Array.from({length:11},(_,j)=>observed*j/10);$('samples').innerHTML=table([t('sampleTime'),...trials.flatMap(r=>r.objects.map((o,i)=>env(r.settings.environment)+' '+(i?'B':'A')+' (m)'))],times.map(x=>[fmt(x),...trials.flatMap(r=>r.objects.map(o=>fmt(o.at(x).height)))]));
 }
@@ -47,8 +48,8 @@ function live(){const done=started&&observed>=duration();$('clock').textContent=
 function render(){document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===mode));$('mode-hint').innerHTML=renderRich(t(mode+'Hint'));
  ['a','b'].forEach(k=>{$(k).innerHTML=ids.map(id=>`<option value="${id}">${name(id)}</option>`).join('');$(k).value=p[k];$(k).disabled=mode==='challenge';});$('height').value=p.height;$('height').disabled=mode==='challenge';$('environment').value=p.environment;$('environment').disabled=mode==='challenge';$('environment-control').hidden=mode==='compare';$('challenge-panel').hidden=mode!=='challenge';$('seed').textContent=seed;$('flashcards-link').href=`flashcards.html?lang=${getLang()}`;syncURL();live();drawHistory();}
 function advance(dt){started=true;time=Math.min(duration(),time+dt);observed=Math.max(observed,time);if(time>=duration())stop();live();}
-function tick(ts){if(!playing)return;if(!last)last=ts;let dt=Math.min(.1,(ts-last)/1000);if(reduced){if(ts-last<250){raf=requestAnimationFrame(tick);return;}dt=.25;}last=ts;advance(dt);if(playing)raf=requestAnimationFrame(tick);}
-$('play').onclick=()=>{if(playing){stop();live();}else{playing=true;started=true;last=0;raf=requestAnimationFrame(tick);live();}};
+function tick(ts){if(!playing)return;if(!last)last=ts;let dt=Math.min(.1,(ts-last)/1000);if(reduced.matches){if(ts-last<250){raf=animationFrame(tick);return;}dt=.25;}last=ts;advance(dt);if(playing)raf=animationFrame(tick);}
+$('play').onclick=()=>{if(playing){stop();live();}else{playing=true;started=true;last=0;raf=animationFrame(tick);live();}};
 $('step').onclick=()=>{stop();advance(.25);};$('reset').onclick=reset;
 $('timeline').oninput=()=>{stop();time=Number($('timeline').value);live();};
 ['a','b','height','environment'].forEach(k=>$(k).addEventListener('change',()=>{p=settings({...p,[k]:$(k).value});reset();}));

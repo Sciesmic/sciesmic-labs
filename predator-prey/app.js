@@ -1,3 +1,4 @@
+import {motionPreference, animationInterval} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import {createMeadow,decoratePlayback} from './art.js';
 import {content} from './content.js';
@@ -54,7 +55,7 @@ $('mode').addEventListener('change',()=>{mode=$('mode').value;start();});
 $('graph-view').addEventListener('change',()=>{graphView=$('graph-view').value;drawGraph();syncURL();});
 $('show-capacity').addEventListener('change',()=>{showCapacity=$('show-capacity').checked;drawGraph();syncURL();});
 for(const button of document.querySelectorAll('[data-preset]'))button.addEventListener('click',()=>{const preset=button.dataset.preset;settings=normalize({...defaults,...(preset==='baseline'?{climate:'constant'}:preset==='user'?{hares:100,foxes:10,season:'summer',snow:40,coat:'white',food:180,years:5}:{})});seed=42;mode='guided';graphView='percent';start();});
-$('play').addEventListener('click',()=>{if(timer){pause();return;}const interval=settings.experiment==='population'?(matchMedia('(prefers-reduced-motion: reduce)').matches?250:100):350;timer=setInterval(()=>{const steps=settings.experiment==='population'?8*interval/100:1;for(let i=0;i<steps;i++)trial.step();if(trial.frames.at(-1).week>=trial.duration)pause();renderEvidence();},interval);renderEvidence();});
+$('play').addEventListener('click',()=>{if(timer){pause();return;}const interval=settings.experiment==='population'?(motionPreference.matches?250:100):350;timer=animationInterval(()=>{const steps=settings.experiment==='population'?8*interval/100:1;for(let i=0;i<steps;i++)trial.step();if(trial.frames.at(-1).week>=trial.duration)pause();renderEvidence();},interval);renderEvidence();});
 $('weekly-details').addEventListener('toggle',()=>{if($('weekly-details').open)renderWeekly();});$('one-year').addEventListener('click',()=>{pause();for(let i=0;i<52;i++)trial.step();renderEvidence();});
 $('step').addEventListener('click',()=>{pause();advance();});$('finish').addEventListener('click',()=>{pause();trial.run();renderEvidence();});$('reset').addEventListener('click',start);
 $('new').addEventListener('click',()=>{seed=crypto.getRandomValues(new Uint32Array(1))[0];start();});

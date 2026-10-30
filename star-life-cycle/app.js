@@ -1,3 +1,4 @@
+import {motionPreference, animationWait} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceTrial, createRun, newSortSet, checkSort, normalize, DEFAULTS, MASSES, TYPES, SUPERNOVA_MASS, colorOf, msLuminosity, msRadius, temperature, makeRng } from "./model.js";
 import { initLab, onLangChange, renderRich, t, getLang } from "../kit/labs-kit.js";
@@ -285,8 +286,8 @@ function renderReadouts(sample, mass) {
 }
 
 /* ---------- playback ---------- */
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const reducedMotion = () => motionPreference.matches;
+const wait = animationWait;
 
 function lifeView(trial, index) {
   const sample = trial.samples[index];
@@ -312,6 +313,7 @@ async function runTrial() {
     render();
     const delay = state.settings.speed === "slow" ? 950 : 380;
     for (let i = 0; i < trial.samples.length; i++) {
+      if (reducedMotion()) break;
       if (token !== state.playToken) return;
       state.frame = i;
       const view = lifeView(trial, i);

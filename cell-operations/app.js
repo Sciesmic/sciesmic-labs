@@ -1,3 +1,4 @@
+import {motionPreference, animationWait} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceTrial, createRun, newMystery, normalize, DEFAULTS, HAS, PARTS, SHUTDOWNS, GAUGES, START, HOURS, makeRng } from "./model.js";
 import { initLab, onLangChange, renderRich, t } from "../kit/labs-kit.js";
@@ -353,8 +354,8 @@ function renderGauges(readings, cell) {
 }
 
 /* ---------- playback ---------- */
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const reducedMotion = () => motionPreference.matches;
+const wait = animationWait;
 
 async function runTrial() {
   if (state.playing) return;
@@ -367,6 +368,7 @@ async function runTrial() {
     state.playing = true;
     render();
     for (const sample of trial.samples) {
+      if (reducedMotion()) break;
       if (token !== state.playToken) return;
       const view = trialView(trial, sample);
       drawScene(view);

@@ -95,3 +95,21 @@ Before a release, check search, combined filters, empty/reset states, keyboard f
 ## Earthquakes and Structures
 
 `earthquakes-structures/` 1.0.0 is a grades 6–8 structural-response and engineering lab with component assembly, synthetic magnitude/distance/site scenarios, a controlled shake table, trial comparison, a three-test design challenge and EN/ES vocabulary exports. TEKS scientific/engineering practices and MS-ETS1-3 are the principal connections; MS-ESS3-2 and 7.10B are partial/context connections. Spanish awaits native science-educator review. The educational capacities and scenario mapping do not predict real building safety. Teacher materials remain private and are distributed separately.
+
+## Motion and scientific playback
+
+Every simulation includes a **Reduce motion** button (**Reducir movimiento** in Spanish). It follows the system preference until a learner chooses a setting, and keeps that choice across labs when browser storage is available. It does not clear predictions or collected evidence. `?motion=reduce` and `?motion=full` support reproducible previews.
+
+The shared animation clock excludes time spent in a background tab. Timed investigations pause their visual progression while hidden, without changing the scientific model, seed sequence, or recorded trial results.
+
+States of Matter follows exact thermal segments between instrument samples. Net Force Cart draws instantaneous force sums at release, and Earthquakes & Structures interpolates displacement without showing damage from a future sample.
+
+Run the dependency-free checks with a current Node.js release:
+
+```sh
+node --test tests/motion.test.mjs tests/playback-science.test.mjs states-of-matter/visuals.test.mjs
+node tests/graph-data.test.mjs
+node tests/science-audit.mjs
+```
+
+The full science audit uses 1,000 seeded trials per stochastic setting and deterministic analytical/boundary sweeps. To save its report, supply an output path outside the public site. A small smoke run can use `SCIENCE_TRIALS=2`. The optional `tests/model-compatibility.mjs` check needs the Git checkout and its recorded base commit; it is not an archive-only preview check.

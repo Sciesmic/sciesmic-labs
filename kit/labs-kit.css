@@ -125,3 +125,14 @@
 .lk-graph-legend { display:flex; flex-wrap:wrap; gap:.4rem 1rem; list-style:none; padding:0; font-size:.8rem; overflow-wrap:anywhere; }
 .lk-graph-legend li { display:flex; gap:.4rem; align-items:center; }
 .lk-graph-legend span { display:inline-block; width:1.5rem; flex-shrink:0; border-top:3px solid; }
+
+/* Keep evidence controls readable while comparing trials on small screens. */
+.lk-graph-selects select { box-sizing:border-box; border:1px solid var(--lk-line); border-radius:.5rem; background:var(--lk-panel); color:var(--lk-ink); padding:.5rem; }
+.lk-graph-selects select:focus-visible,.lk-graph-table:focus-visible { outline:3px solid var(--lk-focus); outline-offset:3px; }
+.lk-point-readout { padding:.65rem .8rem; border-left:3px solid var(--lk-accent); border-radius:0 .45rem .45rem 0; background:var(--lk-accent-soft); font-variant-numeric:tabular-nums; }
+.lk-graph-table th { text-align:left; }
+.lk-graph-table td { font-variant-numeric:tabular-nums; }
+.lk-graph-dialog .lk-graph-toolbar { display:none; }
+
+#lk-motion[aria-pressed="true"] { background:var(--lk-accent-soft); border-color:var(--lk-accent); }
+html[data-motion="reduce"] *,html[data-motion="reduce"] *::before,html[data-motion="reduce"] *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }

@@ -1,18 +1,19 @@
+import {motionPreference, animationFrame} from '../kit/motion.js';
 import {content} from './content.js';
 import {initLab,onLangChange,t,renderRich,getLang} from '../kit/labs-kit.js';
-import {MATERIALS,COMPONENTS,design,preset,emptyBay,applyComponent,validate,cost,properties,settings,motion,simulate,challengePass} from './model.js';
+import {MATERIALS,COMPONENTS,design,preset,emptyBay,applyComponent,validate,cost,properties,settings,motion,simulate,challengePass,sampleAt} from './model.js';
 const $=id=>document.getElementById(id),q=new URLSearchParams(location.search),safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clone=x=>structuredClone(x),fmt=(n,d=2)=>Number(n).toLocaleString(getLang()==='es'?'es-MX':'en-US',{minimumFractionDigits:d,maximumFractionDigits:d}),colors=['#146683','#ae4c25','#65549b','#2c7b4d','#a33d67','#4c6670'];
 let d=q.get('mode')==='challenge'&&!q.has('design')?design(3,'timber',false):preset('school'),p=settings(Object.fromEntries(q)),mode=['explore','retrofit','challenge'].includes(q.get('mode'))?q.get('mode'):'explore',part='xbrace',undo=[],result=null,elapsed=0,observed=0,playing=false,last=0,raf=0,recorded=false,trials=[],nextTrial=1,hiddenTrials=new Set(),suiteResults=[];
 try{const raw=q.get('design');if(raw){const imported=JSON.parse(raw);if(MATERIALS[imported?.material]&&['fixed','isolated'].includes(imported.foundation)&&Array.isArray(imported.stories)&&imported.stories.length>=1&&imported.stories.length<=6&&imported.stories.every(row=>Array.isArray(row)&&row.length===2&&row.every(b=>b&&typeof b.frame==='boolean'&&['none','light','heavy'].includes(b.floor)&&['none','diagonal','xbrace'].includes(b.brace)&&typeof b.connection==='boolean'&&typeof b.damper==='boolean')))d=imported;}}catch{/* Invalid links use a supported starter. */}
-const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const reduced=motionPreference;
 function stop(){playing=false;cancelAnimationFrame(raf);last=0;}
 function address(){const u=new URL(location.href);u.search='';for(const [k,v]of Object.entries({...p,mode,lang:getLang(),design:JSON.stringify(d)}))u.searchParams.set(k,v);return u;}
 function syncURL(){window.history.replaceState(null,'',address());}
 function reset(){stop();result=null;elapsed=0;observed=0;recorded=false;$('timeline').max=0;$('timeline').value=0;render();}
 function edit(fn){undo.push(clone(d));if(undo.length>50)undo.shift();fn();suiteResults=[];reset();}
 function frameColor(){return {timber:'#b87b46',steel:'#7398a3',concrete:'#b5b5a6'}[d.material];}
-function currentSample(){if(!result)return {time:0,ground:0,roof:0,roofAccel:0,drifts:d.stories.map(()=>0),positions:d.stories.map(()=>0),base:0,damage:d.stories.map(()=> 'elastic')};const sample=result.samples.reduce((a,b)=>Math.abs(b.time-elapsed)<Math.abs(a.time-elapsed)?b:a,result.samples[0]),pr=properties(result.design),iso=result.design.foundation==='isolated'?1:0;return {...sample,damage:sample.damage.map((state,i)=>state!=='elastic'&&sample.peaks.drift[i]>2.5*(pr[i+iso].yieldForce/pr[i+iso].k)/3*100?'major':state)};}
+function currentSample(){if(!result)return {time:0,ground:0,roof:0,roofAccel:0,drifts:d.stories.map(()=>0),positions:d.stories.map(()=>0),base:0,damage:d.stories.map(()=> 'elastic')};const sample=sampleAt(result,elapsed),pr=properties(result.design),iso=result.design.foundation==='isolated'?1:0;return {...sample,damage:sample.damage.map((state,i)=>state!=='elastic'&&sample.peaks.drift[i]>2.5*(pr[i+iso].yieldForce/pr[i+iso].k)/3*100?'major':state)};}
 const layout=()=>({x:240,base:430,h:Math.min(88,330/d.stories.length),w:115});
 function drawScene(){const s=currentSample(),{x,base,h,w}=layout(),ink='#2a201d',fill=frameColor(),grid=[];
  const pos=i=>i<0?s.base:s.positions[i]??0;const dx=i=>Math.max(-95,Math.min(95,pos(i)*.35));
@@ -62,8 +63,8 @@ for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>{mode=b.da
 function ensureResult(){if(!result){result=simulate(d,p);recorded=false;}}
 function record(){if(recorded||!result)return;trials.push({id:nextTrial++,name:'',result:clone(result)});recorded=true;drawHistory();}
 function advance(dt){ensureResult();elapsed=Math.min(result.summary.end,elapsed+dt);observed=Math.max(observed,elapsed);if(elapsed>=result.summary.end){stop();record();}drawScene();drawReadings();drawGraph();}
-function tick(ts){if(!playing)return;if(!last){last=ts;raf=requestAnimationFrame(tick);return;}const delta=(ts-last)/1000;if(delta<(reduced.matches?.25:.05)){raf=requestAnimationFrame(tick);return;}last=ts;advance(Math.min(reduced.matches?.5:.12,delta)*2);if(playing)raf=requestAnimationFrame(tick);}
-$('play').onclick=()=>{if(playing){stop();drawReadings();return;}ensureResult();playing=true;last=0;drawReadings();raf=requestAnimationFrame(tick);};$('step').onclick=()=>{stop();advance(.5);};$('reset').onclick=reset;$('timeline').oninput=()=>{stop();elapsed=+$('timeline').value;drawScene();drawReadings();drawGraph();};
+function tick(ts){if(!playing)return;if(!last){last=ts;raf=animationFrame(tick);return;}const delta=(ts-last)/1000;if(delta<(reduced.matches?.25:.05)){raf=animationFrame(tick);return;}last=ts;advance(Math.min(reduced.matches?.5:.12,delta)*2);if(playing)raf=animationFrame(tick);}
+$('play').onclick=()=>{if(playing){stop();drawReadings();return;}ensureResult();playing=true;last=0;drawReadings();raf=animationFrame(tick);};$('step').onclick=()=>{stop();advance(.5);};$('reset').onclick=reset;$('timeline').oninput=()=>{stop();elapsed=+$('timeline').value;drawScene();drawReadings();drawGraph();};
 $('new-seed').onclick=()=>{p.seed=(p.seed+1)>>>0;suiteResults=[];reset();};$('share').onclick=async()=>{try{await navigator.clipboard.writeText(address().href);$('share-status').textContent=t('copied');}catch{$('share-status').textContent=t('copyFallback')+' '+address().href;}};
 const suiteSettings=[{magnitude:6,distance:30,soil:'rock'},{magnitude:6.5,distance:30,soil:'soft'},{magnitude:7,distance:20,soil:'soft'}];
 $('suite').onclick=()=>{stop();suiteResults=suiteSettings.map((s,i)=>{const r=simulate(d,{...s,seed:p.seed});trials.push({id:nextTrial++,name:'test'+'ABC'[i],result:clone(r)});return r;});result=suiteResults.at(-1);p=clone(result.settings);elapsed=observed=result.summary.end;recorded=true;render();};

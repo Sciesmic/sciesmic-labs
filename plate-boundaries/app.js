@@ -1,3 +1,4 @@
+import {motionPreference, animationWait} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceRun, chainTable, createRun, MAX_TIME, SETUPS, slabDepth, stripeTable } from "./model.js";
 import { initLab, onLangChange, renderRich, t, getLang } from "../kit/labs-kit.js";
@@ -577,8 +578,8 @@ function selectChartPoint(element) {
 /* ------------------------------------------------------------------ */
 /* Running time forward                                                */
 /* ------------------------------------------------------------------ */
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const reducedMotion = () => motionPreference.matches;
+const wait = animationWait;
 
 async function stepOnce(token) {
   if (state.run.time >= MAX_TIME) return false;

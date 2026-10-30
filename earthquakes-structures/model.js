@@ -41,3 +41,13 @@ export function simulate(d,input={},options={}){const issues=validate(d);if(issu
  return {version:VERSION,design:structuredClone(d),settings:ground.settings,ground:{pga:ground.pga,active:ground.active,frequency:ground.frequency},samples,summary:{peakDrift:Math.max(...maxDrift),storyDrifts:maxDrift,peakRoof,peakAccel,residualRoof:x[n-1]*100,damage,cost:cost(d),limit,end:samples.at(-1).time},plastic:plastic.slice(iso)};
 }
 export function challengePass(r){return !r.summary.limit&&r.design.stories.length>=3&&r.summary.cost<=90&&r.summary.peakDrift<=1.5&&r.summary.damage.every(x=>x==='elastic');}
+
+/** Playback between saved integration samples; damage and running peaks never anticipate a future sample. */
+export function sampleAt(result, time) {
+ const a=result.samples,t=Math.max(a[0].time,Math.min(a.at(-1).time,Number(time)||0));
+ let lo=0,hi=a.length-1;
+ while(lo<hi){const mid=Math.ceil((lo+hi)/2);if(a[mid].time<=t)lo=mid;else hi=mid-1;}
+ const p=a[lo],q=a[lo+1];if(!q||t===p.time)return p;
+ const f=(t-p.time)/(q.time-p.time),mix=(x,y)=>x+(y-x)*f;
+ return {...p,time:t,ground:mix(p.ground,q.ground),roof:mix(p.roof,q.roof),roofAccel:mix(p.roofAccel,q.roofAccel),base:mix(p.base,q.base),positions:p.positions.map((x,i)=>mix(x,q.positions[i])),drifts:p.drifts.map((x,i)=>mix(x,q.drifts[i]))};
+}

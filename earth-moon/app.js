@@ -1,3 +1,4 @@
+import {motionPreference, animationFrame} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import {content} from './content.js';
 import {initLab,onLangChange,t,renderRich,getLang} from '../kit/labs-kit.js';
@@ -8,7 +9,7 @@ let p=settings(Object.fromEntries(['day','tilt','node','distance'].filter(k=>que
 if(mode==='challenge')p=challenge(seed);
 const sharedGraph=createGraphTools(document.getElementById('graph'));
 let rows=[],revealed=false,playing=false,last=0,raf=0;
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduced=motionPreference;
 const fmt=(n,d=2)=>Number(n).toLocaleString(getLang()==='es'?'es-MX':'en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const img=(file,x,y,w,h=w,extra='')=>`<image href="assets/${file}.png" x="${x}" y="${y}" width="${w}" height="${h}" ${extra}/>`;
 function url(){const u=new URL(location.href);Object.entries({...p,hemisphere,mode,seed,lang:getLang()}).forEach(([k,v])=>u.searchParams.set(k,v));return u;}
@@ -30,7 +31,7 @@ function sun(s){const scale=70/s.sunRadius,w=256*(70/72)*(s.moonRadius/s.sunRadi
 }
 const table=(heads,data)=>`<thead><tr>${heads.map(v=>`<th scope="col">${safe(v)}</th>`).join('')}</tr></thead><tbody>${data.map(row=>`<tr>${row.map(v=>`<td>${safe(v)}</td>`).join('')}</tr>`).join('')}</tbody>`;
 function graph(){const ss=series(p),snapshotLabel=s=>fmt(s.tilt,1)+'° · '+fmt(s.node,0)+'° · '+fmt(s.distance,0)+' km';
- sharedGraph.update({title:t('fraction'),xLabel:t('day')+' (d)',yLabel:t('fraction')+' (%)',xMin:0,xMax:MONTH,yMin:0,yMax:100,series:[{id:'current',label:t('current')+' · '+snapshotLabel(p),points:ss.map(s=>({x:s.day,y:s.fraction*100,label:t(s.phaseId)}))},...rows.map((s,i)=>({id:'record-'+i,label:t('trial')+' '+(i+1)+' · '+snapshotLabel(s),line:false,points:[{x:s.day,y:s.fraction*100,label:t(s.phaseId)+' · '+t(s.eclipse)}]}))]});
+ sharedGraph.update({title:t('fraction'),xLabel:t('day')+' (d)',yLabel:t('fraction'),xMin:0,xMax:MONTH,yMin:0,yMax:100,series:[{id:'current',label:t('current')+' · '+snapshotLabel(p),points:ss.map(s=>({x:s.day,y:s.fraction*100,label:t(s.phaseId)}))},...rows.map((s,i)=>({id:'record-'+i,label:t('trial')+' '+(i+1)+' · '+snapshotLabel(s),line:false,points:[{x:s.day,y:s.fraction*100,label:t(s.phaseId)+' · '+t(s.eclipse)}]}))]});
  $('cycle-table').innerHTML=table([t('day'),t('fraction'),t('phaseLabel'),t('event')],ss.map(s=>[fmt(s.day),fmt(s.fraction*100),t(s.phaseId),t(s.eclipse)]));
 }
 function history(){const heads=['trial','day','tilt','node','distance','phaseLabel','fraction','event'];$('history').innerHTML=table(heads.map(t),rows.map((s,j)=>[j+1,fmt(s.day),fmt(s.tilt,1),fmt(s.node,0),fmt(s.distance,0),t(s.phaseId),fmt(s.fraction*100),t(s.eclipse)]));$('download').disabled=!rows.length;}
@@ -47,8 +48,8 @@ function render(){document.title=t('title')+' | Sciesmic Labs';$('flashcards-lin
  $('phase-stops').innerHTML=['new','first-quarter','full','third-quarter'].map((id,j)=>`<button data-stop="${j}" ${mode==='challenge'?'disabled':''}>${t(id)}</button>`).join('');$('phase-stops').querySelectorAll('button').forEach(b=>b.onclick=()=>{stop();p.day=MONTH*Number(b.dataset.stop)/4;live();graph();});
  $('challenge-panel').hidden=mode!=='challenge';$('seed').textContent=seed;live();graph();history();
 }
-function tick(ts){if(!playing)return;if(!last)last=ts;let dt=(ts-last)/1000;if(reduced&&dt<.25){raf=requestAnimationFrame(tick);return;}last=ts;p.day=Math.min(MONTH,p.day+Math.min(dt,.5)*1.5);if(p.day>=MONTH)stop();live();graph();if(playing)raf=requestAnimationFrame(tick);}
-$('play').onclick=()=>{if(playing)stop();else{if(p.day>=MONTH)p.day=0;playing=true;last=0;raf=requestAnimationFrame(tick);}live();};
+function tick(ts){if(!playing)return;if(!last)last=ts;let dt=(ts-last)/1000;if(reduced.matches&&dt<.25){raf=animationFrame(tick);return;}last=ts;p.day=Math.min(MONTH,p.day+Math.min(dt,.5)*1.5);if(p.day>=MONTH)stop();live();graph();if(playing)raf=animationFrame(tick);}
+$('play').onclick=()=>{if(playing)stop();else{if(p.day>=MONTH)p.day=0;playing=true;last=0;raf=animationFrame(tick);}live();};
 $('step').onclick=()=>{stop();p.day=Math.min(MONTH,p.day+1);live();graph();};
 $('reset').onclick=()=>{stop();p=mode==='challenge'?challenge(seed):settings({...p,day:0});revealed=false;$('record-status').textContent='';render();};
 for(const k of ['day','tilt','node','distance'])$(k).oninput=()=>{stop();p=settings({...p,[k]:Number($(k).value)});$('record-status').textContent='';render();};

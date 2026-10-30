@@ -1,3 +1,4 @@
+import {motionPreference, animationInterval} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import {content} from './content.js';
 import {initLab,onLangChange,t,getLang,renderRich} from '../kit/labs-kit.js';
@@ -49,7 +50,7 @@ $('surface').addEventListener('change',()=>{stop();surface=$('surface').value;re
 const beginChallenge=()=>{const c=challenge(seed);lat=c.latitude;latB=c.opposite;day=c.day;tilt=c.tilt;surface='land';mode='claim';};
 document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{stop();mode=b.dataset.mode;if(mode==='claim')beginChallenge();render();}));
 document.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click',()=>{stop();day=Number(b.dataset.day);render();}));
-$('play').addEventListener('click',()=>{if(playing){stop();render();return;}if(day>=YEAR)day=0;playing=true;const interval=matchMedia('(prefers-reduced-motion: reduce)').matches?250:100;timer=setInterval(()=>{day=Math.min(YEAR,day+1.25*interval/100);if(day>=YEAR)stop();render();},interval);render();});
+$('play').addEventListener('click',()=>{if(playing){stop();render();return;}if(day>=YEAR)day=0;playing=true;const interval=motionPreference.matches?250:100;timer=animationInterval(()=>{day=Math.min(YEAR,day+1.25*interval/100);if(day>=YEAR)stop();render();},interval);render();});
 $('reset').addEventListener('click',()=>{stop();day=0;$('utility-status').textContent='';render();});
 $('new-trial').addEventListener('click',()=>{stop();seed=(seed+1)>>>0;beginChallenge();render();});
 $('record').addEventListener('click',()=>{rows.push({...state(lat,day,tilt,surface),place:'a',seed},...(both()?[{...state(latB,day,tilt,surface),place:'b',seed}]:[]));render();$('record-status').textContent=t('recorded',{n:rows.length});});

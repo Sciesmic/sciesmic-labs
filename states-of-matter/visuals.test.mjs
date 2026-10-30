@@ -8,7 +8,7 @@ import * as model from './model.js';
 const source = readFileSync(new URL('./app.js', import.meta.url), 'utf8')
   .replace(/^import .*;\n/gm, '').split('/* ---------- wiring ---------- */')[0];
 const context = vm.createContext({ ...model, URLSearchParams, location: {search:'?seed=42'},
-  document: {querySelector:()=>null}, performance: {now:()=>1000},
+  document: {querySelector:()=>null}, animationNow:()=>1000, animationWait:()=>Promise.resolve(), motionPreference:{matches:true}, performance: {now:()=>1000},
   t: key=>key, matchMedia:()=>({matches:true}) });
 vm.runInContext(source, context);
 const render = (frame, expression='beakerSvg(testFrame)') => {
@@ -101,4 +101,21 @@ test('liquid and gas use the same kinetic-speed cue at a fixed temperature', () 
       Math.hypot(particles[0].x-VIEW.cx,particles[0].y-(VIEW.cy+60));`,context);
   };
   assert.ok(Math.abs(displacement('liquid')-displacement('gas'))<1e-9);
+});
+
+
+test('playback stays isothermal right across every phase boundary', () => {
+  for (const key of Object.keys(model.SUBSTANCES)) for (const direction of ['heat','cool']) {
+    const sim = model.simulate({direction,mass:50,power:'high'}, key, model.makeRng(42));
+    context.testTrial = {...sim, key, settings:{direction}};
+    for (const plateau of sim.result.plateaus) {
+      for (const time of [plateau.start+.0001, plateau.end-.0001]) {
+        context.testTime = time;
+        const actual = vm.runInContext('interpolate(testTrial,testTime)',context);
+        assert.equal(actual.T,plateau.at);
+        assert.equal(actual.change,plateau.change);
+        assert.ok(actual.frac>0&&actual.frac<1);
+      }
+    }
+  }
 });

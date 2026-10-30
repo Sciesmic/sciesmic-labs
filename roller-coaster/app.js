@@ -1,3 +1,4 @@
+import {motionPreference, animationFrame, animationNow} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import {content} from './content.js';
 import {initLab,onLangChange,getLang,t} from '../kit/labs-kit.js';
@@ -82,17 +83,17 @@ function render(){syncControls();$('saved').textContent=savedKind?t(savedKind):'
 for(const k of keys)$(k).addEventListener('input',()=>{p=settings(Object.fromEntries(keys.map(k=>[k,$(k).value])));resetTrial();render();});
 for(const k of ['camera','scenery'])$(k).addEventListener('change',()=>{buildScene();draw(true);});
 document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;if(mode==='challenge')p=challenge(seed);resetTrial();render();}));
-$('play').addEventListener('click',()=>{if(time>=trial.duration)resetTrial();playing=!playing;started=true;last=performance.now();draw(true);});
+$('play').addEventListener('click',()=>{if(time>=trial.duration)resetTrial();playing=!playing;started=true;last=animationNow();draw(true);});
 $('reset').addEventListener('click',resetTrial);
 $('timeline').addEventListener('input',()=>{playing=false;started=true;time=Math.max(0,Math.min(furthest,Number($('timeline').value)/1000));draw(true);});
 $('record').addEventListener('click',()=>{if(!trial.bottom||furthest<trial.bottom.time){savedKind='collectFirst';$('saved').textContent=t(savedKind);return;}records.push({settings:{...p},mass:trial.mass,bottom:trial.bottom,outcome:furthest>=trial.duration?trial.outcome:'outcomeLive',seed,observedUntil:furthest,observed:trial.samples.filter(q=>q.time<=furthest)});savedKind='saved';$('saved').textContent=t(savedKind);history();});
 $('compare-x').addEventListener('change',history);$('clear').addEventListener('click',()=>{records=[];savedKind='';$('saved').textContent='';history();});
 $('new-trial').addEventListener('click',()=>{seed=(seed+1)>>>0;p=challenge(seed);resetTrial();render();});
-$('test-prediction').addEventListener('click',()=>{guessTested=true;$('challenge-feedback').textContent=t('pendingPrediction');playing=true;started=true;last=performance.now();draw(true);});
+$('test-prediction').addEventListener('click',()=>{guessTested=true;$('challenge-feedback').textContent=t('pendingPrediction');playing=true;started=true;last=animationNow();draw(true);});
 $('guess').addEventListener('change',()=>{guessTested=false;$('challenge-feedback').textContent='';});
 $('copy').addEventListener('click',async()=>{const u=new URL(location.href);u.search='';for(const [k,v] of Object.entries({lang:getLang(),mode,seed,...p}))u.searchParams.set(k,v);try{await navigator.clipboard.writeText(u.href);$('copy-status').textContent=t('copied');}catch{$('copy-status').textContent=t('copyFail')+u.href;}});
 $('download').addEventListener('click',()=>{const fields=['trial','lift_height_m','empty_car_mass_kg','cars','riders_per_car','total_mass_kg','loops','loop_radius_m','later_hills','second_hill_m','third_hill_m','resistance','shape','bottom_speed_m_s','bottom_KE_J','observed_until_s','observed_outcome','model_version','seed'];const rows=records.map((r,i)=>[i+1,r.settings.height,r.settings.mass,r.settings.cars,r.settings.riders,r.mass,r.settings.loops,r.settings.radius,r.settings.hills,r.settings.hill,r.settings.hill2,r.settings.resistance,r.settings.shape,r.bottom.speed,r.bottom.ke,r.observedUntil,r.outcome,'2.0.0',r.seed]);const csv='\uFEFF'+[fields,...rows].map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='energy-on-the-rails-trials.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);});
-const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');let lastMotionDraw=0;
-function animate(now){if(playing){time=Math.min(trial.duration,time+Math.min(.08,(now-last)/1000)*Number($('playback-speed').value));furthest=Math.max(furthest,time);if(time>=trial.duration)playing=false;if(!motionPreference.matches||now-lastMotionDraw>=250||!playing){draw();lastMotionDraw=now;}}last=now;requestAnimationFrame(animate);}
+let lastMotionDraw=0;
+function animate(now){if(playing){time=Math.min(trial.duration,time+Math.min(.08,(now-last)/1000)*Number($('playback-speed').value));furthest=Math.max(furthest,time);if(time>=trial.duration)playing=false;if(!motionPreference.matches||now-lastMotionDraw>=250||!playing){draw();lastMotionDraw=now;}}last=now;animationFrame(animate);}
 onLangChange(()=>{const pop=document.querySelector('.lk-pop');if(pop)pop.hidden=true;document.querySelectorAll('.lk-term[aria-expanded=true]').forEach(n=>n.setAttribute('aria-expanded','false'));render();});
-initLab(content);requestAnimationFrame(animate);
+initLab(content);animationFrame(animate);

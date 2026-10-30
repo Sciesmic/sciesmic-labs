@@ -162,7 +162,7 @@ export function simulate(settings, key, rng) {
     return { change: g.change, at: g.at, reading: round1(mean), start: g.start, end: g.end, length: g.time, energy: g.energy };
   });
   return {
-    samples, dt,
+    samples, dt, segments: segs,
     result: { key, power, mass, startT: segs[0].from, endT: segs.at(-1).to, total, energy, plateaus },
   };
   function segEnergy(seg, time) { return seg.e0 + power * clamp(time - seg.start, 0, seg.time); }
@@ -174,9 +174,26 @@ export function advanceTrial(run, settings) {
   const rng = makeRng(run.seed + index * 7919 + 1);
   const key = s.mode === "mystery" ? run.mystery.key : s.substance;
   const sim = simulate(s, key, rng);
-  const trial = { index, settings: s, key, mystery: s.mode === "mystery" ? { ...run.mystery } : null, samples: sim.samples, dt: sim.dt, result: sim.result };
+  const trial = { index, settings: s, key, mystery: s.mode === "mystery" ? { ...run.mystery } : null, samples: sim.samples, dt: sim.dt, segments: sim.segments, result: sim.result };
   return { ...run, history: [...run.history, trial] };
 }
 
 /** Kinetic-energy cue for drawings: average particle speed grows with the square root of kelvin temperature. */
 export function motionLevel(tempC) { return Math.sqrt(Math.max(1, tempC + 273.15) / 273.15); }
+
+/** Continuous physical state follows the thermal segments, not straight lines between sensor samples. */
+export function sampleAt(trial, time) {
+  const t = Math.max(0, Math.min(trial.result.total, Number(time) || 0));
+  const seg = trial.segments.find(s => t <= s.end + 1e-9) ?? trial.segments.at(-1);
+  const f = seg.time ? Math.max(0, Math.min(1, (t - seg.start) / seg.time)) : 1;
+  const T = seg.kind === 'change' ? seg.at : seg.from + (seg.to - seg.from) * f;
+  const i = trial.samples.findIndex(p => p.t > t);
+  const a = i <= 0 ? (i === 0 ? trial.samples[0] : trial.samples.at(-1)) : trial.samples[i - 1];
+  const b = i > 0 ? trial.samples[i] : a;
+  const blend = b.t === a.t ? 0 : (t - a.t) / (b.t - a.t);
+  // Interpolate only sensor error; never interpolate across a physical plateau.
+  const noise = (a.reading - a.T) * (1 - blend) + (b.reading - b.T) * blend;
+  return {t, T, reading: round1(T + noise), state: seg.state, next: seg.next ?? null,
+    change: seg.change ?? null, frac: seg.kind === 'change' ? f : 0,
+    energy: seg.e0 + trial.result.power * Math.max(0, Math.min(seg.time, t - seg.start))};
+}

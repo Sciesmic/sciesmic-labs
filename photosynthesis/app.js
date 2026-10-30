@@ -1,3 +1,4 @@
+import {motionPreference, animationFrame, animationNow} from '../kit/motion.js';
 import {content} from './content.js';
 import {initLab,onLangChange,getLang,t,renderRich} from '../kit/labs-kit.js';
 import {VERSION,DURATION,normalize,at,series,makeAtoms,react,totals,random} from './model.js';
@@ -22,7 +23,7 @@ function scene(){
   h+=`<rect x="22" y="137" width="676" height="95" rx="12" fill="${panel}" opacity=".91"/><rect x="22" y="253" width="676" height="95" rx="12" fill="${panel}" opacity=".91"/>`;
   // Separate gross flows make ongoing respiration visible even when net release is positive.
   function flux(name,rate,y,input,output){
-   const active=rate>1e-10,phase=matchMedia('(prefers-reduced-motion: reduce)').matches?0:time*(.4+rate*2),count=active?Math.max(1,Math.ceil(rate*10)):0;
+   const active=rate>1e-10,phase=motionPreference.matches?0:time*(.4+rate*2),count=active?Math.max(1,Math.ceil(rate*10)):0;
    let f=`<g data-process="${name}" data-rate="${rate}" data-active="${active}"><text x="38" y="${y-24}" fill="${ink}" font-size="15" font-family="system-ui" font-weight="700">${safe(t(name==='photo'?'photoProcess':'respProcess'))}</text><text x="682" y="${y-24}" text-anchor="end" fill="${ink}" font-size="14" font-family="system-ui">${fmt(rate,4)} mL O₂/min</text>`;
    for(const [start,end,molecule]of [[52,278,input],[442,668,output]]){
     f+=`<path d="M${start} ${y}H${end}" stroke="${name==='photo'?'#6e9847':'#b67d55'}" stroke-width="3" stroke-dasharray="7 7"/><path d="M${end-9} ${y-6}L${end} ${y}L${end-9} ${y+6}" fill="none" stroke="${ink}" stroke-width="2"/>`;
@@ -34,7 +35,7 @@ function scene(){
    return f+'</g>';
   }
   h+=flux('photo',r.gross,185,'co2','o2')+flux('resp',r.respiration,301,'o2','co2');
-  if(settings.light>0){const phase=matchMedia('(prefers-reduced-motion: reduce)').matches?0:time*(.4+settings.light/100);for(let i=0;i<3;i++){const u=(phase+i/3)%1;h+=`<circle data-photon="${i}" cx="${110+200*u}" cy="${85+42*u}" r="5" fill="#f3c94e" stroke="#a97a1f"/>`;}}
+  if(settings.light>0){const phase=motionPreference.matches?0:time*(.4+settings.light/100);for(let i=0;i<3;i++){const u=(phase+i/3)%1;h+=`<circle data-photon="${i}" cx="${110+200*u}" cy="${85+42*u}" r="5" fill="#f3c94e" stroke="#a97a1f"/>`;}}
   h+=`<rect x="70" y="383" width="580" height="38" rx="9" fill="${panel}" opacity=".96"/><text x="360" y="407" text-anchor="middle" fill="${ink}" font-size="15" font-family="system-ui">${safe(t(Math.abs(r.net)<1e-10?'netZero':r.net>0?'netOut':'netIn'))}</text>`;
   $('scene-description').textContent=t('cycleVisualNote')+' '+t('soilNote');$('scene-caption').textContent=t('cycleVisualNote');
  }else{
@@ -119,13 +120,13 @@ function render(){
  $('mode-hint').innerHTML=renderRich(t('hint'+mode[0].toUpperCase()+mode.slice(1)));
  $('experiment').hidden=!['lab','cycle'].includes(mode);$('leaf-workspace').hidden=mode!=='leaf';$('atoms-workspace').hidden=mode!=='atoms';$('day-controls').hidden=mode!=='cycle';
  $('light').value=settings.light;$('co2').value=settings.co2;$('color').value=settings.color;$('light-out').textContent=fmt(settings.light,0)+'%';$('co2-out').textContent=fmt(settings.co2,0)+'%';
- $('flashcards-link').href=`flashcards.html?lang=${getLang()}`;$('seed').textContent=seed;$('motion-note').hidden=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+ $('flashcards-link').href=`flashcards.html?lang=${getLang()}`;$('seed').textContent=seed;$('motion-note').hidden=!motionPreference.matches;
  leaf();atoms();historyTable();live();
 }
 for(const id of ['light','co2','color'])$(id).addEventListener(id==='color'?'change':'input',changeSettings);
 for(const b of document.querySelectorAll('[data-mode]'))b.addEventListener('click',()=>{playing=false;mode=b.dataset.mode;render();});
 for(const b of document.querySelectorAll('[data-zoom]'))b.addEventListener('click',()=>{zoom=b.dataset.zoom;leaf();});
-$('play').addEventListener('click',()=>{if(time>=DURATION)fresh();playing=!playing;last=performance.now();live();});
+$('play').addEventListener('click',()=>{if(time>=DURATION)fresh();playing=!playing;last=animationNow();live();});
 $('advance').addEventListener('click',()=>{playing=false;time=Math.min(DURATION,time+1);live();});
 $('finish').addEventListener('click',()=>{playing=false;time=DURATION;live();});
 $('reset').addEventListener('click',()=>{playing=false;time=0;selected=null;live();});
@@ -141,6 +142,6 @@ $('close-graph').addEventListener('click',()=>$('graph-dialog').close());$('grap
 $('graph-dialog').addEventListener('click',e=>{if(e.target===$('graph-dialog')){const r=$('graph-dialog').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('graph-dialog').close();}});
 $('copy').addEventListener('click',async()=>{const u=new URL(location.href);u.search='';for(const [k,v]of Object.entries({...settings,seed,mode,lang:getLang()}))u.searchParams.set(k,v);try{await navigator.clipboard.writeText(u.href);$('copy-status').textContent=t('copied');}catch{$('copy-status').textContent=t('copyFail')+u.href;}});
 $('download').addEventListener('click',()=>{const rows=[['trial','time_min','collected_O2_mL','gross_O2_mL_per_min','respiration_O2_mL_per_min','net_O2_mL_per_min','light_relative_percent','carbon_supply_relative_percent','color','illustration_seed','model_version'],...records.flatMap(r=>series(r.settings,r.time).map(p=>[r.id,p.time,p.collected,p.gross,p.respiration,p.net,r.settings.light,r.settings.co2,r.settings.color,r.seed,VERSION]))];const data='\uFEFF'+rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n'),url=URL.createObjectURL(new Blob([data],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='photosynthesis-evidence.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
-let media=matchMedia('(prefers-reduced-motion: reduce)');media.addEventListener('change',()=>{$('motion-note').hidden=!media.matches;});
-function animate(now){if(playing){time=Math.min(DURATION,time+Math.min(.15,(now-last)/1000)*.5);if(time>=DURATION)playing=false;if(now-lastDraw>180||!playing){live();lastDraw=now;}}last=now;requestAnimationFrame(animate);}
-onLangChange(render);initLab(content);requestAnimationFrame(animate);
+let media=motionPreference;media.addEventListener('change',()=>{$('motion-note').hidden=!media.matches;});
+function animate(now){if(playing){time=Math.min(DURATION,time+Math.min(.15,(now-last)/1000)*.5);if(time>=DURATION)playing=false;if(now-lastDraw>180||!playing){live();lastDraw=now;}}last=now;animationFrame(animate);}
+onLangChange(render);initLab(content);animationFrame(animate);

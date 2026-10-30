@@ -1,3 +1,4 @@
+import {motionPreference, setReducedMotion} from './motion.js';
 // Sciesmic Labs kit: shared shell for every lab.
 // Provides language (EN/ES), translated strings, tap-to-define key terms,
 // a Key Terms drawer, a standards bar, "Check your thinking" questions, and
@@ -16,6 +17,7 @@ const KIT_STRINGS = {
     allLabs: "Explore all science simulations",
     aboutLab: "About this simulation & standards",
     keyTerms: "Key terms",
+    reduceMotion: "Reduce motion",
     vocabularyCards: "Vocabulary flashcards · print & export ↗",
     close: "Close",
     teacher: "Teacher resources",
@@ -37,6 +39,7 @@ const KIT_STRINGS = {
     allLabs: "Explorar todas las simulaciones de ciencias",
     aboutLab: "Acerca de esta simulación y sus estándares",
     keyTerms: "Términos clave",
+    reduceMotion: "Reducir movimiento",
     vocabularyCards: "Tarjetas de vocabulario · imprimir y exportar ↗",
     close: "Cerrar",
     teacher: "Recursos para docentes",
@@ -126,6 +129,7 @@ function renderShell() {
       <a class="lk-brand" href="../" aria-label="${t("brand")}"><img src="../kit/brand/sciesmic-logo.png" alt="Sciesmic" width="600" height="173"><span>LABS</span></a>
       <div class="lk-standards" aria-label="${t("standards")}">${chips}</div>
       <div class="lk-actions">
+        <button type="button" class="lk-btn" id="lk-motion" aria-pressed="${motionPreference.matches}">${t("reduceMotion")}</button>
         <button type="button" class="lk-btn" id="lk-terms-open">${t("keyTerms")}</button>
         <a class="lk-btn" href="${content.teacherPackUrl}" target="_blank" rel="noopener" title="${escapeHtml(t("teacherNote"))}">${t("teacher")}</a>
         <div class="lk-lang" role="group" aria-label="${t("language")}">
@@ -137,6 +141,7 @@ function renderShell() {
   if (lang === "es") { const note = document.createElement("p"); note.className = "lk-review-note"; note.textContent = t("spanishReview"); bar.querySelector(".lk-bar-inner").append(note); }
   bar.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => setLang(button.dataset.lang)));
   bar.querySelector("#lk-terms-open").addEventListener("click", openDrawer);
+  bar.querySelector("#lk-motion").addEventListener("click", () => setReducedMotion(!motionPreference.matches));
   renderDrawer();
 }
 
@@ -270,3 +275,5 @@ export function initLab(labContent) {
   setupPopover();
   setLang(readStoredLang());
 }
+
+motionPreference.addEventListener('change', () => { document.getElementById('lk-motion')?.setAttribute('aria-pressed', String(motionPreference.matches)); });

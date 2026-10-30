@@ -1,3 +1,4 @@
+import {animationInterval} from '../kit/motion.js';
 import {notebookSpreadsheet} from '../kit/notebook-export.js';
 import {content} from './content.js?v=1.0.2';
 import {samples,testSample,dilute,neutralize,measure} from './model.js';
@@ -98,7 +99,7 @@ $('add-base').addEventListener('click',()=>mutate(()=>state.base=Math.min(120,Nu
 $('fine-base').addEventListener('click',()=>mutate(()=>state.base=Math.min(120,Number((state.base+.1).toFixed(1)))));
 $('measure').addEventListener('click',doMeasure);$('record').addEventListener('click',saveRecord);
 $('reset').addEventListener('click',()=>mutate(resetControls));$('new-trial').addEventListener('click',()=>mutate(()=>{trial++;resetControls();$('note').value='';}));
-$('auto').addEventListener('click',()=>{if(timer!==null){stop();return;}if(state.base>=120)return;timer=setInterval(()=>{state.base=Math.min(120,Number((state.base+1).toFixed(1)));render();if(state.base>=120){stop();render();$('status').textContent=t('autoDone');}},180);$('auto').textContent=t('pause');});
+$('auto').addEventListener('click',()=>{if(timer!==null){stop();return;}if(state.base>=120)return;timer=animationInterval(()=>{state.base=Math.min(120,Number((state.base+1).toFixed(1)));render();if(state.base>=120){stop();render();$('status').textContent=t('autoDone');}},180);$('auto').textContent=t('pause');});
 $('compare').addEventListener('change',renderEvidence);for(const id of ['point','large-point'])$(id).addEventListener('change',e=>selectPoint(Number(e.target.value)));
 $('expand').addEventListener('click',()=>{$('graph-dialog').showModal();$('close-graph').focus();});$('close-graph').addEventListener('click',()=>$('graph-dialog').close());$('graph-dialog').addEventListener('close',()=>$('expand').focus());
 $('share').addEventListener('click',async()=>{syncURL();try{await navigator.clipboard.writeText(location.href);$('status').textContent=t('copied');}catch{$('status').textContent=location.href;}});

@@ -1,5 +1,6 @@
+import {motionPreference, animationFrame, animationNow, animationWait} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
-import { advanceTrial, createRun, newMystery, guessMystery, normalize, segmentsFor, motionLevel, DEFAULTS, MODES, POWERS, MASSES, MYSTERY_KEYS, SUBSTANCES } from "./model.js";
+import { advanceTrial, sampleAt, createRun, newMystery, guessMystery, normalize, segmentsFor, motionLevel, DEFAULTS, MODES, POWERS, MASSES, MYSTERY_KEYS, SUBSTANCES } from "./model.js";
 import { initLab, onLangChange, renderRich, t } from "../kit/labs-kit.js";
 import { content } from "./content.js";
 
@@ -128,14 +129,7 @@ function idleFrame() {
 function frameFromSample(trial, sample) {
   return { preview: false, key: trial.key, mystery: Boolean(trial.mystery), direction: trial.settings.direction, power: trial.settings.power, ...sample };
 }
-function interpolate(trial, simT) {
-  const samples = trial.samples;
-  const i = samples.findIndex((p) => p.t > simT);
-  if (i <= 0) return i === 0 ? samples[0] : samples.at(-1);
-  const a = samples[i - 1], b = samples[i], f = (simT - a.t) / (b.t - a.t);
-  const sameSeg = a.change === b.change && a.state === b.state;
-  return { ...a, t: simT, T: a.T + (b.T - a.T) * f, reading: Math.round((a.reading + (b.reading - a.reading) * f) * 10) / 10, energy: a.energy + (b.energy - a.energy) * f, frac: sameSeg ? a.frac + (b.frac - a.frac) * f : a.frac };
-}
+function interpolate(trial, simT) { return sampleAt(trial, simT); }
 function stateLabel(frame) {
   if (!frame.change) return stateName(frame.state);
   return t("changingLabel", { change: changeName(frame.change), pct: Math.round(frame.frac * 100), next: stateName(frame.next) });
@@ -268,8 +262,8 @@ function stepParticles(frame, dtFrames) {
     if (st === "solid") {
       // Vibrate in place around a fixed spot: particles are packed in a pattern.
       const amp = 1.2 + 1.6 * level;
-      p.jx = Math.sin((performance.now() / 70) * (0.8 + (i % 7) * 0.09) + i) * amp;
-      p.jy = Math.cos((performance.now() / 63) * (0.85 + (i % 5) * 0.1) + i * 1.7) * amp;
+      p.jx = Math.sin((animationNow() / 70) * (0.8 + (i % 7) * 0.09) + i) * amp;
+      p.jy = Math.cos((animationNow() / 63) * (0.85 + (i % 5) * 0.1) + i * 1.7) * amp;
       p.x += (p.home.x - p.x) * Math.min(1, 0.15 * dtFrames);
       p.y += (p.home.y - p.y) * Math.min(1, 0.15 * dtFrames);
       return;
@@ -283,7 +277,7 @@ function stepParticles(frame, dtFrames) {
     if (st === "liquid") {
       // Liquid: stay close together near the bottom but slide past one another.
       if (p.y < VIEW.cy + 30) { p.vy = Math.abs(p.vy) + 0.3; p.y += 1.5 * dtFrames; }
-      p.vx += Math.sin(p.seed + performance.now() / 900) * 0.05 * dtFrames;
+      p.vx += Math.sin(p.seed + animationNow() / 900) * 0.05 * dtFrames;
     }
     const dx = p.x - VIEW.cx, dy = p.y - VIEW.cy, d = Math.hypot(dx, dy), maxR = VIEW.r - 14;
     if (d > maxR) {
@@ -354,8 +348,8 @@ function sceneDescription(frame) {
 }
 
 /* the particle animation runs on its own loop; it only redraws the particle layer */
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-let lastTick = performance.now();
+const reducedMotion = () => motionPreference.matches;
+let lastTick = animationNow();
 function particleLoop(now) {
   const dtFrames = Math.min(3, (now - lastTick) / 16.7);
   lastTick = now;
@@ -363,7 +357,7 @@ function particleLoop(now) {
     stepParticles(state.frame, dtFrames);
     updateParticleTransforms();
   }
-  requestAnimationFrame(particleLoop);
+  animationFrame(particleLoop);
 }
 /** With reduced motion, place particles once for the current state (no animation). */
 function settleParticles(frame) {
@@ -393,7 +387,7 @@ function renderReadouts(frame) {
 }
 
 /* ---------- playback ---------- */
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const wait = animationWait;
 const PLAY_MS = 8000;
 
 async function runTrial() {
@@ -409,16 +403,16 @@ async function runTrial() {
     drawPlaybackFrame(trial, trial.samples[0]);
     await wait(500);
     if (token !== state.playToken) return;
-    const start = performance.now(), endT = trial.samples.at(-1).t;
+    const start = animationNow(), endT = trial.samples.at(-1).t;
     await new Promise((resolve) => {
       const tick = (now) => {
         if (token !== state.playToken) { resolve(); return; }
-        const simT = Math.min(endT, ((now - start) / PLAY_MS) * endT);
+        const simT = reducedMotion() ? endT : Math.min(endT, ((now - start) / PLAY_MS) * endT);
         drawPlaybackFrame(trial, interpolate(trial, simT));
         renderChart(simT);
-        if (simT >= endT) resolve(); else requestAnimationFrame(tick);
+        if (simT >= endT) resolve(); else animationFrame(tick);
       };
-      requestAnimationFrame(tick);
+      animationFrame(tick);
     });
     if (token !== state.playToken) return;
     await wait(250);
@@ -664,6 +658,6 @@ onLangChange(() => { renderControls(); if (state.playing) { refs.runLabel.textCo
 initLab(content);
 renderControls();
 render();
-requestAnimationFrame(particleLoop);
+animationFrame(particleLoop);
 
 createGraphTools(document.getElementById('chart'), {legacy:true});

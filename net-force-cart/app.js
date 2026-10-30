@@ -1,3 +1,4 @@
+import {motionPreference, animationFrame, animationNow, animationWait} from '../kit/motion.js';
 import {createGraphTools} from '../kit/graph-tools.js';
 import { advanceTrial, createRun, normalize, massOf, DEFAULTS, MODES, CART_HALF, TRACK, G, PUSH_STOP, LAUNCH, ROLL_SPEED } from "./model.js";
 import { initLab, onLangChange, renderRich, t } from "../kit/labs-kit.js";
@@ -218,19 +219,27 @@ function idleFrame() {
 }
 const LAUNCHING = "ready";
 
+// Force arrows describe this instant, including release between instrument samples.
+function cartForFrame(sample, bars, pushRight, pushLeft) {
+  const releasedAtRest = sample.v === 0 && pushRight === 0 && pushLeft === 0;
+  const friction = releasedAtRest ? 0 : sample.friction;
+  const stop = releasedAtRest ? 0 : (sample.stop || 0);
+  return {x:sample.x, v:sample.vMeas, bars, pushRight, pushLeft, friction, stop,
+    net:pushRight-pushLeft+friction+stop};
+}
 function frameFromSample(trial, sample) {
   const s = trial.settings;
   if (s.mode === "apart") {
-    const contact = sample.spring > 0;
-    return { mode: "apart", t: sample.t, spring: contact ? "pushing" : "released", carts: [
-      { x: sample.left.x, v: sample.left.vMeas, bars: s.barsLeft, pushLeft: contact ? sample.spring : 0, pushRight: 0, stop: sample.left.stop, friction: sample.left.friction, net: sample.left.net, pair: contact ? -sample.spring : 0 },
-      { x: sample.right.x, v: sample.right.vMeas, bars: s.barsRight, pushLeft: 0, pushRight: contact ? sample.spring : 0, stop: sample.right.stop, friction: sample.right.friction, net: sample.right.net, pair: contact ? sample.spring : 0 }] };
+    const force = sample.spring > 0 ? sample.spring : 0;
+    return {mode:s.mode,t:sample.t,spring:force ? "pushing" : "released",carts:[
+      {...cartForFrame(sample.left,s.barsLeft,0,force),pair:-force},
+      {...cartForFrame(sample.right,s.barsRight,force,0),pair:force}]};
   }
   const r = trial.result;
-  // The 0.5 s sample still holds the forces from just before the push stopped.
+  // The exact 0.5 s sample reports the forces just before the short push stopped.
   const pushOn = s.mode === "tug" || s.pushTime === "all" || sample.t < PUSH_STOP + 1e-9;
-  return { mode: s.mode, t: sample.t, carts: [{ x: sample.x, v: sample.vMeas, bars: s.bars,
-    pushRight: pushOn ? r.pushRight : 0, pushLeft: pushOn ? r.pushLeft : 0, stop: sample.stop, friction: sample.friction, net: sample.net }] };
+  return {mode:s.mode,t:sample.t,carts:[cartForFrame(sample,s.bars,
+    pushOn ? r.pushRight : 0,pushOn ? r.pushLeft : 0)]};
 }
 
 function drawScene(frame) {
@@ -285,8 +294,8 @@ function sceneDescription() {
 const plain = (text) => text.replace(/\[\[[a-z0-9-]+\|([^\]]+)\]\]/g, "$1");
 
 /* ---------- playback ---------- */
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const reducedMotion = () => motionPreference.matches;
+const wait = animationWait;
 
 async function runTrial() {
   if (state.playing) return;
@@ -302,16 +311,16 @@ async function runTrial() {
     drawPlaybackFrame(trial, trial.samples[0]);
     await wait(trial.settings.mode === "apart" ? 1300 : 700);
     if (token !== state.playToken) return;
-    const start = performance.now();
+    const start = animationNow();
     const endT = trial.samples.at(-1).t;
     await new Promise((resolve) => {
       const tick = (now) => {
         if (token !== state.playToken) { resolve(); return; }
-        const simT = Math.min(endT, ((now - start) / 1000) * 0.5);
+        const simT = reducedMotion() ? endT : Math.min(endT, ((now - start) / 1000) * 0.5);
         drawPlaybackFrame(trial, interpolate(trial, simT));
-        if (simT >= endT) resolve(); else requestAnimationFrame(tick);
+        if (simT >= endT) resolve(); else animationFrame(tick);
       };
-      requestAnimationFrame(tick);
+      animationFrame(tick);
     });
     if (token !== state.playToken) return;
     await wait(250);
@@ -328,7 +337,7 @@ function interpolate(trial, simT) {
   let i = samples.findIndex((p) => p.t > simT);
   if (i <= 0) return i === 0 ? samples[0] : samples.at(-1);
   const a = samples[i - 1], b = samples[i], f = (simT - a.t) / (b.t - a.t);
-  const mix = (p, q) => ({ ...p, x: p.x + (q.x - p.x) * f });
+  const mix = (p, q) => { const contact = q.x <= CART_HALF || q.x >= TRACK-CART_HALF; return { ...p, x: p.x + (q.x - p.x) * f, v: contact ? p.v : p.v + (q.v - p.v) * f, vMeas: contact ? p.vMeas : p.vMeas + (q.vMeas - p.vMeas) * f }; };
   return trial.settings.mode === "apart" ? { ...a, t: simT, left: mix(a.left, b.left), right: mix(a.right, b.right) } : { ...mix(a, b), t: simT };
 }
 

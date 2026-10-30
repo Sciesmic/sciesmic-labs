@@ -1,3 +1,4 @@
+import {animationInterval} from '../kit/motion.js';
 import {initLab,onLangChange,t,getLang,renderRich} from '../kit/labs-kit.js';
 import {content} from './content.js';
 import {CODE,AA,EXAMPLES,express,compare,mutate,templateFromSeed,validateDNA} from './model.js';
@@ -98,7 +99,7 @@ $('show-hint').addEventListener('click',()=>{stop();const exp=expected(),i=exp.f
 $('next-stage').addEventListener('click',()=>{if(passed[stage])setStage(names[names.indexOf(stage)+1]);});
 $('skip-dna').addEventListener('click',()=>setStage('rna'));
 $('clear-stage').addEventListener('click',()=>{stop();answers[stage]=[];passed[stage]=false;if(stage==='rna'){passed.protein=false;answers.protein=[];}selected=0;errors=[];message=null;renderConstruction();renderEvidence();});
-$('play').addEventListener('click',()=>{if(timer){stop();return;}$('play').textContent=t('pause');timer=setInterval(()=>{const exp=expected(),i=exp.findIndex((v,i)=>answers[stage][i]!==v);if(i>=0){selected=i;fill(exp[i],true);}else if(stage!=='protein'){stage=names[names.indexOf(stage)+1];selected=0;renderConstruction();}else stop();},450);});
+$('play').addEventListener('click',()=>{if(timer){stop();return;}$('play').textContent=t('pause');timer=animationInterval(()=>{const exp=expected(),i=exp.findIndex((v,i)=>answers[stage][i]!==v);if(i>=0){selected=i;fill(exp[i],true);}else if(stage!=='protein'){stage=names[names.indexOf(stage)+1];selected=0;renderConstruction();}else stop();},450);});
 $('example').addEventListener('change',()=>{original=EXAMPLES.reference;stage='dna';selected=0;answers={dna:[],rna:[],protein:[]};passed={dna:false,rna:false,protein:false};setEdited(EXAMPLES[$('example').value]);});
 $('use-template').addEventListener('click',()=>{original=edited;answers={dna:[],rna:[],protein:[]};passed={dna:false,rna:false,protein:false};stage='dna';selected=0;mode='build';stop();message=null;render();syncURL();});
 $('mystery').addEventListener('click',()=>{original=EXAMPLES.reference;stage='dna';selected=0;answers={dna:[],rna:[],protein:[]};passed={dna:false,rna:false,protein:false};const keys=['synonymous','missense','earlyStop','noStart','noStop'];const key=keys[(seed+mysteryCount++)%keys.length];setEdited(EXAMPLES[key]);mysteryKey=key;$('mystery-task').hidden=false;$('mystery-feedback').textContent='';$('example').value='';});

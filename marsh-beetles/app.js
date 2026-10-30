@@ -1,3 +1,4 @@
+import {motionPreference, animationFrame, animationWait} from '../kit/motion.js';
 import { advanceGeneration, createRun, MAX_GENERATIONS } from "./model.js";
 import { initLab, onLangChange, renderRich, t } from "../kit/labs-kit.js";
 import { content } from "./content.js";
@@ -186,8 +187,8 @@ function renderSelectionText(history) {
   references.chartSelection.textContent = t("selResult", { name: shownName, g1: start.generation, p1: Math.round(value(start) * 100), g2: end.generation, p2: Math.round(value(end) * 100), slope: `${slope >= 0 ? "+" : ""}${slope.toFixed(1)}` }) + (habitats.size > 1 ? t("selMulti") : "") + t("selNote");
 }
 
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+const reducedMotion = () => motionPreference.matches;
+const wait = animationWait;
 const FINCH_FLYOVER_MS = 1900;
 
 async function playFlyover(token) {
@@ -259,7 +260,7 @@ references.updateChart.addEventListener("click", () => {
   const darkName = references.darkColor.options[references.darkColor.selectedIndex].text;
   const dashName = references.darkDash.options[references.darkDash.selectedIndex].text.toLowerCase();
   references.graphStyleStatus.textContent = t("styleUpdated", { pale: paleName, dark: darkName, dash: dashName });
-  requestAnimationFrame(() => references.updateChart.focus());
+  animationFrame(() => references.updateChart.focus());
 });
 function handleChartPointKeydown(event) {
   const point = event.currentTarget;

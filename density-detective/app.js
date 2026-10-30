@@ -1,3 +1,4 @@
+import {motionPreference, animationFrame} from '../kit/motion.js';
 import {content} from './content.js';
 import {SAMPLES,MATERIALS,measure,mystery,sampleId,round} from './model.js';
 import {initLab,onLangChange,t,renderRich,getLang,setLang} from '../kit/labs-kit.js';
@@ -8,7 +9,7 @@ let material=MATERIALS.includes(params.get('material'))?params.get('material'):'
 let shape=['cube','small','large'].includes(params.get('shape'))?params.get('shape'):'cube';
 if(mode==='guided')shape='cube';
 let id=mode==='mystery'?mystery(seed):sampleId(material,shape),state,rows=[],nextTrial=1,selected=null,excluded=new Set(),raf=0,last=0,elapsed=0,playing=false,waterStarted=false;
-const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduced=()=>motionPreference.matches;
 const fmt=(v,d=2)=>Number(v).toLocaleString(getLang()==='es'?'es-MX':'en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const image=(file,x,y,w,h,attrs='')=>`<image href="assets/${file}.svg" x="${x}" y="${y}" width="${w}" height="${h}" ${attrs}/>`;
@@ -99,9 +100,9 @@ $('shape').onchange=()=>{shape=$('shape').value;id=sampleId(material,shape);rese
 for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>{mode=b.dataset.mode;if(mode==='guided')shape='cube';id=mode==='mystery'?mystery(seed):sampleId(material,shape);reset();};
 $('weigh').onclick=()=>{state.mass=true;readings();massScene();};
 $('measure').onclick=()=>{state.volume=true;readings();volumeScene();};
-function frame(now){if(!playing)return;if(last)elapsed+=Math.min(.05,(now-last)/1000);last=now;if(elapsed>=1.4){elapsed=1.4;state.water=true;stop();}waterScene();readings();if(playing)raf=requestAnimationFrame(frame);}
-$('drop').onclick=()=>{waterStarted=true;if(reduced()){elapsed=1.4;state.water=true;waterScene();readings();}else{playing=true;last=0;readings();raf=requestAnimationFrame(frame);}};
-$('pause').onclick=()=>{if(playing)stop();else{playing=true;last=0;raf=requestAnimationFrame(frame);}readings();};
+function frame(now){if(!playing)return;if(reduced())elapsed=1.4;else if(last)elapsed+=Math.min(.05,(now-last)/1000);last=now;if(elapsed>=1.4){elapsed=1.4;state.water=true;stop();}waterScene();readings();if(playing)raf=animationFrame(frame);}
+$('drop').onclick=()=>{waterStarted=true;if(reduced()){elapsed=1.4;state.water=true;waterScene();readings();}else{playing=true;last=0;readings();raf=animationFrame(frame);}};
+$('pause').onclick=()=>{if(playing)stop();else{playing=true;last=0;raf=animationFrame(frame);}readings();};
 $('reset').onclick=reset;
 $('new-mystery').onclick=()=>{seed=(seed+1)>>>0;id=mystery(seed);reset();};
 $('calculate').onclick=()=>{if(!(state.mass&&state.volume)){$('calculation-feedback').textContent=t('calcReady');return;}const raw=$('density-input').value,answer=Number(raw),expected=round(m().calculatedDensity);if(raw.trim()&&Number.isFinite(answer)&&Math.abs(answer-expected)<.005){state.calculated=true;readings();}else{$('calculation-feedback').textContent=t('calcWrong');}};
