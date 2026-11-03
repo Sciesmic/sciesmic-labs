@@ -113,3 +113,17 @@ node tests/science-audit.mjs
 ```
 
 The full science audit uses 1,000 seeded trials per stochastic setting and deterministic analytical/boundary sweeps. To save its report, supply an output path outside the public site. A small smoke run can use `SCIENCE_TRIALS=2`. The optional `tests/model-compatibility.mjs` check needs the Git checkout and its recorded base commit; it is not an archive-only preview check.
+
+
+
+## Cell Transport
+
+Two independent simulations, version 2.0.1:
+
+- `cell-transport/`: Grades 6–8 diffusion, selective permeability, osmosis and plant/animal responses. Partial TEKS 8.13A and NGSS MS-LS1-2.
+- `cell-transport-biology/`: High school Biology channels, carriers, Na⁺/K⁺ pumping, electrical gradients, passive leaks, sodium–glucose cotransport and vesicles; TEKS Biology 5C. HS-LS1-3 is only an extension connection because feedback regulation is not simulated.
+- `transport-core/`: model, renderer, level-specific content factory and existing Sciesmic artwork shared by these two labs.
+
+Both use persistent moving particle symbols, observable transport events, concentration/volume readouts, collected-data graphs, pause/event stepping, and contextual vocabulary with EN/ES/bilingual public print/CSV/offline HTML tools. Normal now runs at the previous quarter-speed setting (0.5 model time units/s); Slow is 0.125 and Fast is 2. Spanish remains a draft pending native science-educator review.
+
+The seeded well-mixed model uses relative quantities, an externally clamped voltage, finite protein turnover and a disclosed cell-volume geometry limit. Illustrative paths and fixed membrane artwork are distinguished from tracked transfers. This is not a calibrated cell or lysis prediction. Model SHA-256: `7a6289be12d056ab21473693acde0be17efa6d07d43812ea9adc4db5c7856e24`. Compatible private teacher packs are 2.0.0 and remain outside this repository.
