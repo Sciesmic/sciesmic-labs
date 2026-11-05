@@ -18,3 +18,9 @@
 @media(prefers-reduced-motion:reduce){.art-playing .animated-pose{display:none}.art-playing .rest-pose{display:inline}}
 
 .count-icon{width:30px;height:30px;object-fit:contain}.animal-label{gap:7px}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,360px);align-items:center;gap:clamp(1.5rem,4vw,3.5rem)}
+.hero-copy{min-width:0}.hero .intro{grid-template-columns:1fr;gap:0}.hero .intro>div{justify-self:start}
+.hero-art{overflow:hidden;border-radius:16px;background:#17392f;box-shadow:0 16px 30px rgba(19,53,39,.14)}
+.hero-art img{display:block;width:100%;height:auto}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-art{width:min(100%,390px)}}

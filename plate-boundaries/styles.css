@@ -143,3 +143,10 @@ footer { color:#6a5a48; text-align:center; font-size:.78rem; padding:1rem; }
 /* Keep the event caption clear of the scientific labels in every viewport. */
 .scene-wrap { display:block; }
 .event-card { position:static; margin:0; border:0; border-top:1px solid var(--line); border-radius:0; padding:.65rem .75rem; }
+
+/* Decorative lab artwork beside the introduction. */
+.masthead{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,360px);align-items:center;gap:1.25rem clamp(1.5rem,4vw,3.5rem)}
+.masthead>div:first-child{min-width:0}
+.masthead-art{grid-column:2;grid-row:1 / span 2;display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:1rem;box-shadow:0 16px 30px rgba(17,49,51,.13)}
+.masthead>.lk-context-tools{grid-column:1;grid-row:2;justify-self:start}
+@media(max-width:760px){.masthead{display:block}.masthead-art{width:min(100%,390px);margin:1.5rem 0 0}.masthead>.lk-context-tools{margin-top:1rem}}
