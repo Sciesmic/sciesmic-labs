@@ -6,7 +6,6 @@ const defaults={
     "exportDone": "Download prepared.",
     "printCards": "Print / Save as PDF",
     "cardsInstructions": "Print one-sided on US Letter at 100%. Cut on dashed borders. Fold on the dotted vertical line, with the term on one face and the definition on the other.",
-    "cardsReview": "Spanish is a draft pending native science-educator review.",
     "cardsNotice": "Free glossary only · © Sciesmic 2026",
     "backLab": "← Back to the lab",
     "cardsIntro": "Print cut-and-fold vocabulary cards, save as PDF, or export the glossary. Choose English, Spanish, or both.",
@@ -25,7 +24,6 @@ const defaults={
     "exportDone": "Descarga preparada.",
     "printCards": "Imprimir / Guardar como PDF",
     "cardsInstructions": "Imprime por un lado en tamaño carta al 100%. Recorta por los bordes discontinuos. Dobla por la línea vertical punteada: término de un lado y definición del otro.",
-    "cardsReview": "El español es un borrador pendiente de revisión por un docente de ciencias hispanohablante nativo.",
     "cardsNotice": "Solo glosario gratuito · © Sciesmic 2026",
     "backLab": "← Volver al laboratorio",
     "cardsIntro": "Imprime tarjetas de vocabulario para recortar y doblar, guarda como PDF o exporta el glosario. Elige inglés, español o ambos.",
@@ -61,7 +59,7 @@ $('card-language').addEventListener('change',()=>{$('export-status').textContent
 $('ui-language').addEventListener('click',()=>{lang=lang==='en'?'es':'en';if($('card-language').value!=='both')$('card-language').value=lang;$('export-status').textContent='';render();renderCards();});
 $('print-cards').addEventListener('click',()=>window.print());
 $('csv-cards').addEventListener('click',()=>{const languages=cardLanguages();const quote=v=>'"'+String(v).replaceAll('"','""')+'"';const rows=[languages.flatMap(l=>[`${(content.strings[l].termHeading ?? defaults[l].termHeading)} (${l})`,`${(content.strings[l].definitionHeading ?? defaults[l].definitionHeading)} (${l})`]),...content.vocab.map(v=>languages.flatMap(l=>[v[l].term,v[l].def]))];download('\uFEFF'+rows.map(r=>r.map(quote).join(',')).join('\r\n'),'text/csv;charset=utf-8','csv');});
-$('html-cards').addEventListener('click',()=>{const css=[...document.styleSheets[0].cssRules].map(r=>r.cssText).join('\n');const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${safe(t('cardsTitle'))}</title><style>${css}</style></head><body><main><header><h1>${safe(t('cardsTitle'))}</h1></header><div class="toolbar"><button onclick="window.print()">${safe(t('printCards'))}</button></div><p class="instructions">${safe(t('cardsInstructions'))}</p><p class="review">${safe(t('cardsReview'))}</p><section id="cards">${$('cards').innerHTML}</section><footer>${safe(t('cardsNotice'))}</footer></main></body></html>`;download(html,'text/html;charset=utf-8','html');});
+$('html-cards').addEventListener('click',()=>{const css=[...document.styleSheets[0].cssRules].map(r=>r.cssText).join('\n');const html=`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${safe(t('cardsTitle'))}</title><style>${css}</style></head><body><main><header><h1>${safe(t('cardsTitle'))}</h1></header><div class="toolbar"><button onclick="window.print()">${safe(t('printCards'))}</button></div><p class="instructions">${safe(t('cardsInstructions'))}</p><section id="cards">${$('cards').innerHTML}</section><footer>${safe(t('cardsNotice'))}</footer></main></body></html>`;download(html,'text/html;charset=utf-8','html');});
 render();renderCards();
 
 }
