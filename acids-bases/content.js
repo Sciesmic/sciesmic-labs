@@ -131,7 +131,6 @@ export const content = {
       "observationRequired": "Measure pH before recording.",
       "compareHelp": "Use a new trial to compare another solution. Reset clears the current trial’s settings, but keeps recorded observations and writing.",
       "cardsTitle": "Acids & Bases · Vocabulary flashcards",
-      "cardsReview": "Spanish vocabulary is a draft pending review by a native-speaking science educator.",
       "heroAlt": "Illustration of laboratory glassware, sample bottles and a reference pH scale."
     ,
       "current": "Current investigation",
@@ -248,7 +247,6 @@ export const content = {
       "observationRequired": "Mide el pH antes de registrar.",
       "compareHelp": "Usa un ensayo nuevo para comparar otra solución. Reiniciar restablece los controles del ensayo actual, pero conserva las observaciones y tus textos.",
       "cardsTitle": "Ácidos y bases · Tarjetas de vocabulario",
-      "cardsReview": "El vocabulario en español es un borrador pendiente de revisión por un docente de ciencias hablante nativo.",
       "heroAlt": "Ilustración de material de laboratorio, frascos de muestras y una escala de pH de referencia."
     ,
       "current": "Investigación actual",
