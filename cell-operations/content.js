@@ -1,11 +1,9 @@
 // Cell Operations Lab content: standards, all on-screen text (EN/ES), key terms, and checks.
 // Text inside [[term-id|shown text]] becomes a tap-to-define key term.
-// Spanish is a first draft: have a native-speaking science teacher review before launch.
 
 export const content = {
   id: "cell-operations",
   teacherPackUrl: "https://sciesmic.com/a/members",
-
   standards: [
     { code: "TEKS 8.13A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Identify the function of the cell membrane, cell wall, nucleus, ribosomes, cytoplasm, mitochondria, chloroplasts and vacuoles in plant or animal cells.",
@@ -17,7 +15,6 @@ export const content = {
       en: "Develop and use a model to describe how the parts of a cell contribute to the function of the cell as a whole. The public lab uses a provided model; students must also develop or revise their own model to complete the performance expectation.",
       es: "Desarrollar y usar un modelo para describir cómo las partes de una célula contribuyen al funcionamiento de la célula como un todo. El laboratorio usa un modelo dado; para completar la expectativa, el estudiante debe desarrollar o revisar su propio modelo." },
   ],
-
   vocab: [
     { id: "organelle", en: { term: "organelle", def: "A small part inside a cell that has its own job, like a tiny organ." }, es: { term: "organelo", def: "Una parte pequeña dentro de una célula que tiene su propio trabajo, como un órgano diminuto." } },
     { id: "cell-membrane", en: { term: "cell membrane", def: "The thin, flexible boundary around every cell. It controls what enters and leaves the cell." }, es: { term: "membrana celular", def: "El límite delgado y flexible que rodea a toda célula. Controla lo que entra y sale de la célula." } },
@@ -30,7 +27,6 @@ export const content = {
     { id: "vacuole", en: { term: "vacuole", def: "A sac that stores water, food and waste. Plant cells have one large central vacuole that keeps the cell firm; animal cells have small ones." }, es: { term: "vacuola", def: "Un saco que almacena agua, alimento y desechos. Las células vegetales tienen una vacuola central grande que mantiene firme la célula; las animales tienen vacuolas pequeñas." } },
     { id: "protein", en: { term: "protein", def: "A material that cells build and use for almost every job, from building cell parts to speeding up the cell's chemical reactions." }, es: { term: "proteína", def: "Un material que las células fabrican y usan para casi todos sus trabajos, desde construir partes de la célula hasta acelerar sus reacciones químicas." } },
   ],
-
   checks: [
     {
       id: "q1", answer: "B", standard: "TEKS 8.13A · MS-LS1-2",
@@ -198,7 +194,6 @@ export const content = {
       },
     },
   ],
-
   strings: {
     en: {
       title: "Cell Operations Lab",
@@ -367,7 +362,6 @@ export const content = {
       step4: "4. CHECK YOUR THINKING",
       checksHeading: "Check your thinking",
       footer: "Original simplified model for learning. Real cells are far more complex, but their parts do the same jobs. ©Sciesmic 2026",
-
       "aboutDescription": "Shut down one organelle at a time in a plant or animal cell, read six health gauges over a 24-hour day, then diagnose a mystery cell from its symptoms.",
       "aboutGrades": "LIFE SCIENCE · GRADES 6–8",
       "aboutStandards": "TEKS 8.13A · TEKS 6.13A · partial · NGSS MS-LS1-2 · partial",
@@ -540,7 +534,6 @@ export const content = {
       step4: "4. COMPRUEBA LO QUE SABES",
       checksHeading: "Comprueba lo que sabes",
       footer: "Modelo original y simplificado para aprender. Las células reales son mucho más complejas, pero sus partes hacen los mismos trabajos. ©Sciesmic 2026",
-
       "aboutDescription": "Apaga un organelo a la vez en una célula vegetal o animal, observa sus indicadores durante un día modelado y diagnostica una célula misteriosa.",
       "aboutGrades": "CIENCIAS DE LA VIDA · GRADOS 6–8",
       "aboutStandards": "TEKS 8.13A · TEKS 6.13A · partial · NGSS MS-LS1-2 · partial",
