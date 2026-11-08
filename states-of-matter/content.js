@@ -1,11 +1,9 @@
 // States of Matter Lab content: standards, all on-screen text (EN/ES), key terms, and checks.
 // Text inside [[term-id|shown text]] becomes a tap-to-define key term.
-// Spanish is a first draft: have a native-speaking science teacher review before launch.
 
 export const content = {
   id: "states-of-matter",
   teacherPackUrl: "https://sciesmic.com/a/members",
-
   standards: [
     { code: "TEKS 6.6A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Compare solids, liquids and gases by their structure, shape, volume and the kinetic energy of their atoms and molecules.",
@@ -17,7 +15,6 @@ export const content = {
       en: "Develop a model that predicts changes in particle motion, temperature and state of a pure substance when thermal energy is added or removed.",
       es: "Desarrollar un modelo que prediga cambios en el movimiento de las partículas, la temperatura y el estado de una sustancia pura al agregar o quitar energía térmica." },
   ],
-
   vocab: [
     { id: "solid", en: { term: "solid", def: "A state of matter with a fixed shape and volume. Its particles are packed close together in a pattern and vibrate in place." }, es: { term: "sólido", def: "Un estado de la materia con forma y volumen fijos. Sus partículas están muy juntas, en un patrón, y vibran en su lugar." } },
     { id: "liquid", en: { term: "liquid", def: "A state of matter with a fixed volume but no fixed shape. Its particles stay close together but slide past one another." }, es: { term: "líquido", def: "Un estado de la materia con volumen fijo pero sin forma fija. Sus partículas siguen juntas pero se deslizan unas sobre otras." } },
@@ -30,7 +27,6 @@ export const content = {
     { id: "boiling-point", en: { term: "boiling point", def: "The temperature at which a liquid boils into a gas all through the liquid. A gas condenses at this same temperature. For water at about 1 atm it is 100 °C." }, es: { term: "punto de ebullición", def: "La temperatura a la que un líquido hierve y se convierte en gas en todo el líquido. Un gas se condensa a esta misma temperatura. Para el agua a aproximadamente 1 atm es 100 °C." } },
     { id: "sublimation", en: { term: "sublimation", def: "A change straight from a solid to a gas, skipping the liquid state. Dry ice (solid carbon dioxide) sublimes at −78.5 °C at about 1 atm. The reverse is called deposition." }, es: { term: "sublimación", def: "Un cambio directo de sólido a gas, sin pasar por el estado líquido. El hielo seco (dióxido de carbono sólido) se sublima a −78.5 °C a aproximadamente 1 atm. El cambio contrario se llama deposición." } },
   ],
-
   checks: [
     {
       id: "q1", answer: "C", standard: "TEKS 7.8C · MS-PS1-4",
@@ -198,7 +194,6 @@ export const content = {
       },
     },
   ],
-
   strings: {
     en: {
       title: "States of Matter Lab",
@@ -321,7 +316,6 @@ export const content = {
       step4: "4. CHECK YOUR THINKING",
       checksHeading: "Check your thinking",
       footer: "Original simplified model for learning. Real samples behave the same way but are never exact. ©Sciesmic 2026",
-
       "aboutDescription": "Heat or cool water and dry ice, watch their particles, and find the flat parts of the heating curve where they change state. Then identify a mystery substance.",
       "aboutGrades": "PHYSICAL SCIENCE · GRADES 6–8",
       "aboutStandards": "TEKS 6.6A · TEKS 7.8C · NGSS MS-PS1-4",
@@ -448,7 +442,6 @@ export const content = {
       step4: "4. COMPRUEBA LO QUE PIENSAS",
       checksHeading: "Comprueba lo que piensas",
       footer: "Modelo original y simplificado para aprender. Las muestras reales se comportan igual, pero nunca de forma exacta. ©Sciesmic 2026",
-
       "aboutDescription": "Calienta o enfría agua y hielo seco, observa partículas y cambios de estado e identifica una sustancia misteriosa.",
       "aboutGrades": "CIENCIAS FÍSICAS · GRADOS 6–8",
       "aboutStandards": "TEKS 6.6A · TEKS 7.8C · NGSS MS-PS1-4",
