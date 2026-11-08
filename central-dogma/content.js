@@ -1,4 +1,3 @@
-// Spanish editorial review complete; native-speaking science educator sign-off pending.
 export const content = {
   "id": "central-dogma",
   "version": "1.1.0",
@@ -114,7 +113,7 @@ export const content = {
       "checksHeading": "Trace the information",
       "modelNotesBtn": "Model notes and sources",
       "modelNotes": "This is an idealized, deterministic model of a short coding fragment using the standard genetic code. The start site is fixed at the first triplet; downstream initiation is not modeled. No AUG there means no chain in this model. A missing stop means the chain is incomplete, not a finished protein. We omit promoters, introns, RNA processing, tRNA movement, folding, regulation and genetic-code exceptions. DNA and RNA do not turn into amino acids; information guides assembly from separate building blocks. Playback speed represents teaching steps, not molecular time. Trial seeds choose practice sequences; they do not add biological noise.",
-      "footer": "Grades 7–8 introduction · Biology extension · Simulation 1.1.0 · Spanish edited; native educator review pending",
+      "footer": "Grades 7–8 introduction · Biology extension · Simulation 1.1.0",
       "sourceLabel": "Scientific sources",
       "gradeNote": "Middle school: trace information and compare changes. Biology extension: build exact strands and decode codons.",
       "termContext": "A [[gene|gene]] is a region of [[dna|DNA]]. A [[template|template strand]] directs [[transcription|transcription]] into [[mrna|mRNA]]. A [[ribosome|ribosome]] reads each [[codon|codon]] during [[translation|translation]], joining [[amino-acid|amino acids]]. A [[mutation|mutation]] changes the DNA sequence.",
@@ -152,7 +151,6 @@ export const content = {
       "exportHTML": "Download printable HTML",
       "backLab": "Back to the lab",
       "cardsInstructions": "Cut along each outer border. Fold on the dotted line so the term is on one side and the definition is on the other. Print one-sided at 100% scale.",
-      "cardsReview": "Spanish text has been checked for consistency and scientific meaning; native-speaking science educator review is still pending.",
       "cardNumber": "Card {n} of {total}",
       "termHeading": "Term",
       "definitionHeading": "Definition",
@@ -276,7 +274,7 @@ export const content = {
       "checksHeading": "Sigue la información",
       "modelNotesBtn": "Notas del modelo y fuentes",
       "modelNotes": "Modelo idealizado y determinista de un fragmento codificante corto con el código genético estándar. El inicio se fija en el primer triplete; no se representa el inicio posterior. Sin AUG allí no se forma una cadena en este modelo. Sin señal de terminación, la cadena está incompleta. Se omiten promotores, intrones, procesamiento del ARN, movimiento del ARNt, plegamiento, regulación y excepciones del código genético. El ADN y el ARN no se convierten en aminoácidos; la información guía el ensamblaje con bloques separados. La animación muestra pasos didácticos, no el tiempo real de los procesos moleculares. Las semillas eligen secuencias de práctica; no agregan ruido biológico.",
-      "footer": "Introducción para grados 7–8 · Extensión de biología · Simulación 1.1.0 · Español con revisión editorial; revisión docente nativa pendiente",
+      "footer": "Introducción para grados 7–8 · Extensión de biología · Simulación 1.1.0",
       "sourceLabel": "Fuentes científicas",
       "gradeNote": "Grados 7–8: sigue la información y compara cambios. Extensión de biología: construye hebras exactas y descifra codones.",
       "termContext": "Un [[gene|gen]] es una región de [[dna|ADN]]. Durante la [[transcription|transcripción]], una [[template|hebra molde]] sirve de guía para ensamblar [[mrna|ARNm]]. Durante la [[translation|traducción]], un [[ribosome|ribosoma]] lee los [[codon|codones]] del ARNm y une [[amino-acid|aminoácidos]]. Una [[mutation|mutación]] cambia la secuencia del ADN.",
@@ -314,7 +312,6 @@ export const content = {
       "exportHTML": "Descargar HTML para imprimir",
       "backLab": "Volver al laboratorio",
       "cardsInstructions": "Recorta el borde exterior de cada tarjeta. Dobla por la línea punteada para dejar el término de un lado y la definición del otro. Imprime por una sola cara a escala del 100%.",
-      "cardsReview": "Se revisaron la coherencia y el significado científico del texto en español; aún está pendiente la revisión de un docente de ciencias que sea hablante nativo de español.",
       "cardNumber": "Tarjeta {n} de {total}",
       "termHeading": "Término",
       "definitionHeading": "Definición",

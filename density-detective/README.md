@@ -19,6 +19,6 @@ TEKS 6.6D is partially supported (water only, rather than various fluids). Calcu
 - [ACS: What is density?](https://www.acs.org/middleschoolchemistry/lessonplans/chapter3/lesson1.html)
 
 ## Assets and vocabulary
-Existing Sciesmic Density sprites v1 (2026-10-26), with the existing Conservation of Mass digital balance. No new raster art. Thumbnail composes existing sprites. Art scale/layer conventions come from each source manifest. Ten glossary terms in `content.js` generate inline definitions and all public EN/ES/bilingual print, CSV, and offline HTML flashcards. The shared kit is reused without edits. Spanish is draft pending a native-speaking science educator review. Public flashcards contain glossary content only.
+Existing Sciesmic Density sprites v1 (2026-10-26), with the existing Conservation of Mass digital balance. No new raster art. Thumbnail composes existing sprites. Art scale/layer conventions come from each source manifest. Ten glossary terms in `content.js` generate inline definitions and all public EN/ES/bilingual print, CSV, and offline HTML flashcards. The shared kit is reused without edits. Public flashcards contain glossary content only.
 
 Teacher resources link to the established member landing page. The compatible six-document teacher pack 1.0.0 is prepared separately; no paid pack files or keys are included in this public repository. Member upload is a separate step.

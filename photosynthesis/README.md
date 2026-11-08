@@ -50,7 +50,7 @@ Current assessed curriculum was checked on October 26, 2026: TEKS 6.8B is Suppor
 
 All prose/code is original. The 37 PNGs are selected from Sciesmic's existing Photosynthesis art pack v1 (2026-10-26); no new sprites were generated. The thumbnail composes those same sprites. Existing shared kit and flashcard contracts are reused; shared kit files are unchanged.
 
-Public simulation release 1.0.1. Spanish simulation and public cards are drafts pending native-speaking science educator review. Private teacher pack 1.0.0 is prepared separately and compatible with UI 1.0.1 / model 1.0.0; member upload is pending. The members link points to existing resources. Copyright Sciesmic; no new license is granted.
+Public simulation release 1.0.1. Private teacher pack 1.0.0 is prepared separately and compatible with UI 1.0.1 / model 1.0.0; member upload is pending. The members link points to existing resources. Copyright Sciesmic; no new license is granted.
 
 ## 1.0.1 interface revision
 

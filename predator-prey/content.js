@@ -1,4 +1,3 @@
-// Spanish draft pending native science educator review.
 export const content = {
   "id": "predator-prey",
   "version": "3.0.1",
@@ -84,7 +83,7 @@ export const content = {
       "checksHeading": "Test your explanation",
       "notes": "Model notes and sources",
       "modelNotes": "This model uses continuous expected animal abundance in one fixed modeled study area. Hare births are 0.06 × hares per week, modified gradually by ±10% with seasons; resource-related losses are the same rate × hares² / carrying capacity. With no food, births stop and losses increase. Expected search encounters saturate as hares become abundant (Type II response, half-saturation 80). Detection = (0.50 + 0.15 × coat–snow mismatch) × (1 − 0.20 × shelter fraction); expected captures are 65% of detections, capped by available hares. Maximum capture rate is 0.95 × detection / 0.50 per fox per week before weather. Weekly search varies ±2% with the seed. Fox births equal 0.06 × captures; weekly fox losses are foxes × [0.025 + 0.08 × max(0, 1 − intake per fox / 0.5)]. Less intake therefore reduces births and increases losses in the same interval. A delayed population peak emerges from accumulated births and deaths, not an extra reserve or delay queue. Eight integration substeps per week maintain numerical stability. Seasonal carrying capacity varies smoothly by ±8%; snow timing varies independently from a daylength coat proxy. Constant conditions hold the environment fixed, and the short 13-week experiment always holds it fixed. No population waves, immigration or rescue animals are imposed. Expected abundance below 0.01 is treated as local extinction and counted in losses. Other fox foods, space, age/sex structure and genetics are omitted. Synthetic teaching rates are not fitted wildlife parameters or predictions of real cycle lengths. Estimated counts can damp toward balance or collapse under extreme settings.",
-      "footer": "Sciesmic Labs · Learn. Grow. Achieve! · 3.0.1 · Spanish draft pending educator review",
+      "footer": "Sciesmic Labs · Learn. Grow. Achieve! · 3.0.1",
       "openFlashcards": "Vocabulary flashcards · print & export ↗",
       "cardsTitle": "Predator Prey Vocabulary Cards",
       "cardsIntro": "Explore the words used in the meadow investigation.",
@@ -97,7 +96,6 @@ export const content = {
       "exportCards": "Export CSV",
       "exportHTML": "Export offline HTML",
       "cardsInstructions": "Print one-sided on US Letter at 100%. Cut on dashed lines; fold on the dotted line to put the term and definition on opposite faces.",
-      "cardsReview": "Spanish is a draft pending review by a native-speaking science educator.",
       "cardsNotice": "Free glossary cards · Sciesmic Labs · 2026",
       "cardNumber": "Card {n} of {total}",
       "flashcards": "Vocabulary flashcards",
@@ -231,7 +229,7 @@ export const content = {
       "checksHeading": "Pon a prueba tu explicación",
       "notes": "Notas del modelo y fuentes",
       "modelNotes": "Este modelo usa abundancia continua esperada en un área de estudio fija. Los nacimientos de liebres son 0.06 × liebres por semana, con modificación estacional gradual de ±10%; las pérdidas por recursos usan esa tasa × liebres² / capacidad de carga. Sin alimento no hay nacimientos y aumentan las pérdidas. Los encuentros se saturan con liebres abundantes (respuesta de tipo II; semisaturación 80). Detección = (0.50 + 0.15 × desajuste entre pelaje y nieve) × (1 − 0.20 × fracción de refugio); se captura 65% de las detecciones, sin exceder las liebres disponibles. La captura máxima por zorro por semana es 0.95 × detección / 0.50 antes del clima. La búsqueda varía ±2% con la semilla. Nacimientos de zorros = 0.06 × capturas; pérdidas semanales = zorros × [0.025 + 0.08 × max(0, 1 − ingesta por zorro / 0.5)]. Menor ingesta reduce nacimientos y aumenta pérdidas en el mismo intervalo. El retraso entre máximos surge de nacimientos y muertes acumulados; no hay índice de reservas ni cola de retraso. Se usan ocho subpasos por semana. La capacidad estacional varía suavemente ±8%; la nieve y el indicador de duración del día para la muda varían de forma independiente. Las condiciones constantes y el experimento corto de 13 semanas mantienen fijo el ambiente. No se imponen ondas, inmigración ni animales de rescate. La abundancia esperada menor de 0.01 se considera extinción local y se cuenta en las pérdidas. Se omiten otros alimentos de zorros, espacio, edades, sexos y genética. Las tasas didácticas no son parámetros de campo ni pronósticos de ciclos reales. Las fluctuaciones pueden amortiguarse o colapsar con ajustes extremos.",
-      "footer": "Sciesmic Labs · Learn. Grow. Achieve! · 3.0.1 · Borrador en español pendiente de revisión docente",
+      "footer": "Sciesmic Labs · Learn. Grow. Achieve! · 3.0.1",
       "openFlashcards": "Tarjetas de vocabulario · imprimir y exportar ↗",
       "cardsTitle": "Tarjetas de vocabulario de depredadores y presas",
       "cardsIntro": "Explora las palabras de la investigación de la pradera.",
@@ -244,7 +242,6 @@ export const content = {
       "exportCards": "Exportar CSV",
       "exportHTML": "Exportar HTML sin conexión",
       "cardsInstructions": "Imprime por un lado en tamaño carta al 100%. Recorta las líneas discontinuas y dobla por la línea punteada para poner el término y la definición en caras opuestas.",
-      "cardsReview": "El español es un borrador pendiente de revisión por un docente de ciencias hablante nativo.",
       "cardsNotice": "Tarjetas gratuitas del glosario · Sciesmic Labs · 2026",
       "cardNumber": "Tarjeta {n} de {total}",
       "flashcards": "Tarjetas de vocabulario",

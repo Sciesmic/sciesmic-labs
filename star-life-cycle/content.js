@@ -1,12 +1,10 @@
 // Star Life Cycle Lab content: standards, all on-screen text (EN/ES), key terms, and checks.
 // Text inside [[term-id|shown text]] becomes a tap-to-define key term.
-// Spanish is a first draft: have a native-speaking science teacher review before launch.
 // Numbers in the checks come from 2,000 simulated trials per mass (3 - Build Tools/star-life-cycle-expected-results.txt).
 
 export const content = {
   id: "star-life-cycle",
   teacherPackUrl: "https://sciesmic.com/a/members",
-
   standards: [
     { code: "TEKS 8.9A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Describe the life cycle of stars, and compare and classify stars using the Hertzsprung-Russell diagram. (Grade 8 STAAR Readiness)",
@@ -18,7 +16,6 @@ export const content = {
       en: "Extension: communicate how stars make elements over their life cycle, depending on their mass. Supporting connection: students need an additional evidence-based communication about element production; Q5 does not assess this expectation.",
       es: "Ampliación: comunicar cómo las estrellas producen elementos a lo largo de su ciclo de vida, según su masa. Conexión de apoyo: se requiere comunicar con evidencia la producción de elementos; P5 no evalúa esta expectativa." },
   ],
-
   vocab: [
     { id: "nebula", en: { term: "nebula", def: "A huge cloud of gas (mostly hydrogen) and dust in space. Stars form when parts of a nebula collapse under their own gravity." }, es: { term: "nebulosa", def: "Una nube enorme de gas (sobre todo hidrógeno) y polvo en el espacio. Las estrellas se forman cuando partes de una nebulosa colapsan por su propia gravedad." } },
     { id: "nuclear-fusion", en: { term: "nuclear fusion", def: "When small atomic nuclei join to make a bigger one, releasing a lot of energy. Stars shine because of fusion in their cores: first hydrogen into helium, later heavier elements." }, es: { term: "fusión nuclear", def: "Cuando núcleos atómicos pequeños se unen para formar uno más grande y liberan mucha energía. Las estrellas brillan por la fusión en su núcleo: primero hidrógeno en helio, después elementos más pesados." } },
@@ -31,7 +28,6 @@ export const content = {
     { id: "neutron-star", en: { term: "neutron star", def: "The tiny, extremely dense core left by a supernova: more mass than the Sun packed into a ball about the size of a city." }, es: { term: "estrella de neutrones", def: "El núcleo diminuto y muy denso que deja una supernova: más masa que el Sol comprimida en una esfera del tamaño de una ciudad." } },
     { id: "black-hole", en: { term: "black hole", def: "What is left when the core of a very massive star collapses so far that its gravity lets nothing escape, not even light." }, es: { term: "agujero negro", def: "Lo que queda cuando el núcleo de una estrella muy masiva colapsa tanto que su gravedad no deja escapar nada, ni siquiera la luz." } },
   ],
-
   checks: [
     {
       id: "q1", answer: "C", standard: "TEKS 8.9A · HS-ESS1-1",
@@ -189,7 +185,6 @@ export const content = {
       },
     },
   ],
-
   strings: {
     en: {
       title: "Star Life Cycle Lab",
@@ -379,7 +374,6 @@ export const content = {
       step4: "4. CHECK YOUR THINKING",
       checksHeading: "Check your thinking",
       footer: "©Sciesmic 2026",
-
       "descNeutron": "Age {age}. Neutron star: hot remnant with residual thermal emission. Temperature, luminosity and radius are outside this model.",
       "thermalOutside": "Residual thermal emission (not modeled)",
       "aboutDescription": "Pick a star's starting mass and follow it across the H-R diagram from nebula to white dwarf, neutron star or black hole, then sort mystery stars by type.",
@@ -575,7 +569,6 @@ export const content = {
       step4: "4. COMPRUEBA LO QUE PIENSAS",
       checksHeading: "Comprueba lo que piensas",
       footer: "©Sciesmic 2026",
-
       "descNeutron": "Edad: {age}. Estrella de neutrones: remanente caliente con emisión térmica residual. Su temperatura, luminosidad y radio quedan fuera del modelo.",
       "thermalOutside": "Emisión térmica residual (no modelada)",
       "aboutDescription": "Elige la masa inicial de una estrella, sigue su evolución en el diagrama H-R y clasifica estrellas misteriosas.",

@@ -1,11 +1,9 @@
 // Net Force Cart Lab content: standards, all on-screen text (EN/ES), key terms, and checks.
 // Text inside [[term-id|shown text]] becomes a tap-to-define key term.
-// Spanish is a first draft: have a native-speaking science teacher review before launch.
 
 export const content = {
   id: "net-force-cart",
   teacherPackUrl: "https://sciesmic.com/a/members",
-
   standards: [
     { code: "TEKS 8.7A", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Calculate and analyze how an object's acceleration depends on the net force on it and its mass, using Newton's second law.",
@@ -23,7 +21,6 @@ export const content = {
       en: "Plan an investigation showing that a change in motion depends on the sum of the forces and the object's mass.",
       es: "Planificar una investigación que muestre que un cambio de movimiento depende de la suma de las fuerzas y de la masa del objeto." },
   ],
-
   vocab: [
     { id: "force", en: { term: "force", def: "A push or a pull on an object. Forces are measured in newtons (N)." }, es: { term: "fuerza", def: "Un empuje o un jalón sobre un objeto. Las fuerzas se miden en newtons (N)." } },
     { id: "net-force", en: { term: "net force", def: "The total of all the forces on an object, combining their directions. Forces that point in opposite directions subtract." }, es: { term: "fuerza neta", def: "El total de todas las fuerzas sobre un objeto, tomando en cuenta sus direcciones. Las fuerzas en direcciones opuestas se restan." } },
@@ -36,7 +33,6 @@ export const content = {
     { id: "inertia", en: { term: "inertia", def: "The tendency of an object to keep doing what it is doing: stay at rest, or keep moving at the same velocity, unless a net force acts (Newton's first law)." }, es: { term: "inercia", def: "La tendencia de un objeto a seguir haciendo lo que hace: quedarse en reposo o seguir moviéndose con la misma velocidad, a menos que actúe una fuerza neta (primera ley de Newton)." } },
     { id: "force-pair", en: { term: "force pair", def: "The two forces two objects exert on each other. They are equal in size and opposite in direction, and they act at the same time (Newton's third law)." }, es: { term: "par de fuerzas", def: "Las dos fuerzas que dos objetos ejercen uno sobre el otro. Son iguales en tamaño, opuestas en dirección y actúan al mismo tiempo (tercera ley de Newton)." } },
   ],
-
   checks: [
     {
       id: "q1", answer: "B", standard: "TEKS 7.7D · MS-PS2-2",
@@ -204,7 +200,6 @@ export const content = {
       },
     },
   ],
-
   strings: {
     en: {
       title: "Net Force Cart Lab",
@@ -334,7 +329,6 @@ export const content = {
       step4: "4. CHECK YOUR THINKING",
       checksHeading: "Check your thinking",
       footer: "Original simplified model for learning. Real carts, tracks and sensors behave in the same way but are never exact. ©Sciesmic 2026",
-
       "lblStop": "Stop contact {f} N",
       "aboutDescription": "Push, pull and launch carts on a track. Change net force, mass and friction, then measure acceleration on a velocity–time graph and test all three of Newton's laws.",
       "aboutGrades": "PHYSICAL SCIENCE · GRADES 6–8",
@@ -469,7 +463,6 @@ export const content = {
       step4: "4. COMPRUEBA LO QUE SABES",
       checksHeading: "Comprueba lo que sabes",
       footer: "Modelo original y simplificado para aprender. Los carritos, rieles y sensores reales funcionan de la misma manera, pero nunca son exactos. ©Sciesmic 2026",
-
       "lblStop": "Contacto con el tope {f} N",
       "aboutDescription": "Empuja, jala y separa carritos. Cambia fuerzas, masa y fricción, mide la aceleración e investiga las leyes de Newton.",
       "aboutGrades": "CIENCIAS FÍSICAS · GRADOS 6–8",

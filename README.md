@@ -37,11 +37,7 @@ Create a separate folder for each lab, reuse the shared `kit/` where appropriate
 
 This repository contains the free public website only. Paid teacher packs, answer keys, internal build tools, credentials, and business documents belong outside this repository. Teacher resources are available through https://sciesmic.com/a/members.
 
-## Review status
-
-Marsh Beetles Spanish content awaits native-speaker review.
-
-Central Dogma 1.1.0 English and Spanish interfaces, contextual definitions, and vocabulary flashcard exports have completed editorial and browser QA. Spanish native-speaking science educator review remains pending.
+Central Dogma 1.1.0 English and Spanish interfaces, contextual definitions, and vocabulary flashcard exports have completed editorial and browser QA.
 
 ## Rights
 
@@ -52,12 +48,12 @@ Copyright Sciesmic. All rights reserved. No open-source license is granted by th
 
 `predator-prey/` 3.0.0 supports a 13-week held-condition camouflage comparison and 5–30-year population investigation. Food-dependent predator births/losses produce linked population changes without a prescribed wave. Three presets compare constant conditions, seasonal progression and a stronger disturbance. The shared graph offers abundance, percentage of starting population, and an optional hare carrying-capacity line; annual/weekly tables and CSV preserve full-precision model estimates.
 
-Grades 7–8 application with partial TEKS 6.12A/B foundations and an NGSS MS-LS2-1 resource investigation. The synthetic model is not a wildlife forecast. English/Spanish interface and public vocabulary print/CSV/offline HTML tools; Spanish native science educator review remains pending. Use the matching private 3.0.0 teacher pack. Paid documents and build sources are excluded from this repository.
+Grades 7–8 application with partial TEKS 6.12A/B foundations and an NGSS MS-LS2-1 resource investigation. The synthetic model is not a wildlife forecast. English/Spanish interface and public vocabulary print/CSV/offline HTML tools. Use the matching private 3.0.0 teacher pack. Paid documents and build sources are excluded from this repository.
 
 
 ## Gravity Drop
 
-`gravity-drop/` 1.0.1 serves grades 6–8 with air/vacuum comparison, controlled experiments and seeded prediction challenges. Five supplied object sprites and layered chambers accompany model-driven height, time, speed, force and acceleration readings. Students record evidence, calculate average speed and revise explanations using gravity and drag. TEKS 7.7A average-speed skill is directly practiced; TEKS 6.7A, 8.7A and NGSS MS-PS2-2/MS-PS2-4 connections are partial. English/Spanish interface and public vocabulary print/CSV/offline HTML tools; Spanish native science-educator review remains pending. Physics model 1.0.0 and private teacher pack 1.0.0 are compatible. Paid pack files are not included in this repository.
+`gravity-drop/` 1.0.1 serves grades 6–8 with air/vacuum comparison, controlled experiments and seeded prediction challenges. Five supplied object sprites and layered chambers accompany model-driven height, time, speed, force and acceleration readings. Students record evidence, calculate average speed and revise explanations using gravity and drag. TEKS 7.7A average-speed skill is directly practiced; TEKS 6.7A, 8.7A and NGSS MS-PS2-2/MS-PS2-4 connections are partial. English/Spanish interface and public vocabulary print/CSV/offline HTML tools. Physics model 1.0.0 and private teacher pack 1.0.0 are compatible. Paid pack files are not included in this repository.
 
 
 ## Astronomy labs
@@ -66,11 +62,11 @@ Grades 7–8 application with partial TEKS 6.12A/B foundations and an NGSS MS-LS
 - `solar-system/` 1.0.0: Solar System in Motion; grades 6–8, TEKS 7.9B, partial 7.9A/MS-ESS1-2/MS-ESS1-3. Explore eight planetary orbits, compare planetary years and investigate solar gravity.
 - `earth-moon/` 1.0.0: Earth & Moon; grades 6–8, TEKS 6–8.1G model development with worksheet, 7.9A partial and MS-ESS1-1 phases/eclipses component. Compare synchronized space/Earth views, orbit tilt, alignment and distance.
 
-All three include EN/ES interfaces, five checks, contextual definitions, evidence exports and public vocabulary print/CSV/offline HTML tools. Spanish native science educator review remains pending. Matching private English teacher packs 1.0.0 are distributed separately through the members library; no private documents are included here.
+All three include EN/ES interfaces, five checks, contextual definitions, evidence exports and public vocabulary print/CSV/offline HTML tools. Matching private English teacher packs 1.0.0 are distributed separately through the members library; no private documents are included here.
 
 ## Photosynthesis
 
-`photosynthesis/` 1.0.1: grade 7 investigation with grade 6 energy foundations and grade 8 atom-conservation extension. Oxygen lab, Inside a leaf, Build a sugar, and Day & night connect trial evidence with matter and energy. Includes EN/ES, accessible comparison graphs and tables, five checks, ten contextual terms and public vocabulary print/CSV/offline HTML. Partial TEKS 6.8B and 7.5E; NGSS MS-LS1-6. Reuses Sciesmic art; deterministic rates are illustrative. Spanish educator review remains pending. Compatible private teacher pack 1.0.0 is prepared separately; member upload is pending. Private materials are excluded from this repository.
+`photosynthesis/` 1.0.1: grade 7 investigation with grade 6 energy foundations and grade 8 atom-conservation extension. Oxygen lab, Inside a leaf, Build a sugar, and Day & night connect trial evidence with matter and energy. Includes EN/ES, accessible comparison graphs and tables, five checks, ten contextual terms and public vocabulary print/CSV/offline HTML. Partial TEKS 6.8B and 7.5E; NGSS MS-LS1-6. Reuses Sciesmic art; deterministic rates are illustrative. Compatible private teacher pack 1.0.0 is prepared separately; member upload is pending. Private materials are excluded from this repository.
 
 ## Directory performance and release checks
 
@@ -84,7 +80,7 @@ Before a release, check search, combined filters, empty/reset states, keyboard f
 
 ## Density Detective
 
-`density-detective/` · v1.0.0 · Grades 6–8 · English/Spanish. Measure mass and full volume, compare density relative to water, graph recorded trials, and identify seeded mysteries. Three modes, 18 samples, five checks, and ten contextual terms with EN/ES/bilingual public flashcard print/CSV/offline HTML exports. Existing Sciesmic sprites are reused. TEKS 6.6D coverage is partial (water only); MS-PS1-2 is a prerequisite connection. Spanish is draft pending native science-educator review. Teacher-pack documents are distributed separately and are excluded from this public repository.
+`density-detective/` · v1.0.0 · Grades 6–8 · English/Spanish. Measure mass and full volume, compare density relative to water, graph recorded trials, and identify seeded mysteries. Three modes, 18 samples, five checks, and ten contextual terms with EN/ES/bilingual public flashcard print/CSV/offline HTML exports. Existing Sciesmic sprites are reused. TEKS 6.6D coverage is partial (water only); MS-PS1-2 is a prerequisite connection. Teacher-pack documents are distributed separately and are excluded from this public repository.
 
 
 
@@ -94,7 +90,7 @@ Before a release, check search, combined filters, empty/reset states, keyboard f
 
 ## Earthquakes and Structures
 
-`earthquakes-structures/` 1.0.0 is a grades 6–8 structural-response and engineering lab with component assembly, synthetic magnitude/distance/site scenarios, a controlled shake table, trial comparison, a three-test design challenge and EN/ES vocabulary exports. TEKS scientific/engineering practices and MS-ETS1-3 are the principal connections; MS-ESS3-2 and 7.10B are partial/context connections. Spanish awaits native science-educator review. The educational capacities and scenario mapping do not predict real building safety. Teacher materials remain private and are distributed separately.
+`earthquakes-structures/` 1.0.0 is a grades 6–8 structural-response and engineering lab with component assembly, synthetic magnitude/distance/site scenarios, a controlled shake table, trial comparison, a three-test design challenge and EN/ES vocabulary exports. TEKS scientific/engineering practices and MS-ETS1-3 are the principal connections; MS-ESS3-2 and 7.10B are partial/context connections. The educational capacities and scenario mapping do not predict real building safety. Teacher materials remain private and are distributed separately.
 
 ## Motion and scientific playback
 
@@ -124,6 +120,6 @@ Two independent simulations, version 2.0.1:
 - `cell-transport-biology/`: High school Biology channels, carriers, Na⁺/K⁺ pumping, electrical gradients, passive leaks, sodium–glucose cotransport and vesicles; TEKS Biology 5C. HS-LS1-3 is only an extension connection because feedback regulation is not simulated.
 - `transport-core/`: model, renderer, level-specific content factory and existing Sciesmic artwork shared by these two labs.
 
-Both use persistent moving particle symbols, observable transport events, concentration/volume readouts, collected-data graphs, pause/event stepping, and contextual vocabulary with EN/ES/bilingual public print/CSV/offline HTML tools. Normal now runs at the previous quarter-speed setting (0.5 model time units/s); Slow is 0.125 and Fast is 2. Spanish remains a draft pending native science-educator review.
+Both use persistent moving particle symbols, observable transport events, concentration/volume readouts, collected-data graphs, pause/event stepping, and contextual vocabulary with EN/ES/bilingual public print/CSV/offline HTML tools. Normal now runs at the previous quarter-speed setting (0.5 model time units/s); Slow is 0.125 and Fast is 2.
 
 The seeded well-mixed model uses relative quantities, an externally clamped voltage, finite protein turnover and a disclosed cell-volume geometry limit. Illustrative paths and fixed membrane artwork are distinguished from tracked transfers. This is not a calibrated cell or lysis prediction. Model SHA-256: `7a6289be12d056ab21473693acde0be17efa6d07d43812ea9adc4db5c7856e24`. Compatible private teacher packs are 2.0.0 and remain outside this repository.

@@ -30,7 +30,6 @@ const KIT_STRINGS = {
     notQuite: "Not quite.",
     score: "{n} of {total} correct",
     checksIntro: "Answer each question, then read the feedback. You can try again.",
-    spanishReview: "Spanish is a draft pending native science-educator review.",
     defineTerm: "Define {term}",
   },
   es: {
@@ -52,7 +51,6 @@ const KIT_STRINGS = {
     notQuite: "Todavía no.",
     score: "{n} de {total} correctas",
     checksIntro: "Responde cada pregunta y luego lee la retroalimentación. Puedes intentarlo de nuevo.",
-    spanishReview: "El español es un borrador pendiente de revisión por un docente de ciencias hablante nativo.",
     defineTerm: "Definir {term}",
   },
 };
@@ -138,7 +136,6 @@ function renderShell() {
         </div>
       </div>
     </div>`;
-  if (lang === "es") { const note = document.createElement("p"); note.className = "lk-review-note"; note.textContent = t("spanishReview"); bar.querySelector(".lk-bar-inner").append(note); }
   bar.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => setLang(button.dataset.lang)));
   bar.querySelector("#lk-terms-open").addEventListener("click", openDrawer);
   bar.querySelector("#lk-motion").addEventListener("click", () => setReducedMotion(!motionPreference.matches));

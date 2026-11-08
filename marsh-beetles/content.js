@@ -1,11 +1,9 @@
 // Marsh Beetles content: standards, all on-screen text (EN/ES), key terms, and checks.
 // Text inside [[term-id|shown text]] becomes a tap-to-define key term.
-// Spanish is a first draft: have a native-speaking science teacher review before launch.
 
 export const content = {
   id: "marsh-beetles",
   teacherPackUrl: "https://sciesmic.com/a/members",
-
   standards: [
     { code: "NGSS MS-LS4-4", url: "https://www.nextgenscience.org/pe/ms-ls4-4-biological-evolution-unity-and-diversity",
       en: "Explain how genetic variation in a population increases some individuals' chances of surviving and reproducing.",
@@ -20,7 +18,6 @@ export const content = {
       en: "Describe how variation in traits leads to adaptations that affect survival and reproductive success over generations. Partial: inherited structural variation; behavioral and physiological adaptations need other evidence.",
       es: "Describir cómo la variación de rasgos produce adaptaciones que afectan la supervivencia y el éxito reproductivo a lo largo de generaciones. Parcial: variación estructural heredada; las adaptaciones conductuales y fisiológicas requieren otra evidencia." },
   ],
-
   vocab: [
     { id: "inherited-trait", en: { term: "inherited trait", def: "A characteristic passed from parents to offspring, like a beetle's shell pattern." }, es: { term: "rasgo heredado", def: "Una característica que pasa de los padres a sus crías, como el patrón del caparazón de un escarabajo." } },
     { id: "variation", en: { term: "variation", def: "Differences in a trait among individuals of the same population." }, es: { term: "variación", def: "Diferencias en un rasgo entre los individuos de una misma población." } },
@@ -33,7 +30,6 @@ export const content = {
     { id: "reproductive-success", en: { term: "reproductive success", def: "How many offspring an individual leaves behind. Only survivors can reproduce." }, es: { term: "éxito reproductivo", def: "Cuántas crías deja un individuo. Solo los sobrevivientes pueden reproducirse." } },
     { id: "proportion", en: { term: "proportion", def: "The part of a whole, often shown as a percent. 12 pale beetles out of 48 is 25%." }, es: { term: "proporción", def: "La parte de un total, a menudo expresada como porcentaje. 12 escarabajos pálidos de 48 es el 25 %." } },
   ],
-
   checks: [
     {
       id: "q1", answer: "B", standard: "MS-LS4-4 · TEKS 8.13C",
@@ -201,7 +197,6 @@ export const content = {
       },
     },
   ],
-
   strings: {
     en: {
       title: "Marsh Beetles: Selection Lab",
@@ -282,7 +277,6 @@ export const content = {
       step4: "4. CHECK YOUR THINKING",
       checksHeading: "Check your thinking",
       footer: "Original fictional model for learning. It shows a population pattern, not a prediction for a real species. © Sciesmic",
-
       "aboutDescription": "Change the marsh background and predation pressure, then watch inherited beetle patterns rise and fall over generations.",
       "aboutGrades": "LIFE SCIENCE · GRADES 7–8",
       "aboutStandards": "NGSS MS-LS4-4 · NGSS MS-LS4-6 · TEKS 7.13D · partial · TEKS 8.13C · partial",
@@ -367,7 +361,6 @@ export const content = {
       step4: "4. COMPRUEBA TU RAZONAMIENTO",
       checksHeading: "Comprueba tu razonamiento",
       footer: "Modelo ficticio original para el aprendizaje. Muestra un patrón de población, no una predicción para una especie real. © Sciesmic",
-
       "aboutDescription": "Cambia el fondo del pantano y la presión de depredación; observa cómo cambian los patrones heredados de escarabajos durante generaciones.",
       "aboutGrades": "CIENCIAS DE LA VIDA · GRADOS 7–8",
       "aboutStandards": "NGSS MS-LS4-4 · NGSS MS-LS4-6 · TEKS 7.13D · partial · TEKS 8.13C · partial",
