@@ -2,7 +2,7 @@
 
 Version 1.0.0 · Grades 6–8 · © Sciesmic 2026. All rights reserved.
 
-Build one to six stories from frame modules (beam + columns), floor panels, braces, connection upgrades and dampers. Compare fixed and isolated bases. Explore synthetic magnitude/distance/site scenarios or controlled single-frequency shaking. Use saved trials, graphs, a three-scenario budget challenge, contextual definitions and public vocabulary exports in English and draft Spanish.
+Build one to six stories from frame modules (beam + columns), floor panels, braces, connection upgrades and dampers. Compare fixed and isolated bases. Explore synthetic magnitude/distance/site scenarios or controlled single-frequency shaking. Use saved trials, graphs, a three-scenario budget challenge, contextual definitions and public vocabulary exports in English and Spanish.
 
 ## Run
 
@@ -16,7 +16,7 @@ Public vocabulary exports contain only the glossary. Paid worksheets, keys, teac
 
 ## Standards and review
 
-TEKS 6–8.1G and 2A–D address student models, calculations, evidence and design evaluation. MS-ETS1-3 is supported through comparing designs and combining useful features. MS-ESS3-2 is partial (mitigation only); TEKS 7.10B is earthquake context rather than full tectonics coverage. Spanish interface and public cards await native-speaking science educator review.
+TEKS 6–8.1G and 2A–D address student models, calculations, evidence and design evaluation. MS-ETS1-3 is supported through comparing designs and combining useful features. MS-ESS3-2 is partial (mitigation only); TEKS 7.10B is earthquake context rather than full tectonics coverage.
 
 ## Assets
 
