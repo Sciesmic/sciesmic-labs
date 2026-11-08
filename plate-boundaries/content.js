@@ -1,11 +1,9 @@
 // Plate Boundary Lab content: standards, all on-screen text (EN/ES), key terms, and checks.
 // Text inside [[term-id|shown text]] becomes a tap-to-define key term.
-// Spanish is a first draft: have a native-speaking science teacher review before launch.
 
 export const content = {
   id: "plate-boundaries",
   teacherPackUrl: "https://sciesmic.com/a/members",
-
   standards: [
     { code: "TEKS 7.10B", url: "https://tea.texas.gov/laws-and-rules/texas-administrative-code/19-tac-chapter-112",
       en: "Describe how plate tectonics causes ocean basins, earthquakes, mountain building and volcanic eruptions, including supervolcanoes and hot spots.",
@@ -20,7 +18,6 @@ export const content = {
       en: "Analyze data on fossils, rocks, continent shapes and sea-floor structures as evidence of past plate motions. Partial: modeled rock/magnetic and plate-motion evidence only; fossil, superposition and continental-fit evidence require another activity.",
       es: "Analizar datos sobre fósiles, rocas, formas de los continentes y estructuras del fondo oceánico como evidencia de movimientos pasados de las placas. Parcial: evidencia modelada de rocas, magnetismo y movimiento; fósiles, superposición y ajuste continental requieren otra actividad." },
   ],
-
   vocab: [
     { id: "tectonic-plate", en: { term: "tectonic plate", def: "A huge slab of Earth's rigid outer layer (the crust plus the top of the mantle). Plates move a few centimeters per year." }, es: { term: "placa tectónica", def: "Un enorme bloque de la capa exterior rígida de la Tierra (la corteza y la parte superior del manto). Las placas se mueven unos centímetros por año." } },
     { id: "divergent-boundary", en: { term: "divergent boundary", def: "A place where two plates move apart. Magma rises into the gap and forms new crust." }, es: { term: "límite divergente", def: "Un lugar donde dos placas se separan. El magma sube por el espacio y forma corteza nueva." } },
@@ -33,7 +30,6 @@ export const content = {
     { id: "supervolcano", en: { term: "supervolcano", def: "A volcano that can erupt more than 1,000 cubic kilometers of material at once, leaving a giant crater called a caldera." }, es: { term: "supervolcán", def: "Un volcán que puede expulsar más de 1,000 kilómetros cúbicos de material de una sola vez y deja un cráter gigante llamado caldera." } },
     { id: "mantle", en: { term: "mantle", def: "The thick layer of hot rock below the crust. It is solid, but over millions of years it flows very slowly, like putty." }, es: { term: "manto", def: "La capa gruesa de roca caliente debajo de la corteza. Es sólida, pero en millones de años fluye muy despacio, como la plastilina." } },
   ],
-
   checks: [
     {
       id: "q1", answer: "C", standard: "TEKS 7.10B (R)",
@@ -201,7 +197,6 @@ export const content = {
       },
     },
   ],
-
   strings: {
     en: {
       aboutLab: "About this simulation & standards",
@@ -209,7 +204,6 @@ export const content = {
       aboutDescription: "Pull plates apart, push them together, slide them past each other or move them over a hot spot, then run time forward millions of years and watch ocean basins, earthquakes, mountains and volcanoes form.",
       aboutGrade: "EARTH SCIENCE · GRADES 6–8",
       alignmentNote: "Connections may address only part of a standard; consult the lab’s model and alignment notes.",
-
       title: "Plate Boundary Lab",
       eyebrow: "PLATE BOUNDARY LAB",
       h1: "What happens where plates meet?",
@@ -368,7 +362,6 @@ export const content = {
       step4: "4. CHECK YOUR THINKING",
       checksHeading: "Check your thinking",
       footer: "Original simplified model for learning. Rates and depths match real Earth ranges, but it is not a forecast for a real place. ©Sciesmic 2026",
-
     },
     es: {
       aboutLab: "Acerca de esta simulación y sus estándares",
@@ -376,7 +369,6 @@ export const content = {
       aboutDescription: "Separa las placas, empújalas, deslízalas una junto a otra o muévelas sobre un punto caliente. Después avanza millones de años y observa cómo se forman cuencas oceánicas, sismos, montañas y volcanes.",
       aboutGrade: "CIENCIAS DE LA TIERRA · GRADOS 6–8",
       alignmentNote: "Las conexiones pueden abordar solo parte de un estándar; consulta las notas del modelo y de alineación de esta simulación.",
-
       title: "Laboratorio de límites de placas",
       eyebrow: "LABORATORIO DE LÍMITES DE PLACAS",
       h1: "¿Qué pasa donde se encuentran las placas?",
