@@ -1,0 +1,125 @@
+# Sciesmic Labs
+
+Free browser-based science simulations from Sciesmic. TEKS and NGSS aligned, with English and Spanish interfaces.
+
+## Website
+
+Intended production address: https://labs.sciesmic.com
+
+## Repository structure
+
+- `index.html`: lab directory and homepage
+- `kit/`: shared interface styles and JavaScript
+- `marsh-beetles/`: Marsh Beetles: Selection Lab
+- `plate-boundaries/`: Plate Boundary Lab
+- `net-force-cart/`: Net Force Cart Lab
+- `cell-operations/`: Cell Operations Lab
+- `star-life-cycle/`: Star Life Cycle Lab
+- `states-of-matter/`: States of Matter Lab
+- `central-dogma/`: Central Dogma Lab 1.1.0, including vocabulary flashcards and print/export tools
+- `predator-prey/`: Predator Prey Lab 3.0.0 with short camouflage and seasonal population investigations
+- `CNAME`: custom domain for GitHub Pages
+- `.nojekyll`: serve static files without Jekyll processing
+
+## Local preview
+
+Run `python3 -m http.server 8000` from the repository root, then visit http://localhost:8000. Use an HTTP server because the simulations use JavaScript modules.
+
+## Publishing
+
+GitHub Pages publishes `main` from the repository root. Changes merged into `main` update the site automatically.
+
+## Adding labs
+
+Create a separate folder for each lab, reuse the shared `kit/` where appropriate, and add a card to the homepage. Check relative links, simulation behavior, English and Spanish, keyboard access, and mobile layout before publishing.
+
+## Content boundaries
+
+This repository contains the free public website only. Paid teacher packs, answer keys, internal build tools, credentials, and business documents belong outside this repository. Teacher resources are available through https://sciesmic.com/a/members.
+
+Central Dogma 1.1.0 English and Spanish interfaces, contextual definitions, and vocabulary flashcard exports have completed editorial and browser QA.
+
+## Rights
+
+Copyright Sciesmic. All rights reserved. No open-source license is granted by this repository.
+
+
+## Predator Prey Lab
+
+`predator-prey/` 3.0.0 supports a 13-week held-condition camouflage comparison and 5–30-year population investigation. Food-dependent predator births/losses produce linked population changes without a prescribed wave. Three presets compare constant conditions, seasonal progression and a stronger disturbance. The shared graph offers abundance, percentage of starting population, and an optional hare carrying-capacity line; annual/weekly tables and CSV preserve full-precision model estimates.
+
+Grades 7–8 application with partial TEKS 6.12A/B foundations and an NGSS MS-LS2-1 resource investigation. The synthetic model is not a wildlife forecast. English/Spanish interface and public vocabulary print/CSV/offline HTML tools. Use the matching private 3.0.0 teacher pack. Paid documents and build sources are excluded from this repository.
+
+
+## Gravity Drop
+
+`gravity-drop/` 1.0.1 serves grades 6–8 with air/vacuum comparison, controlled experiments and seeded prediction challenges. Five supplied object sprites and layered chambers accompany model-driven height, time, speed, force and acceleration readings. Students record evidence, calculate average speed and revise explanations using gravity and drag. TEKS 7.7A average-speed skill is directly practiced; TEKS 6.7A, 8.7A and NGSS MS-PS2-2/MS-PS2-4 connections are partial. English/Spanish interface and public vocabulary print/CSV/offline HTML tools. Physics model 1.0.0 and private teacher pack 1.0.0 are compatible. Paid pack files are not included in this repository.
+
+
+## Astronomy labs
+
+- `seasonal-changes/` 1.0.0: Seasonal Changes; grades 6–8, TEKS 6.9A grade 6 core, MS-ESS1-1 seasons component. Explore daylight, Sun angle, solar input and illustrative land/ocean temperature lag.
+- `solar-system/` 1.0.0: Solar System in Motion; grades 6–8, TEKS 7.9B, partial 7.9A/MS-ESS1-2/MS-ESS1-3. Explore eight planetary orbits, compare planetary years and investigate solar gravity.
+- `earth-moon/` 1.0.0: Earth & Moon; grades 6–8, TEKS 6–8.1G model development with worksheet, 7.9A partial and MS-ESS1-1 phases/eclipses component. Compare synchronized space/Earth views, orbit tilt, alignment and distance.
+
+All three include EN/ES interfaces, five checks, contextual definitions, evidence exports and public vocabulary print/CSV/offline HTML tools. Matching private English teacher packs 1.0.0 are distributed separately through the members library; no private documents are included here.
+
+## Photosynthesis
+
+`photosynthesis/` 1.0.1: grade 7 investigation with grade 6 energy foundations and grade 8 atom-conservation extension. Oxygen lab, Inside a leaf, Build a sugar, and Day & night connect trial evidence with matter and energy. Includes EN/ES, accessible comparison graphs and tables, five checks, ten contextual terms and public vocabulary print/CSV/offline HTML. Partial TEKS 6.8B and 7.5E; NGSS MS-LS1-6. Reuses Sciesmic art; deterministic rates are illustrative. Compatible private teacher pack 1.0.0 is prepared separately; member upload is pending. Private materials are excluded from this repository.
+
+## Directory performance and release checks
+
+The homepage uses native controls and a small dependency-free filter. Cards and links remain available without JavaScript. Keep simulation code on individual lab pages. Homepage preview copies live in `kit/previews/`; preserve original lab artwork. Use system fonts and avoid third-party scripts.
+
+Budget: keep the homepage HTML, JavaScript and all directory previews below 500 KB combined before compression. Use lazy loading below the first card and explicit image dimensions. Check every local link, canonical URL, JSON-LD block and sitemap entry when adding a lab. Include accurate grade eligibility and partial/extension alignment qualifiers.
+
+Before a release, check search, combined filters, empty/reset states, keyboard focus, 200% zoom, narrow screens and JavaScript-disabled browsing. Target mobile Lighthouse performance 90+, accessibility 95+, SEO 90+, and field LCP <=2.5 seconds at the 75th percentile. These are targets, not measured scores. Validate on a school Chromebook and throttled network; do not infer real-device performance from transfer size. GitHub Pages manages caching headers, so content-hashed asset naming is preferred when changing cached assets.
+
+
+
+## Density Detective
+
+`density-detective/` · v1.0.0 · Grades 6–8 · English/Spanish. Measure mass and full volume, compare density relative to water, graph recorded trials, and identify seeded mysteries. Three modes, 18 samples, five checks, and ten contextual terms with EN/ES/bilingual public flashcard print/CSV/offline HTML exports. Existing Sciesmic sprites are reused. TEKS 6.6D coverage is partial (water only); MS-PS1-2 is a prerequisite connection. Teacher-pack documents are distributed separately and are excluded from this public repository.
+
+
+
+## Acids and Bases pH Lab
+
+`acids-bases/` 1.0.2 supports grades 6–8 qualitative investigation and high-school TEKS Chemistry 12D/E extensions (partial). MS-PS1-2 is a supporting data-analysis connection; pH is outside its assessed property list. Three modes provide ten reference household samples, defined-solution dilution and HCl/NaOH neutralization. Current pH marker, classification and particle/concentration evidence appear only after measurement. Inquiry CSV, trial comparisons, graph enlargement, per-point inspection, ten contextual terms and public EN/ES/bilingual vocabulary exports are included. Existing Sciesmic SVG art is reused. English private teacher pack 1.0.0 is prepared separately, with six DOCX/PDF pairs; no paid content is included here. Spanish simulation and vocabulary are approved for classroom use. Physical Chromebook testing remains pending.
+
+## Earthquakes and Structures
+
+`earthquakes-structures/` 1.0.0 is a grades 6–8 structural-response and engineering lab with component assembly, synthetic magnitude/distance/site scenarios, a controlled shake table, trial comparison, a three-test design challenge and EN/ES vocabulary exports. TEKS scientific/engineering practices and MS-ETS1-3 are the principal connections; MS-ESS3-2 and 7.10B are partial/context connections. The educational capacities and scenario mapping do not predict real building safety. Teacher materials remain private and are distributed separately.
+
+## Motion and scientific playback
+
+Every simulation includes a **Reduce motion** button (**Reducir movimiento** in Spanish). It follows the system preference until a learner chooses a setting, and keeps that choice across labs when browser storage is available. It does not clear predictions or collected evidence. `?motion=reduce` and `?motion=full` support reproducible previews.
+
+The shared animation clock excludes time spent in a background tab. Timed investigations pause their visual progression while hidden, without changing the scientific model, seed sequence, or recorded trial results.
+
+States of Matter follows exact thermal segments between instrument samples. Net Force Cart draws instantaneous force sums at release, and Earthquakes & Structures interpolates displacement without showing damage from a future sample.
+
+Run the dependency-free checks with a current Node.js release:
+
+```sh
+node --test tests/motion.test.mjs tests/playback-science.test.mjs states-of-matter/visuals.test.mjs
+node tests/graph-data.test.mjs
+node tests/science-audit.mjs
+```
+
+The full science audit uses 1,000 seeded trials per stochastic setting and deterministic analytical/boundary sweeps. To save its report, supply an output path outside the public site. A small smoke run can use `SCIENCE_TRIALS=2`. The optional `tests/model-compatibility.mjs` check needs the Git checkout and its recorded base commit; it is not an archive-only preview check.
+
+
+
+## Cell Transport
+
+Two independent simulations, version 2.0.1:
+
+- `cell-transport/`: Grades 6–8 diffusion, selective permeability, osmosis and plant/animal responses. Partial TEKS 8.13A and NGSS MS-LS1-2.
+- `cell-transport-biology/`: High school Biology channels, carriers, Na⁺/K⁺ pumping, electrical gradients, passive leaks, sodium–glucose cotransport and vesicles; TEKS Biology 5C. HS-LS1-3 is only an extension connection because feedback regulation is not simulated.
+- `transport-core/`: model, renderer, level-specific content factory and existing Sciesmic artwork shared by these two labs.
+
+Both use persistent moving particle symbols, observable transport events, concentration/volume readouts, collected-data graphs, pause/event stepping, and contextual vocabulary with EN/ES/bilingual public print/CSV/offline HTML tools. Normal now runs at the previous quarter-speed setting (0.5 model time units/s); Slow is 0.125 and Fast is 2.
+
+The seeded well-mixed model uses relative quantities, an externally clamped voltage, finite protein turnover and a disclosed cell-volume geometry limit. Illustrative paths and fixed membrane artwork are distinguished from tracked transfers. This is not a calibrated cell or lysis prediction. Model SHA-256: `7a6289be12d056ab21473693acde0be17efa6d07d43812ea9adc4db5c7856e24`. Compatible private teacher packs are 2.0.0 and remain outside this repository.
