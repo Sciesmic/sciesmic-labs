@@ -4,4 +4,4 @@ Graphics revision using the supplied Lab Equipment Free Fall sprite pack v1.1 (2
 
 Physics model 1.0.0 and teacher pack 1.0.0 remain compatible. Model SHA-256 ce46bc1b9137f152f1c83f0e6f7f9caaafc2f51cd7cb5d5386fe0aae0dec9413.
 
-Run over HTTP from the parent site folder, then open gravity-drop/?lang=en. Spanish remains draft pending native science-educator review. Public simulation at https://labs.sciesmic.com/gravity-drop/ . Teacher pack remains private.
+Run over HTTP from the parent site folder, then open gravity-drop/?lang=en. Public simulation at https://labs.sciesmic.com/gravity-drop/ . Teacher pack remains private.
