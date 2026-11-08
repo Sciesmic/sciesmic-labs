@@ -6,8 +6,8 @@ The common graph supports abundance and percentage of each starting population. 
 
 The DOM-free seeded model uses logistic prey renewal, saturating captures and food-dependent fox births/losses. It has no hidden reserve index, delay queue, prescribed population wave, immigration or rescue population floor. Seasonal resources and reproduction vary mildly and smoothly. Teaching parameters are synthetic. Other fox foods, genetics, ages and spatial structure are omitted. See model notes for equations.
 
-English and Spanish UI; Spanish remains a draft pending native science-educator review. Vocabulary flashcards retain English/Spanish/bilingual print/PDF, CSV and offline HTML exports.
+English and Spanish UI. Vocabulary flashcards retain English/Spanish/bilingual print/PDF, CSV and offline HTML exports.
 
-**Compatibility:** use the private 3.0.0 teacher pack with this model. Earlier 1.0.0/2.0.0 packs use different models and units. This public folder contains no paid materials. Spanish native science educator review remains pending. Shared kit unchanged.
+**Compatibility:** use the private 3.0.0 teacher pack with this model. Earlier 1.0.0/2.0.0 packs use different models and units. This public folder contains no paid materials. Shared kit unchanged.
 
 Artwork revision: predator-prey art pack v1 (sprite kit v1.2). Seasonal layers, snow-cover overlays, aligned brown/white coat blending, habitat and adult animal frames replace the placeholder scene. Motion is decorative and pauses with playback; reduced motion shows static poses. Mystery mode hides coat art. No ages, precipitation or individual hunting events are implied. Only used base-resolution PNG assets are included. The 3.0.0 numerical model and teacher pack remain compatible.
