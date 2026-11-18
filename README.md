@@ -123,3 +123,6 @@ Two independent simulations, version 2.0.1:
 Both use persistent moving particle symbols, observable transport events, concentration/volume readouts, collected-data graphs, pause/event stepping, and contextual vocabulary with EN/ES/bilingual public print/CSV/offline HTML tools. Normal now runs at the previous quarter-speed setting (0.5 model time units/s); Slow is 0.125 and Fast is 2.
 
 The seeded well-mixed model uses relative quantities, an externally clamped voltage, finite protein turnover and a disclosed cell-volume geometry limit. Illustrative paths and fixed membrane artwork are distinguished from tracked transfers. This is not a calibrated cell or lysis prediction. Model SHA-256: `7a6289be12d056ab21473693acde0be17efa6d07d43812ea9adc4db5c7856e24`. Compatible private teacher packs are 2.0.0 and remain outside this repository.
+
+### Punnett Squares 1.1.1
+High School Biology grades 9–10. Build gametes, compare independent inheritance probabilities with seeded offspring samples, and investigate mystery parents. Guided/Challenge practice, graph zoom, browser-local saving, complete-cell/check notebook export and public vocabulary tools. Partial TEKS B.8B and NGSS HS-LS3-3. Compatible private English teacher pack 1.1.1 is prepared separately.
