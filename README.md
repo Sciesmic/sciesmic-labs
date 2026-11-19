@@ -10,6 +10,7 @@ Intended production address: https://labs.sciesmic.com
 
 - `index.html`: lab directory and homepage
 - `kit/`: shared interface styles and JavaScript
+- `mass-and-weight/`: Mass and Weight 1.1.0; Earth, Moon, Mars, Jupiter, and a Mystery Planet (grade 6)
 - `marsh-beetles/`: Marsh Beetles: Selection Lab
 - `plate-boundaries/`: Plate Boundary Lab
 - `net-force-cart/`: Net Force Cart Lab
