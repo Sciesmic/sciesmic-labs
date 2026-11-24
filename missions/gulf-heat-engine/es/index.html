@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motor de calor del golfo | Sciesmic Labs</title>
+<style>
+:root{--blue:#1c75bc;--cyan:#00aeef;--ink:#1a1a1a;--gray:#5b6470;--tint:#eaf4fb;--warm:#e8832a}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;line-height:1.45}
+header{background:var(--blue);color:#fff;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;position:sticky;top:0;z-index:5}
+header b{font-size:15px;letter-spacing:.04em}.chip{background:rgba(255,255,255,.18);border-radius:99px;padding:2px 10px;font-size:12px}
+main{max-width:980px;margin:0 auto;padding:14px 16px 60px}h1{color:var(--blue);margin:.3em 0 0}.sub{color:var(--gray);margin:.2em 0 1em}
+section{border:1px solid #cfe3f3;border-radius:10px;margin:14px 0;overflow:hidden}
+section>h2{margin:0;padding:8px 14px;background:var(--tint);color:var(--blue);font-size:16px}section>div{padding:12px 14px}
+.step{display:inline-block;background:var(--cyan);color:#fff;border-radius:50%;width:24px;height:24px;text-align:center;line-height:24px;margin-right:8px;font-size:13px}
+label.opt{display:inline-block;border:2px solid #b7d4ea;border-radius:8px;padding:6px 12px;margin:3px 6px 3px 0;cursor:pointer;background:#fff}
+label.opt:has(input:checked){border-color:var(--blue);background:var(--tint);font-weight:bold}
+label.opt:has(input:focus-visible){outline:3px solid var(--warm)}input[type=radio]{margin-right:6px}
+fieldset{border:0;margin:0 0 10px;padding:0}legend{font-weight:bold;color:var(--blue);margin-bottom:4px}
+button{font:inherit;border:0;border-radius:8px;padding:9px 16px;background:var(--blue);color:#fff;cursor:pointer;font-weight:bold}button.alt{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+button:focus-visible{outline:3px solid var(--warm)}button:disabled{opacity:.5;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:16px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+#result{background:var(--tint);border-left:5px solid var(--cyan);padding:8px 12px;margin:10px 0;border-radius:4px;min-height:44px}
+.chartwrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid #cfe3f3;padding:4px 7px;text-align:left}th{background:var(--tint);color:var(--blue)}
+.q{margin:12px 0;padding-bottom:10px;border-bottom:1px dashed #cfe3f3}.fb{margin:4px 0 0 4px;padding:6px 10px;border-radius:6px;display:none}.fb.show{display:block}.fb.ok{background:#e6f6ec}.fb.no{background:#fdeceb}
+textarea{width:100%;min-height:80px;font:inherit;padding:8px;border:2px solid #b7d4ea;border-radius:8px}
+.note{font-size:13px;color:var(--gray)}.tabs button{margin-right:6px}.tabs button[aria-selected=true]{background:var(--warm)}
+footer{text-align:center;color:var(--gray);font-size:12px;padding:20px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><b>SCIESMIC LABS</b><span class="chip">TEKS 8.10(A) · Preparación</span><span class="chip">TEKS 8.10(C) · De apoyo</span><span class="chip">Parte de la Misión de repaso: Lee la evidencia, predice el tiempo</span></header>
+<main>
+<h1>Motor de calor del golfo</h1>
+<p class="sub">Prueba lo que necesita una tormenta tropical. Cambia <b>una sola</b> cosa a la vez y observa 48 horas de fortalecimiento. Este es un modelo para el salón de clases, no un modelo de pronóstico.</p>
+<div class="tabs" role="tablist" aria-label="Modo"><button role="tab" id="tabExplore" aria-selected="true">Explorar</button><button role="tab" id="tabChallenge" aria-selected="false" class="alt">Reto de pronóstico</button></div>
+
+<section aria-labelledby="h1"><h2 id="h1"><span class="step">1</span>Predecir</h2><div>
+<p id="predictPrompt">Una tormenta tropical empieza con vientos de 40 mph sobre el golfo. ¿Qué único cambio la ayudaría a fortalecerse <b>más</b> en 48 horas?</p>
+<div id="predictOpts" role="radiogroup" aria-labelledby="predictPrompt"></div><div id="predictMsg" class="note" aria-live="polite"></div></div></section>
+
+<section aria-labelledby="h2"><h2 id="h2"><span class="step">2</span>Investigar</h2><div class="grid"><div>
+<div id="exploreControls">
+<fieldset><legend>Temperatura de la superficie del mar</legend><div id="sstOpts"></div></fieldset>
+<fieldset><legend>Cizallamiento del viento (cuánto cambian los vientos con la altura)</legend><div id="shearOpts"></div></fieldset>
+<fieldset><legend>Profundidad del agua caliente</legend><div id="layerOpts"></div></fieldset></div>
+<div id="challengeBox" hidden><p><b>Condiciones medidas cerca de la tormenta:</b></p><ul id="challengeConds"></ul><p>Predice la categoría de la tormenta después de 48 horas y luego corre el modelo.</p>
+<label>Tu pronóstico: <select id="challengePick"></select></label></div>
+<p><button id="runBtn">Correr pronóstico de 48 horas</button> <button id="newBtn" class="alt">Nueva prueba (nueva semilla)</button> <button id="clearBtn" class="alt">Borrar datos</button></p>
+<p class="note">Semilla: <span id="seedOut"></span> · Comparte <code>?seed=</code> en la dirección web para que toda la clase vea la misma prueba.</p>
+</div><div>
+<div id="result" role="status" aria-live="polite">Elige las configuraciones y luego presiona Correr.</div>
+<div class="chartwrap"><svg id="chart" viewBox="0 0 520 300" role="img" aria-labelledby="chartDesc" width="100%"></svg></div>
+<p id="chartDesc" class="note">Gráfica de líneas de la rapidez máxima sostenida del viento (mph) de la hora 0 a la hora 48. Los mismos datos aparecen en la tabla de abajo.</p>
+</div></div>
+<div class="chartwrap"><table id="tbl"><caption style="text-align:left;font-weight:bold;color:#1c75bc">Tabla de datos (anótalos en tu Pasaporte de misión)</caption>
+<thead><tr><th>Prueba</th><th>Temp. del mar (°C)</th><th>Cizallamiento</th><th>Capa caliente</th><th>Viento a 48 h (mph)</th><th>Categoría</th></tr></thead><tbody></tbody></table></div></section>
+
+<section aria-labelledby="h3"><h2 id="h3"><span class="step">3</span>Explicar</h2><div>
+<p>Usa tus datos para terminar esta oración: <i>"Cuando cambié ______ de ______ a ______, el viento de la tormenta a las 48 horas cambió de ______ a ______, lo que muestra que ______."</i></p>
+<textarea id="explain" aria-label="Tu explicación" placeholder="Escribe tu explicación. Se queda solo en este dispositivo."></textarea></div></section>
+
+<section aria-labelledby="h4"><h2 id="h4"><span class="step">4</span>Revisa tu razonamiento</h2><div id="checks"></div></section>
+<section><h2>Notas del modelo</h2><div class="note">
+<p>Cada 6 horas el viento de la tormenta se acerca un 35 % a una meta fijada por tres límites: el calor del océano (el agua más caliente permite vientos más fuertes), el cizallamiento del viento (más cizallamiento baja la meta) y la profundidad de la capa caliente (una capa poco profunda deja que el agua fría removida por la tormenta reduzca la meta después de unas 12 a 24 horas). En cada paso se agrega una pequeña variación aleatoria de ±4 mph, así que las pruebas repetidas difieren un poco. El agua a más de 26.5 °C se usa comúnmente como la temperatura más baja que sostiene tormentas tropicales. Las categorías usan la escala de vientos Saffir-Simpson. Los números son para aprender y no son predicciones.</p>
+<p>Modelo de Sciesmic. Los ingredientes de las tormentas tropicales los describen NOAA/NWS; consulta la guía del docente de la Misión de repaso para ver las fuentes. ©Sciesmic 2026 · sciesmic.com</p></div></section>
+</main><footer>©Sciesmic 2026 | sciesmic.com</footer>
+<script>
+// Gulf Heat Engine: classroom model (not a forecast model). Pure functions, no DOM.
+const GHE = (() => {
+  const SST_OPTIONS = [26, 27, 28, 29, 30, 31];
+  const SHEAR = [
+    { id: "low", label: "Bajo", mult: 1.0 },
+    { id: "moderate", label: "Moderado", mult: 0.65 },
+    { id: "high", label: "Alto", mult: 0.3 },
+  ];
+  const LAYER = [
+    { id: "deep", label: "Capa caliente profunda (remolino cálido)" },
+    { id: "shallow", label: "Capa caliente poco profunda" },
+  ];
+  const CATS = [[157, "Categoría 5"], [130, "Categoría 4"], [111, "Categoría 3"], [96, "Categoría 2"], [74, "Categoría 1"], [39, "Tormenta tropical"], [0, "Depresión tropical"]];
+  const START = 40, STEP_H = 6, HOURS = 48, RATE = 0.35;
+  function makeRng(seed) { let a = seed >>> 0 || 1; return () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  const category = v => CATS.find(c => v >= c[0])[1];
+  const potential = sst => Math.min(185, 0.85 * (55 + 27 * (sst - 26)));   // mph the ocean could support
+  const shearMult = id => SHEAR.find(s => s.id === id).mult;
+  const layerMult = (id, h) => id === "deep" ? 1 : 1 - 0.25 * Math.min(1, Math.max(0, (h - 12) / 12));
+  function run(settings, seed) {
+    const rng = makeRng(seed), hist = [{ h: 0, v: START }]; let v = START;
+    for (let h = STEP_H; h <= HOURS; h += STEP_H) {
+      const target = Math.max(25, potential(settings.sst) * shearMult(settings.shear) * layerMult(settings.layer, h));
+      v += RATE * (target - v) + (rng() * 8 - 4);
+      v = Math.max(20, v); hist.push({ h, v: Math.round(v) });
+    }
+    const end = hist[hist.length - 1].v;
+    return { settings, seed, hist, end, cat: category(end), peak: Math.max(...hist.map(p => p.v)) };
+  }
+  function expected(settings, n = 1000) {
+    const arr = []; for (let i = 1; i <= n; i++) arr.push(run(settings, 1000 + i).end); arr.sort((a, b) => a - b);
+    const q = p => arr[Math.floor(p * (n - 1))]; return { median: q(.5), p10: q(.1), p90: q(.9) };
+  }
+  return { SST_OPTIONS, SHEAR, LAYER, CATS, START, HOURS, STEP_H, makeRng, category, potential, run, expected };
+})();
+
+
+const $=s=>document.querySelector(s),runs=[];let mode="explore",seed=0,challenge=null;
+const qs=new URLSearchParams(location.search);seed=parseInt(qs.get("seed"))||Math.floor(Math.random()*9000)+1000;
+const radios=(host,name,items,def)=>{$(host).innerHTML=items.map(i=>`<label class="opt"><input type="radio" name="${name}" value="${i.v}" ${i.v==def?"checked":""}>${i.t}</label>`).join("")};
+radios("#sstOpts","sst",GHE.SST_OPTIONS.map(v=>({v,t:v+" °C"})),28);
+radios("#shearOpts","shear",GHE.SHEAR.map(s=>({v:s.id,t:s.label})),"low");
+radios("#layerOpts","layer",GHE.LAYER.map(s=>({v:s.id,t:s.label})),"deep");
+const PRED=[{v:"a",t:"Temperatura más cálida en la superficie del mar"},{v:"b",t:"Mayor cizallamiento del viento"},{v:"c",t:"Una capa de agua caliente menos profunda"},{v:"d",t:"Los tres ayudarían por igual"}];
+radios("#predictOpts","pred",PRED,null);
+$("#predictOpts").addEventListener("change",e=>{$("#predictMsg").textContent="Predicción guardada. Ahora pruébala en el Paso 2, cambiando una sola configuración a la vez."});
+const SCEN=[{sst:29,shear:"low",layer:"deep",note:"El mapa satelital muestra un remolino cálido delante de la tormenta."},{sst:29,shear:"high",layer:"deep",note:"Los vientos en altura son fuertes y vienen de otra dirección."},{sst:28,shear:"low",layer:"shallow",note:"El agua está caliente solo cerca de la superficie."},{sst:26,shear:"low",layer:"deep",note:"El agua está cerca del mínimo para que crezca una tormenta."}];
+$("#challengePick").innerHTML=GHE.CATS.slice().reverse().map(c=>`<option>${c[1]}</option>`).join("");
+function pick(){return mode==="explore"?{sst:+document.querySelector("input[name=sst]:checked").value,shear:document.querySelector("input[name=shear]:checked").value,layer:document.querySelector("input[name=layer]:checked").value}:challenge}
+function setMode(m){mode=m;$("#exploreControls").hidden=m!=="explore";$("#challengeBox").hidden=m==="explore";
+ $("#tabExplore").setAttribute("aria-selected",m==="explore");$("#tabChallenge").setAttribute("aria-selected",m!=="explore");
+ $("#tabExplore").className=m==="explore"?"":"alt";$("#tabChallenge").className=m==="explore"?"alt":"";
+ if(m!=="explore"){challenge=SCEN[seed%SCEN.length];const sh=GHE.SHEAR.find(s=>s.id===challenge.shear).label,ly=GHE.LAYER.find(l=>l.id===challenge.layer).label;
+  $("#challengeConds").innerHTML=`<li>Temperatura de la superficie del mar: <b>${challenge.sst} °C</b></li><li>Cizallamiento del viento: <b>${sh}</b></li><li>Agua caliente: <b>${ly}</b></li><li>${challenge.note}</li>`}
+ $("#seedOut").textContent=seed}
+$("#tabExplore").onclick=()=>setMode("explore");$("#tabChallenge").onclick=()=>setMode("challenge");
+function draw(){const svg=$("#chart"),W=520,H=300,L=46,R=10,T=10,B=34,mx=190;const X=h=>L+(W-L-R)*h/48,Y=v=>T+(H-T-B)*(1-v/mx);let s="";
+ [[0,39,"#eef3f8"],[39,74,"#e1f0e8"],[74,96,"#fff2c9"],[96,111,"#ffe0b3"],[111,130,"#ffc9a6"],[130,157,"#ffb0a0"],[157,mx,"#ff9b9b"]].forEach(b=>s+=`<rect x="${L}" y="${Y(b[1])}" width="${W-L-R}" height="${Y(b[0])-Y(b[1])}" fill="${b[2]}"/>`);
+ [[39,"TT"],[74,"Cat 1"],[96,"2"],[111,"3"],[130,"4"],[157,"5"]].forEach(c=>s+=`<line x1="${L}" x2="${W-R}" y1="${Y(c[0])}" y2="${Y(c[0])}" stroke="#aab" stroke-dasharray="3 3"/><text x="${W-R-4}" y="${Y(c[0])-3}" font-size="10" text-anchor="end" fill="#555">${c[1]}</text>`);
+ for(let h=0;h<=48;h+=12)s+=`<text x="${X(h)}" y="${H-16}" font-size="11" text-anchor="middle">${h}</text>`;
+ for(let v=0;v<=180;v+=30)s+=`<text x="${L-6}" y="${Y(v)+4}" font-size="11" text-anchor="end">${v}</text>`;
+ s+=`<text x="${(W+L)/2}" y="${H-2}" font-size="11" text-anchor="middle">Horas</text><text transform="translate(12 ${H/2}) rotate(-90)" font-size="11" text-anchor="middle">Viento (mph)</text>`;
+ const cols=["#1c75bc","#e8832a","#2e9e5b","#7b5cc4","#d64545","#0f9d9a","#b8860b","#555"];
+ runs.slice(-8).forEach((r,i,a)=>{const c=cols[(runs.length-a.length+i)%8],last=i===a.length-1;s+=`<polyline fill="none" stroke="${c}" stroke-width="${last?3.2:1.6}" opacity="${last?1:.6}" points="${r.hist.map(p=>X(p.h)+","+Y(p.v)).join(" ")}"/>`;
+  r.hist.forEach(p=>{if(last)s+=`<circle cx="${X(p.h)}" cy="${Y(p.v)}" r="3.2" fill="${c}"/>`})});
+ svg.innerHTML=s}
+function table(){$("#tbl tbody").innerHTML=runs.map((r,i)=>`<tr><td>${i+1}</td><td>${r.settings.sst}</td><td>${GHE.SHEAR.find(s=>s.id===r.settings.shear).label}</td><td>${r.settings.layer==="deep"?"Profunda":"Poco profunda"}</td><td>${r.end}</td><td>${r.cat}</td></tr>`).join("")}
+$("#runBtn").onclick=()=>{const st=pick(),r=GHE.run(st,seed);runs.push(r);let msg=`Prueba ${runs.length}: después de 48 horas los vientos llegan a <b>${r.end} mph</b> (${r.cat}). Máximo: ${r.peak} mph.`;
+ if(mode!=="explore"){const g=$("#challengePick").value;msg+=g===r.cat?` Tu pronóstico (${g}) <b>coincide</b>.`:` Tu pronóstico fue ${g}. ¿Qué configuración cambió tu manera de pensar?`}
+ if(runs.length>1&&mode==="explore"){const p=runs[runs.length-2],ch=["sst","shear","layer"].filter(k=>p.settings[k]!==st[k]);msg+=ch.length===1?` Cambiaste una sola cosa (${({sst:"temperatura del mar",shear:"cizallamiento",layer:"capa caliente"})[ch[0]]}): buena prueba.`:ch.length>1?` Cambiaste ${ch.length} cosas a la vez, así que no puedes saber cuál causó la diferencia.`:" Las mismas configuraciones y la misma semilla dan el mismo resultado. Presiona Nueva prueba para ver la variación aleatoria."}
+ $("#result").innerHTML=msg;draw();table();seed+=0};
+$("#newBtn").onclick=()=>{seed=Math.floor(Math.random()*9000)+1000;$("#seedOut").textContent=seed;history.replaceState(null,"","?seed="+seed);if(mode!=="explore")setMode("challenge")};
+$("#clearBtn").onclick=()=>{runs.length=0;draw();table();$("#result").textContent="Datos borrados."};
+const CHK=[
+ {q:"Una estudiante cambia la temperatura del mar Y el cizallamiento del viento al mismo tiempo. ¿Cuál es el problema?",o:["Ninguno; más cambios significan más datos.","No puede saber qué cambio causó el resultado.","El cizallamiento del viento no afecta a las tormentas.","La temperatura del mar no se puede cambiar en un modelo."],a:1,f:["Más cambios a la vez hacen injusta una prueba. Cambia una cosa y mantén igual el resto.","Correcto. Una prueba justa cambia una variable para poder vincular el resultado con esa variable.","El cizallamiento sí importa: un cizallamiento fuerte reduce la fuerza máxima de una tormenta en este modelo.","Los modelos nos permiten cambiar una configuración a la vez. Esa es su ventaja."]},
+ {q:"A 31 °C con poco cizallamiento y una capa caliente profunda, la tormenta llega a unas 158 mph. ¿Qué enunciado tiene mejor respaldo?",o:["El agua caliente le da a una tormenta más energía para fortalecerse.","La temperatura del agua no importa.","Las tormentas solo se fortalecen sobre tierra.","El Sol no interviene."],a:0,f:["Sí. El agua caliente aporta calor y humedad, así que hay más energía disponible para la tormenta.","Los datos muestran vientos más fuertes a temperaturas más altas.","La tierra corta el combustible del agua caliente, así que las tormentas se debilitan sobre tierra.","El Sol es lo que calentó el agua en primer lugar."]},
+ {q:"Dos pruebas (con semillas distintas) usan las mismas configuraciones pero terminan con vientos a las 48 horas de 112 y 115 mph. ¿Por qué?",o:["El modelo está descompuesto.","Se incluyeron pequeños cambios aleatorios en cada prueba.","El cizallamiento del viento cambió solo.","El océano se enfrió entre pruebas."],a:1,f:["Las tormentas reales también varían, así que se incluye una pequeña variación a propósito.","Correcto. El azar hace que las pruebas repetidas varíen un poco, así que busca el patrón en muchas pruebas.","El cizallamiento es una configuración aquí; solo cambia si tú lo cambias.","Nada cambió el océano entre pruebas."]},
+ {q:"¿Qué par de condiciones tiene MÁS probabilidad de producir una tormenta débil que se apaga?",o:["Agua caliente, poco cizallamiento","Agua caliente, mucho cizallamiento","Capa caliente profunda, poco cizallamiento","Agua a 31 °C, poco cizallamiento"],a:1,f:["Ambas favorecen el fortalecimiento.","Sí. Un cizallamiento alto puede despedazar una tormenta aunque el agua esté caliente.","Ambas favorecen el fortalecimiento.","Este es el conjunto de condiciones más fuerte del modelo."]}];
+$("#checks").innerHTML=CHK.map((c,i)=>`<div class="q"><b>${i+1}. ${c.q}</b><div role="radiogroup">${c.o.map((o,j)=>`<label class="opt"><input type="radio" name="c${i}" value="${j}">${String.fromCharCode(65+j)}. ${o}</label>`).join("")}</div><div class="fb" id="fb${i}" aria-live="polite"></div></div>`).join("");
+CHK.forEach((c,i)=>document.querySelectorAll(`input[name=c${i}]`).forEach(el=>el.onchange=()=>{const j=+el.value,f=$("#fb"+i);f.className="fb show "+(j===c.a?"ok":"no");f.textContent=(j===c.a?"Correcto. ":"Casi. ")+c.f[j]}));
+$("#explain").value=(()=>{try{return localStorage.getItem("ghe-explain")||""}catch(e){return""}})();$("#explain").oninput=e=>{try{localStorage.setItem("ghe-explain",e.target.value)}catch(_){}};
+if(qs.get("mode")==="challenge")setMode("challenge");else $("#seedOut").textContent=seed;draw();table();
+</script></body></html>

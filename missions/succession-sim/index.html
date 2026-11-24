@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Succession Sim</title>
+<style>
+:root{--navy:#0b3c66;--blue:#1c75bc;--cyan:#00aeef;--tint:#eaf4fb;--teal:#0f9d9a}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;background:#f5f8fb}
+.wrap{max-width:980px;margin:0 auto;padding:14px}
+header{background:var(--navy);color:#fff;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px}
+header .k{font-size:11px;letter-spacing:.12em;color:var(--cyan);font-weight:700;text-transform:uppercase}
+header h1{margin:0;font-size:22px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.card{background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.dist button{border:2px solid var(--navy);background:#fff;color:var(--navy);font-weight:700;border-radius:20px;padding:8px 14px;margin:0 6px 6px 0;cursor:pointer;font-size:14px}
+.dist button.on{background:var(--navy);color:#fff}
+.ctrl{display:flex;align-items:center;gap:10px;margin-top:6px}
+.ctrl button{background:var(--teal);color:#fff;border:0;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer;font-size:14px}
+.ctrl button.sec{background:#6f8aa5}
+input[type=range]{flex:1;accent-color:var(--teal);height:28px}
+.read{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.read div{background:var(--tint);border-radius:10px;padding:8px;text-align:center}
+.read b{display:block;font-size:22px;color:var(--navy)} .read span{font-size:11px;color:#34506e;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+svg.scene{width:100%;height:auto;border-radius:10px;display:block}
+.bars .b{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}
+.bars .b span{flex:0 0 130px;font-weight:700}
+.bars .t{flex:1;background:#e6edf3;border-radius:8px;height:14px;overflow:hidden}
+.bars .f{height:100%;border-radius:8px;transition:width .15s}
+table{border-collapse:collapse;width:100%;font-size:13px}th{background:var(--navy);color:#fff;padding:5px;text-align:left}td{border-bottom:1px solid #dde5ee;padding:5px}
+.note{font-size:12px;color:#555;margin-top:6px}
+h3{margin:0 0 6px;color:var(--navy);font-size:15px}
+@media(max-width:700px){.read{grid-template-columns:repeat(2,1fr)}}
+</style></head><body><div class="wrap">
+<header><svg width="34" height="34" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#0f9d9a"/><path d="M4 4v16h16" fill="none" stroke="#fff" stroke-width="2.2"/><path d="M6 17c3-1 4-7 7-8s3 2 7-6" fill="none" stroke="#fff" stroke-width="2.2"/></svg>
+<div><div class="k">Sciesmic · Ecosystem After the Shock · Station 5</div><h1>Succession Sim</h1></div></header>
+
+<div class="row">
+ <div class="card" style="flex:2 1 560px">
+  <div class="dist" id="dist"></div>
+  <svg class="scene" id="scene" viewBox="0 0 600 260"></svg>
+  <div class="ctrl"><button id="play"></button><button id="reset" class="sec"></button>
+   <input type="range" id="yr" min="0" max="150" step="1" value="0" aria-label="year"><b id="yrlab" style="min-width:70px"></b></div>
+  <div class="read"><div><span id="l_year"></span><b id="r_year">0</b></div><div><span id="l_stage"></span><b id="r_stage" style="font-size:16px"></b></div>
+   <div><span id="l_species"></span><b id="r_species">0</b></div><div><span id="l_type"></span><b id="r_type" style="font-size:16px"></b></div></div>
+ </div>
+ <div class="card" style="flex:1 1 300px">
+  <h3 id="h_pop"></h3><div class="bars" id="bars"></div>
+  <h3 style="margin-top:12px" id="h_graph"></h3><canvas id="graph" width="560" height="330" style="width:100%"></canvas>
+ </div>
+</div>
+<div class="card" style="margin-top:12px">
+ <h3 id="h_log"></h3>
+ <div class="ctrl" style="margin:0 0 8px"><button id="rec"></button><button id="clr" class="sec"></button></div>
+ <table id="log"><thead><tr id="loghead"></tr></thead><tbody></tbody></table>
+ <div class="note" id="note"></div>
+</div>
+<div class="note" style="text-align:center;margin-top:10px">©Sciesmic 2026 | sciesmic.com</div>
+</div>
+<script>
+const L = {"title": "Succession Sim", "kicker": "Sciesmic · Ecosystem After the Shock · Station 5", "dist": {"fire": "Wildfire", "lava": "Lava flow", "farm": "Farm field"}, "stages": ["Bare ground", "Pioneers", "Grasses", "Shrubs", "Young forest", "Mature forest"], "types": {"Primary": "Primary", "Secondary": "Secondary"}, "play": "▶ Play", "pause": "❚❚ Pause", "reset": "Reset", "record": "Record this year", "clear": "Clear table", "year": "Year", "stage": "Stage", "species": "Species", "type": "Succession", "h_pop": "Populations (relative size)", "h_graph": "Species diversity over time", "h_log": "My data log", "pop": {"grass": "Sun-loving grasses", "shrubs": "Shrubs", "trees": "Trees", "insects": "Insects", "toads": "Toads", "hawks": "Hawks"}, "yaxis": "Species", "xaxis": "Years after disturbance", "logcols": ["Disturbance", "Succession", "Year", "Stage", "Species"], "note": "This sim is a teaching model. Timings are illustrative; real places recover faster or slower depending on rain, nearby seeds and new disturbances."};
+const SIM = {"dist": {"fire": {"type": "Secondary", "starts": [0, 0.3, 1, 4, 15, 60], "smax": 60, "lag": 0, "tau": 12}, "farm": {"type": "Secondary", "starts": [0, 0.3, 1, 6, 20, 70], "smax": 55, "lag": 0, "tau": 15}, "lava": {"type": "Primary", "starts": [0, 3, 25, 60, 110, 260], "smax": 60, "lag": 3, "tau": 60}}};
+const COLORS = {fire:"#e8832a", farm:"#b8860b", lava:"#424242"};
+let dist = "fire", year = 0, timer = null;
+const $ = id => document.getElementById(id);
+
+function species(d,t){const p=SIM.dist[d]; if(t<=p.lag) return 0; return Math.round(p.smax*(1-Math.exp(-(t-p.lag)/p.tau)));}
+function stageIdx(d,t){const s=SIM.dist[d].starts; let k=0; for(let i=0;i<s.length;i++){ if(t>=s[i]) k=i;} return k;}
+function up(t,a,b){if(b<=a) return t>=a?1:0; let x=Math.min(1,Math.max(0,(t-a)/(b-a))); return x*x*(3-2*x);}
+function pops(d,t){
+  const s=SIM.dist[d].starts;
+  const canopy = up(t, s[4]-(s[4]-s[3])*0.3, s[5]);
+  const grass = up(t, s[1], s[2]+(s[3]-s[2])*0.6) * (1-0.8*canopy);
+  const shrubs = up(t, s[2], s[3]+(s[4]-s[3])*0.6) * (1-0.55*up(t, s[4], s[5]+20));
+  const trees = up(t, s[3]+(s[4]-s[3])*0.4, s[5]);
+  const lag = Math.max(0,t-1.5);
+  const insects = Math.min(1, 0.7*up(lag,s[1],s[2]+(s[3]-s[2])*0.6) + 0.3*trees);
+  const toads = insects * (0.15 + 0.85*canopy) * up(t, s[3], s[4]);
+  const hawks = up(t, s[3]+(s[4]-s[3])*0.6, s[5]) * Math.min(1, 0.4+0.6*insects);
+  return {grass, shrubs, trees, insects, toads, hawks, canopy};
+}
+// ------------ drawing
+function rng(seed){return ()=>{seed=(seed*16807)%2147483647; return seed/2147483647;};}
+function pine(x,y,h,f){return `<g><rect x="${x-h*.04}" y="${y-h*.2}" width="${h*.08}" height="${h*.2}" fill="#6b4a2b"/>`+
+  [[.12,.55,1],[.38,.8,.78],[.62,1,.55]].map(([b,t,w])=>`<polygon points="${x-h*.21*w},${y-h*b} ${x+h*.21*w},${y-h*b} ${x},${y-h*t}" fill="${f}" stroke="#123" stroke-width="1"/>`).join("")+"</g>";}
+function oak(x,y,h){return `<rect x="${x-h*.05}" y="${y-h*.45}" width="${h*.1}" height="${h*.45}" fill="#6b4a2b"/><circle cx="${x-h*.16}" cy="${y-h*.6}" r="${h*.22}" fill="#4f9d5d" stroke="#123"/><circle cx="${x+h*.16}" cy="${y-h*.6}" r="${h*.22}" fill="#4f9d5d" stroke="#123"/><circle cx="${x}" cy="${y-h*.78}" r="${h*.25}" fill="#5aaa66" stroke="#123"/>`;}
+function shrub(x,y,h){return `<ellipse cx="${x-h*.3}" cy="${y-h*.35}" rx="${h*.38}" ry="${h*.33}" fill="#7cb342" stroke="#123"/><ellipse cx="${x+h*.3}" cy="${y-h*.35}" rx="${h*.38}" ry="${h*.33}" fill="#7cb342" stroke="#123"/><ellipse cx="${x}" cy="${y-h*.5}" rx="${h*.45}" ry="${h*.42}" fill="#8bc34a" stroke="#123"/><circle cx="${x+h*.15}" cy="${y-h*.6}" r="${h*.06}" fill="#8e24aa"/>`;}
+function grassT(x,y,h){let s="";for(let i=-2;i<=2;i++){s+=`<line x1="${x+i*2}" y1="${y}" x2="${x+i*h*.18}" y2="${y-h}" stroke="#8bc34a" stroke-width="2.4" stroke-linecap="round"/>`;}return s;}
+function snag(x,y,h){return `<polygon points="${x-5},${y} ${x+5},${y} ${x+3},${y-h} ${x-3},${y-h*.95}" fill="#3a3a3a"/><line x1="${x}" y1="${y-h*.6}" x2="${x+14}" y2="${y-h*.75}" stroke="#3a3a3a" stroke-width="3"/>`;}
+function toad(x,y){return `<ellipse cx="${x}" cy="${y-6}" rx="9" ry="6" fill="#a1887f" stroke="#123"/><circle cx="${x-3}" cy="${y-12}" r="2.4" fill="#fff" stroke="#123"/><circle cx="${x+3}" cy="${y-12}" r="2.4" fill="#fff" stroke="#123"/>`;}
+function bug(x,y){return `<ellipse cx="${x}" cy="${y}" rx="4" ry="2" fill="#558b2f"/>`;}
+function hawk(x,y){return `<path d="M${x-16},${y} q8,-9 16,0 q8,-9 16,0" fill="none" stroke="#3e2723" stroke-width="3"/>`;}
+function lichen(x,y){return `<ellipse cx="${x}" cy="${y-1}" rx="6" ry="2.5" fill="#c0ca33" stroke="#556"/>`;}
+function lupine(x,y){let s=`<line x1="${x}" y1="${y}" x2="${x}" y2="${y-16}" stroke="#2e5" stroke-width="2"/>`;for(let i=0;i<4;i++) s+=`<ellipse cx="${x}" cy="${y-9-i*2.5}" rx="3" ry="1.8" fill="#7e57c2"/>`;return s;}
+function draw(){
+  const p=pops(dist,year), k=stageIdx(dist,year), s=SIM.dist[dist].starts;
+  const soil = dist==="lava" ? up(year, s[1], s[2]+10) : 1;
+  const r=rng(7); let g=`<rect width="600" height="260" fill="#e3f2fd"/>`;
+  g+=`<circle cx="540" cy="45" r="22" fill="#ffca28" stroke="#123"/>`;
+  const gy=205;
+  g+=`<rect y="${gy}" width="600" height="55" fill="${dist==="lava"?"#4a4a4a":"#8d6e63"}"/>`;
+  if(dist==="lava") g+=`<rect y="${gy}" width="600" height="${8+soil*20}" fill="#8d6e63" opacity="${soil}"/>`;
+  if(dist==="fire" && year<3){ for(let i=0;i<9;i++) g+=snag(30+i*65+r()*20, gy, 70+r()*60); }
+  if(dist==="farm" && year<1){ for(let i=0;i<14;i++) g+=`<line x1="${i*45}" y1="${gy+3}" x2="${i*45+30}" y2="${gy+3}" stroke="#5d4037" stroke-width="3"/>`; }
+  // pioneers
+  const pio = up(year, s[1], s[1]+ (s[2]-s[1])*.5) * (1-up(year,s[3],s[4]));
+  for(let i=0;i<Math.round(pio*12);i++){ const x=20+r()*560; g+= dist==="lava"? (i%2?lichen(x,gy):lupine(x,gy)) : grassT(x,gy,10); }
+  // trees (back)
+  const nt=Math.round(p.trees*9);
+  for(let i=0;i<nt;i++){ const x=40+i*62+r()*14, h=40+p.trees*110*(0.7+r()*.3); g+= (i%3===1 && k>=5)? oak(x,gy,h*0.85) : pine(x,gy,h, i%2?"#2e7d4f":"#33894f"); }
+  const ns=Math.round(p.shrubs*10);
+  for(let i=0;i<ns;i++){ g+=shrub(30+r()*540, gy, 18+r()*14); }
+  const ng=Math.round(p.grass*30);
+  for(let i=0;i<ng;i++){ g+=grassT(10+r()*580, gy, 12+r()*14); }
+  for(let i=0;i<Math.round(p.insects*14);i++) g+=bug(20+r()*560, gy-8-r()*60);
+  for(let i=0;i<Math.round(p.toads*5);i++) g+=toad(60+r()*480, gy+2);
+  for(let i=0;i<Math.round(p.hawks*2);i++) g+=hawk(120+i*240, 40+i*15);
+  $("scene").innerHTML=g;
+  // readouts
+  $("r_year").textContent=year; $("yrlab").textContent=L.year+" "+year;
+  $("r_stage").textContent=L.stages[k]; $("r_species").textContent=species(dist,year);
+  $("r_type").textContent=L.types[SIM.dist[dist].type];
+  const B=[["grass",L.pop.grass,"#8bc34a"],["shrubs",L.pop.shrubs,"#7cb342"],["trees",L.pop.trees,"#2e7d4f"],["insects",L.pop.insects,"#c0ca33"],["toads",L.pop.toads,"#a1887f"],["hawks",L.pop.hawks,"#d64545"]];
+  $("bars").innerHTML=B.map(([k2,n,c])=>`<div class="b"><span>${n}</span><div class="t"><div class="f" style="width:${Math.round(p[k2]*100)}%;background:${c}"></div></div></div>`).join("");
+  graph();
+}
+function graph(){
+  const c=$("graph"), x=c.getContext("2d"), W=c.width, H=c.height, l=58, b=50, t=30, rr=16;
+  x.clearRect(0,0,W,H); x.font="bold 20px Arial"; x.fillStyle="#333"; x.strokeStyle="#bbb"; x.lineWidth=1;
+  const X=v=>l+(W-l-rr)*v/150, Y=v=>H-b-(H-b-t)*v/65;
+  for(let v=0;v<=60;v+=20){x.beginPath();x.moveTo(l,Y(v));x.lineTo(W-rr,Y(v));x.stroke();x.fillText(v,l-34,Y(v)+7);}
+  for(let v=0;v<=150;v+=50){x.fillText(v,X(v)-12,H-b+26);}
+  x.fillText(L.yaxis,l,t-8); x.fillText(L.xaxis,l+60,H-4);
+  for(const d of Object.keys(SIM.dist)){
+    const done = d===dist; if(!done && !tried.has(d)) continue;
+    x.strokeStyle=COLORS[d]; x.lineWidth=done?3.5:2; x.globalAlpha=done?1:.45; x.beginPath();
+    const end = done? year : 150;
+    for(let v=0;v<=end;v++){ const yy=Y(species(d,v)); v?x.lineTo(X(v),yy):x.moveTo(X(v),yy);} x.stroke(); x.globalAlpha=1;
+  }
+  x.fillStyle=COLORS[dist]; x.beginPath(); x.arc(X(year),Y(species(dist,year)),8,0,7); x.fill();
+}
+const tried=new Set();
+function setDist(d){ if(year>0) tried.add(dist); dist=d; year=0; $("yr").value=0; stop(); paintDist(); draw(); }
+function paintDist(){ $("dist").innerHTML=Object.keys(SIM.dist).map(d=>`<button class="${d===dist?"on":""}" data-d="${d}">${L.dist[d]}</button>`).join("");
+  document.querySelectorAll("#dist button").forEach(b=>b.onclick=()=>setDist(b.dataset.d)); }
+function stop(){ clearInterval(timer); timer=null; $("play").textContent=L.play; }
+$("play").onclick=()=>{ if(timer){stop();return;} if(year>=150) year=0; $("play").textContent=L.pause;
+  timer=setInterval(()=>{ year+= year<20?1:2; if(year>=150){year=150; stop();} $("yr").value=year; draw(); },120); };
+$("reset").onclick=()=>{ stop(); year=0; $("yr").value=0; draw(); };
+$("yr").oninput=e=>{ stop(); year=+e.target.value; draw(); };
+$("rec").onclick=()=>{ const tr=document.createElement("tr"); tr.innerHTML=`<td>${L.dist[dist]}</td><td>${L.types[SIM.dist[dist].type]}</td><td>${year}</td><td>${L.stages[stageIdx(dist,year)]}</td><td>${species(dist,year)}</td>`; $("log").querySelector("tbody").appendChild(tr); tried.add(dist); };
+$("clr").onclick=()=>{ $("log").querySelector("tbody").innerHTML=""; };
+// labels
+["play","reset"].forEach(i=>$(i).textContent=L[i]); $("rec").textContent=L.record; $("clr").textContent=L.clear;
+$("l_year").textContent=L.year; $("l_stage").textContent=L.stage; $("l_species").textContent=L.species; $("l_type").textContent=L.type;
+$("h_pop").textContent=L.h_pop; $("h_graph").textContent=L.h_graph; $("h_log").textContent=L.h_log; $("note").textContent=L.note;
+$("loghead").innerHTML=L.logcols.map(c=>`<th>${c}</th>`).join("");
+paintDist(); draw();
+</script></body></html>
